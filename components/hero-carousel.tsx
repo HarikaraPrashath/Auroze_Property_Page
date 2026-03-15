@@ -9,28 +9,28 @@ const slides = [
     id: 1,
     title: 'Professional Property Management',
     description: 'Comprehensive solutions for all your property needs in Sri Lanka',
-    gradient: 'from-primary/20 to-secondary/20',
+    gradient: 'from-primary/50 to-secondary/20',
     bgImage: '/hero-1.jpg',
   },
   {
     id: 2,
     title: 'Seamless Rental Management',
     description: 'Efficient rental collection and tenant management services',
-    gradient: 'from-secondary/20 to-primary/20',
+    gradient: 'from-secondary/20 to-primary/50',
     bgImage: '/hero-2.jpg',
   },
   {
     id: 3,
     title: 'Complete Maintenance Services',
     description: 'Professional maintenance, cleaning, and daily operations',
-    gradient: 'from-primary/30 to-secondary/20',
+    gradient: 'from-primary/50 to-secondary/20',
     bgImage: '/hero-3.jpg',
   },
   {
     id: 4,
     title: 'Legal Compliance & Security',
     description: 'Full legal support and advanced security solutions',
-    gradient: 'from-secondary/30 to-primary/20',
+    gradient: 'from-secondary/30 to-primary/50',
     bgImage: '/hero-4.jpg',
   },
 ];
@@ -76,7 +76,7 @@ export default function HeroCarousel() {
             }}
           >
             {/* Overlay Gradient */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${slide.gradient} bg-black/40`} />
+            <div className={`absolute inset-0 bg-gradient-to-br ${slide.gradient}`} />
 
             {/* Content */}
             <div className="relative h-full flex flex-col items-center justify-center px-4 text-center">

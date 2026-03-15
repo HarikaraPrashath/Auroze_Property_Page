@@ -15,7 +15,7 @@ export default function Navbar() {
   ];
 
   return (
-<nav className="fixed left-1/2 -translate-x-1/2 top-0 z-50 w-[70%] mt-10 rounded-4xl bg-white/60 border-b border-border backdrop-blur-none shadow-none animate-in fade-in slide-in-from-top-2">      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav className="fixed left-1/2 -translate-x-1/2 top-0 z-50 w-[70%] mt-10 rounded-4xl bg-white/90 border-b border-border backdrop-blur-none shadow-none animate-in fade-in slide-in-from-top-2">      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
@@ -38,7 +38,7 @@ export default function Navbar() {
             ))}
             <Button asChild className="bg-primary hover:bg-primary/90 text-white">
               <a href="https://wa.me/94XXXXXXXXX" target="_blank" rel="noopener noreferrer">
-                Get Started
+                Whats app
               </a>
             </Button>
           </div>

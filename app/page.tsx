@@ -3,7 +3,6 @@ import Footer from '@/components/footer';
 import HeroCarousel from '@/components/hero-carousel';
 import AboutSection from '@/components/about-section';
 import TrustSection from '@/components/trust-section';
-import PropertiesSection from '@/components/properties-section';
 import RentalFeaturesSection from '@/components/rental-features-section';
 import ServiceOverviewSection from '@/components/service-overview-section';
 import TestimonialsSection from '@/components/testimonials-section';
@@ -19,7 +18,6 @@ export default function Home() {
       </div>
       <AboutSection />
       <TrustSection />
-      <PropertiesSection />
       <RentalFeaturesSection />
       <ServiceOverviewSection />
       <TestimonialsSection />
