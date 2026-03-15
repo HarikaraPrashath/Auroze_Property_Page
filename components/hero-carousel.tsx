@@ -98,7 +98,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Navigation Buttons */}
-      <button
+      {/* <button
         onClick={goToPrevious}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-background/80 backdrop-blur hover:bg-background text-primary transition-all hover:scale-110"
         aria-label="Previous slide"
@@ -116,7 +116,7 @@ export default function HeroCarousel() {
         onMouseLeave={() => setAutoplay(true)}
       >
         <ChevronRight size={24} />
-      </button>
+      </button> */}
 
       {/* Dot Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
