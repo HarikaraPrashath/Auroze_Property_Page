@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTheme } from 'next-themes'
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
@@ -11,7 +11,14 @@ import Image from "next/image"
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const { theme, resolvedTheme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted ? (resolvedTheme ?? theme) === 'dark' : false
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -161,10 +168,10 @@ export default function Navbar() {
               variant="outline"
               size="icon"
               className="ml-2 border-border hover:bg-accent"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(isDark ? 'light' : 'dark')}
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
+              {isDark ? (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 lg:w-5 lg:h-5 text-foreground">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m8.485-8.485l-.707.707M4.222 4.222l-.707.707M21 12h1M3 12H2m16.485 4.485l-.707-.707M4.222 19.778l-.707-.707M12 5a7 7 0 100 14a7 7 0 000-14z" />
                 </svg>
@@ -279,9 +286,9 @@ export default function Navbar() {
                   variant="outline"
                   size="default"
                   className="w-full border-border hover:bg-accent text-foreground"
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  onClick={() => setTheme(isDark ? 'light' : 'dark')}
                 >
-                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                  {mounted ? (isDark ? 'Light Mode' : 'Dark Mode') : 'Toggle Theme'}
                 </Button>
               </div>
             </div>

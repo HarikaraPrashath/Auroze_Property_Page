@@ -89,13 +89,17 @@ export default function TestimonialsSection() {
             className="absolute inset-0 overflow-hidden -z-10"
           >
             {[...Array(20)].map((_, i) => (
+              (() => {
+                const startX = (i * 137) % 800
+                const driftX = ((i % 7) - 3) * 35
+                return (
               <motion.div
                 key={i}
-                initial={{ y: 400, x: Math.random() * 800, opacity: 0 }}
+                initial={{ y: 400, x: startX, opacity: 0 }}
                 whileInView={{
                   y: -200,
                   opacity: [0, 0.5, 0],
-                  x: (Math.random() - 0.5) * 200
+                  x: startX + driftX
                 }}
                 viewport={{ once: true }}
                 transition={{
@@ -106,6 +110,8 @@ export default function TestimonialsSection() {
                 }}
                 className="absolute w-1 h-1 bg-primary/30 rounded-full"
               />
+                )
+              })()
             ))}
           </motion.div>
 

@@ -61,7 +61,7 @@ const services = [
 export default function ServiceOverviewSection() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
-  const [shouldAnimate, setShouldAnimate] = useState(false)
+  const [visibleCards, setVisibleCards] = useState<number[]>([])
 
   // Check if mobile view
   useEffect(() => {
@@ -79,19 +79,26 @@ export default function ServiceOverviewSection() {
     }
   }, [])
 
-  // Trigger animation on page load/refresh for mobile
   useEffect(() => {
-    // Always trigger animation on mount for mobile
-    if (isMobile) {
-      // Small delay to ensure DOM is ready
-      const timer = setTimeout(() => {
-        setShouldAnimate(true)
-      }, 100)
-      
-      return () => clearTimeout(timer)
-    } else {
-      setShouldAnimate(false)
+    if (!isMobile) {
+      setVisibleCards([])
+      return
     }
+
+    const elements = document.querySelectorAll(".service-overview-card")
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+          const idx = Number(entry.target.getAttribute("data-index"))
+          setVisibleCards((prev) => (prev.includes(idx) ? prev : [...prev, idx]))
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    elements.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [isMobile])
 
   // Clean asymmetrical layout
@@ -107,57 +114,10 @@ export default function ServiceOverviewSection() {
     return positions[index]
   }
 
-  // Mobile animation variants with alternating directions
-  const getMobileAnimation = (index: number) => {
-    // Even indices (0,2,4) - come from right
-    if (index % 2 === 0) {
-      return {
-        hidden: { opacity: 0, x: 100 },
-        visible: { 
-          opacity: 1, 
-          x: 0,
-          transition: {
-            type: "spring",
-            stiffness: 50,
-            damping: 20,
-            duration: 0.6,
-            delay: index * 0.15 // Stagger the animations
-          }
-        }
-      }
-    }
-    // Odd indices (1,3,5) - come from left
-    else {
-      return {
-        hidden: { opacity: 0, x: -100 },
-        visible: { 
-          opacity: 1, 
-          x: 0,
-          transition: {
-            type: "spring",
-            stiffness: 50,
-            damping: 20,
-            duration: 0.6,
-            delay: index * 0.15 // Stagger the animations
-          }
-        }
-      }
-    }
-  }
-
-  // Desktop animation variants (scroll-triggered)
-  const desktopAnimation = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.4,
-        type: "spring",
-        stiffness: 80,
-        damping: 15
-      }
-    }
+  // Mobile cards enter from opposite sides only on small screens.
+  const getMobileInitial = (index: number) => {
+    const fromLeft = index % 2 === 0
+    return { opacity: 0, x: fromLeft ? -140 : 140 }
   }
 
   return (
@@ -165,8 +125,9 @@ export default function ServiceOverviewSection() {
       <div className="relative max-w-7xl mx-auto">
         {/* Header with clean rise animation - only animate on desktop */}
         <motion.div 
-          initial={!isMobile ? { opacity: 0 } : { opacity: 1 }}
-          whileInView={!isMobile ? { opacity: 1 } : {}}
+          initial={!isMobile ? { opacity: 0 } : undefined}
+          animate={isMobile ? { opacity: 1 } : undefined}
+          whileInView={!isMobile ? { opacity: 1 } : undefined}
           viewport={!isMobile ? { once: true } : undefined}
           className="text-center mb-16 relative"
         >
@@ -184,8 +145,9 @@ export default function ServiceOverviewSection() {
           {/* Text with dramatic staggered entrance - only animate on desktop */}
           <div className="space-y-4">
             <motion.h2 
-              initial={!isMobile ? { opacity: 0, y: 100 } : { opacity: 1, y: 0 }}
-              whileInView={!isMobile ? { opacity: 1, y: 0 } : {}}
+              initial={!isMobile ? { opacity: 0, y: 100 } : undefined}
+              animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+              whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
               viewport={!isMobile ? { once: true } : undefined}
               transition={{ 
                 duration: 1.2,
@@ -196,8 +158,9 @@ export default function ServiceOverviewSection() {
               className="text-5xl md:text-7xl font-bold"
             >
               <motion.span
-                initial={!isMobile ? { opacity: 0 } : { opacity: 1 }}
-                whileInView={!isMobile ? { opacity: 1 } : {}}
+                initial={!isMobile ? { opacity: 0 } : undefined}
+                animate={isMobile ? { opacity: 1 } : undefined}
+                whileInView={!isMobile ? { opacity: 1 } : undefined}
                 viewport={!isMobile ? { once: true } : undefined}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-primary"
@@ -205,8 +168,9 @@ export default function ServiceOverviewSection() {
                 Comprehensive
               </motion.span>{' '}
               <motion.span
-                initial={!isMobile ? { opacity: 0 } : { opacity: 1 }}
-                whileInView={!isMobile ? { opacity: 1 } : {}}
+                initial={!isMobile ? { opacity: 0 } : undefined}
+                animate={isMobile ? { opacity: 1 } : undefined}
+                whileInView={!isMobile ? { opacity: 1 } : undefined}
                 viewport={!isMobile ? { once: true } : undefined}
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-primary"
@@ -214,8 +178,9 @@ export default function ServiceOverviewSection() {
                 Service
               </motion.span>{' '}
               <motion.span
-                initial={!isMobile ? { scale: 0 } : { scale: 1 }}
-                whileInView={!isMobile ? { scale: 1 } : {}}
+                initial={!isMobile ? { scale: 0 } : undefined}
+                animate={isMobile ? { scale: 1 } : undefined}
+                whileInView={!isMobile ? { scale: 1 } : undefined}
                 viewport={!isMobile ? { once: true } : undefined}
                 transition={{ 
                   duration: 0.8,
@@ -229,8 +194,9 @@ export default function ServiceOverviewSection() {
             </motion.h2>
 
             <motion.p 
-              initial={!isMobile ? { opacity: 0, y: 50 } : { opacity: 1, y: 0 }}
-              whileInView={!isMobile ? { opacity: 1, y: 0 } : {}}
+              initial={!isMobile ? { opacity: 0, y: 50 } : undefined}
+              animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+              whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
               viewport={!isMobile ? { once: true } : undefined}
               transition={{ duration: 0.8, delay: 1.2 }}
               className="text-muted-foreground text-lg max-w-2xl mx-auto"
@@ -251,7 +217,7 @@ export default function ServiceOverviewSection() {
               <motion.div
                 animate={{ x: [-100, 100] }}
                 transition={{ duration: 2, delay: 2, repeat: Infinity }}
-                className="absolute inset-0 w-20 bg-gradient-to-r from-transparent via-primary to-transparent"
+                className="absolute inset-0 w-20 bg-linear-to-r from-transparent via-primary to-transparent"
               />
             </motion.div>
           )}
@@ -260,23 +226,50 @@ export default function ServiceOverviewSection() {
         {/* Clean Bento Grid */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-5 mb-16"
-          initial="hidden"
-          animate={shouldAnimate && isMobile ? "visible" : !isMobile ? "visible" : "hidden"}
-          whileInView={!isMobile ? "visible" : undefined}
-          viewport={!isMobile ? { once: true, amount: 0.1 } : undefined}
         >
           {services.map((service, index) => {
             const Icon = service.icon
             const isHovered = hoveredId === service.id
             const gridPosition = getGridPosition(index)
+            const hasEntered = visibleCards.includes(index)
+
+            const mobileInitial = getMobileInitial(index)
+            const mobileAnimate = {
+              opacity: 1,
+              x: 0,
+              transition: {
+                duration: 0.55,
+                ease: [0.22, 1, 0.36, 1] as const,
+                delay: (index % 3) * 0.06,
+              },
+            }
+
+            const desktopInitial = { opacity: 0, y: 15 }
+            const desktopAnimate = {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.4,
+                type: "spring" as const,
+                stiffness: 80,
+                damping: 15,
+              },
+            }
+
+            const initial = isMobile ? mobileInitial : desktopInitial
+            const animate = isMobile ? (hasEntered ? mobileAnimate : mobileInitial) : desktopAnimate
 
             return (
               <motion.div
                 key={service.id}
-                variants={isMobile ? getMobileAnimation(index) : desktopAnimation}
+                data-index={index}
+                initial={initial}
+                animate={animate}
+                whileInView={isMobile ? undefined : desktopAnimate}
+                viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
                 onHoverStart={() => setHoveredId(service.id)}
                 onHoverEnd={() => setHoveredId(null)}
-                className={`${gridPosition}`}
+                className={`service-overview-card ${gridPosition}`}
               >
                 <Link
                   href={`/services#${service.id}`}
@@ -294,7 +287,7 @@ export default function ServiceOverviewSection() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       {/* Simple gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
                     </div>
 
                     {/* Content */}
@@ -319,8 +312,8 @@ export default function ServiceOverviewSection() {
                       <motion.p 
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ 
-                          opacity: isHovered ? 1 : 0,
-                          height: isHovered ? "auto" : 0
+                          opacity: isMobile || isHovered ? 1 : 0,
+                          height: isMobile || isHovered ? "auto" : 0
                         }}
                         transition={{ duration: 0.2 }}
                         className="text-xs text-white/80 mb-2 overflow-hidden"
@@ -330,7 +323,7 @@ export default function ServiceOverviewSection() {
 
                       {/* Learn more link */}
                       <motion.div
-                        animate={{ opacity: isHovered ? 1 : 0 }}
+                        animate={{ opacity: isMobile || isHovered ? 1 : 0 }}
                         transition={{ duration: 0.2 }}
                         className="flex items-center gap-1 text-xs font-medium text-white/90"
                       >

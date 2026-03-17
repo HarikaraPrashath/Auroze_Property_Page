@@ -89,12 +89,16 @@ export default function PricingSection() {
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
+          (() => {
+            const startX = (i * 113) % 1200
+            const startY = (i * 73) % 800
+            return (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-primary/20 rounded-full"
             initial={{
-              x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0,
-              y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : 0,
+              x: startX,
+              y: startY,
             }}
             animate={{
               y: [null, -30, -60, -30, 0],
@@ -107,6 +111,8 @@ export default function PricingSection() {
               ease: "linear",
             }}
           />
+            )
+          })()
         ))}
       </div>
 
