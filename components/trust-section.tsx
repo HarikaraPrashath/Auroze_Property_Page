@@ -2,6 +2,7 @@
 
 import { Building2, Users, Award, Zap } from 'lucide-react';
 import CountUp from 'react-countup';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const stats = [
@@ -36,68 +37,151 @@ const stats = [
 ];
 
 export default function TrustSection() {
+
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.3,
+    threshold: 0.35,
   });
 
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const cardAnimation = {
+    hidden: {
+      y: 120,
+      opacity: 0,
+      scale: 0.9
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.9,
+        ease: [0.22,1,0.36,1]
+      }
+    }
+  };
+
   return (
-    <section className="py-20 px-4 bg-primary/5 border-y border-border">
+    <section className="py-24 px-4 bg-primary/5 border-y border-border overflow-hidden">
+
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        <motion.div
+          initial={{ y: 60, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+
+          <h2 className="text-5xl md:text-7xl  font-bold text-foreground mb-4">
             Why Trust ProManage?
           </h2>
+
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             We're dedicated to delivering exceptional property management services with proven results
           </p>
-        </div>
+
+        </motion.div>
+
 
         {/* Stats Grid */}
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          ref={ref}
+          variants={container}
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+
           {stats.map((stat, index) => {
+
             const Icon = stat.icon;
 
             return (
-              <div
+
+              <motion.div
                 key={index}
-                className="group p-6 rounded-xl bg-background border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                variants={cardAnimation}
+
+                whileHover={{
+                  scale: 1.07,
+                  rotate: [0, -1.5, 1.5, 0],
+                }}
+
+                transition={{
+                  duration: 0.35
+                }}
+
+                className="relative group p-8 rounded-2xl bg-background border border-border
+                hover:border-primary/40 shadow-md hover:shadow-xl
+                transition-all duration-300"
               >
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-6 h-6 text-primary" />
+
+                {/* Glow background */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-primary/10 to-secondary/20 blur-xl"></div>
+
+                <div className="relative z-10">
+
+                  {/* Icon */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ delay: index * 0.2, type: "spring" }}
+                    className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5"
+                  >
+                    <Icon className="w-7 h-7 text-primary" />
+                  </motion.div>
+
+
+                  {/* Number */}
+                  <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+
+                    {inView && (
+                      <CountUp
+                        start={0}
+                        end={stat.value}
+                        duration={2.6}
+                        decimals={stat.value % 1 !== 0 ? 1 : 0}
+                        suffix={stat.suffix}
+                      />
+                    )}
+
+                  </h3>
+
+
+                  {/* Label */}
+                  <p className="font-semibold text-foreground text-sm mb-1">
+                    {stat.label}
+                  </p>
+
+
+                  {/* Description */}
+                  <p className="text-muted-foreground text-xs">
+                    {stat.description}
+                  </p>
+
                 </div>
 
-                {/* Animated Number */}
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-1">
-                  {inView && (
-                    <CountUp
-                      start={0}
-                      end={stat.value}
-                      duration={2.5}
-                      decimals={stat.value % 1 !== 0 ? 1 : 0}
-                      suffix={stat.suffix}
-                    />
-                  )}
-                </h3>
+              </motion.div>
 
-                {/* Label */}
-                <p className="font-semibold text-foreground text-sm mb-1">
-                  {stat.label}
-                </p>
-
-                {/* Description */}
-                <p className="text-muted-foreground text-xs">
-                  {stat.description}
-                </p>
-              </div>
             );
+
           })}
-        </div>
+
+        </motion.div>
 
       </div>
+
     </section>
   );
 }
