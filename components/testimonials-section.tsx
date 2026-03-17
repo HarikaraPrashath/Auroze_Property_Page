@@ -53,7 +53,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0)
-  
+
   const featured = testimonials.find((t) => t.featured)
   const others = testimonials.filter((t) => !t.featured)
 
@@ -69,24 +69,184 @@ export default function TestimonialsSection() {
     <section className="py-24 px-6 bg-background">
       <div className="relative max-w-7xl mx-auto">
         {/* Header with minimal animation */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="text-center mb-16 relative"
         >
-          {/* Simple badge */}
+          {/* Ground-breaking effect - elements rise from earth */}
+          <motion.div
+            initial={{ y: "100%", opacity: 0 }}
+            whileInView={{ y: "0%", opacity: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-primary/20 to-transparent -z-10"
+          />
 
+          {/* Particles rising from bottom */}
+          <motion.div
+            className="absolute inset-0 overflow-hidden -z-10"
+          >
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ y: 400, x: Math.random() * 800, opacity: 0 }}
+                whileInView={{
+                  y: -200,
+                  opacity: [0, 0.5, 0],
+                  x: (Math.random() - 0.5) * 200
+                }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 3,
+                  delay: i * 0.1,
+                  repeat: Infinity,
+                  ease: "easeOut"
+                }}
+                className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              />
+            ))}
+          </motion.div>
 
-          {/* Heading */}
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-primary">
-            What Our Clients <span className="text-foreground">Say</span>
-          </h2>
+          {/* Badge rises first */}
+          <motion.div
+            initial={{ y: 200, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              stiffness: 60,
+              damping: 15
+            }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            >
+              <span className="w-2 h-2 bg-primary rounded-full" />
+            </motion.div>
+            <span className="text-primary font-medium text-sm">Client Stories</span>
+          </motion.div>
 
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Trusted by property owners across Sri Lanka.
-          </p>
+          {/* Main heading with layered rise */}
+          <div className="relative perspective-1000">
+            {/* Background text shadow that rises */}
+            <motion.div
+              initial={{ y: 300, opacity: 0, rotateX: 45 }}
+              whileInView={{ y: 0, opacity: 0.1, rotateX: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, delay: 0.3 }}
+              className="absolute inset-0 text-7xl md:text-8xl font-bold text-primary/10 -z-10"
+              style={{ transform: "translateY(20px)" }}
+            >
+              What Our Clients Say
+            </motion.div>
+
+            {/* Main text rises with 3D effect */}
+            <motion.div
+              initial={{ y: 400, opacity: 0, rotateX: 30 }}
+              whileInView={{ y: 0, opacity: 1, rotateX: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 1.5,
+                delay: 0.5,
+                type: "spring",
+                stiffness: 40,
+                damping: 12
+              }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <h2 className="text-5xl md:text-7xl font-bold">
+                <span className="text-primary">What Our Clients</span>
+                <br />
+                <motion.span
+                  animate={{
+                    textShadow: [
+                      "0 0 0 rgba(0,0,0,0)",
+                      "0 0 30px rgba(124,58,237,0.5)",
+                      "0 0 0 rgba(0,0,0,0)"
+                    ]
+                  }}
+                  transition={{ duration: 3, delay: 2, repeat: Infinity }}
+                  className="text-foreground"
+                >
+                  Say
+                </motion.span>
+              </h2>
+            </motion.div>
+          </div>
+
+          {/* Description rises with bounce */}
+          <motion.div
+            initial={{ y: 200, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 1.2,
+              delay: 1,
+              type: "spring",
+              stiffness: 50,
+              damping: 14
+            }}
+            className="mt-8"
+          >
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Trusted by property owners across Sri Lanka.
+            </p>
+          </motion.div>
+
+          {/* Rising decorative line with glow */}
+          <motion.div
+            initial={{ y: 100, opacity: 0, scaleX: 0 }}
+            whileInView={{ y: 0, opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 1.3 }}
+            className="h-0.5 w-32 bg-linear-to-r from-transparent via-primary to-transparent mx-auto mt-8 relative"
+          >
+            <motion.div
+              animate={{
+                x: [-50, 50],
+                opacity: [0, 1, 0]
+              }}
+              transition={{ duration: 2, delay: 2, repeat: Infinity }}
+              className="absolute inset-0 w-16 h-full bg-linear-to-r from-transparent via-white to-transparent"
+            />
+          </motion.div>
+
+          {/* Floating elements that rise and float */}
+          <div className="flex justify-center gap-4 mt-8">
+            {[1, 2, 3].map((i) => (
+              <motion.div
+                key={i}
+                initial={{ y: 200, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                animate={{
+                  y: [-5, 5, -5],
+                  rotate: [0, 10, -10, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  delay: 2 + i * 0.2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+                className="w-2 h-2 rounded-full bg-primary/40"
+              />
+            ))}
+          </div>
+
+          {/* Final cinematic light sweep from bottom to top */}
+          <motion.div
+            initial={{ y: "100%" }}
+            whileInView={{ y: "-100%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 2.5, ease: "easeInOut" }}
+            className="absolute inset-0 bg-linear-to-t from-primary/20 via-transparent to-transparent pointer-events-none -z-5"
+          />
         </motion.div>
 
         {/* Featured Review - Minimal Design */}
@@ -156,7 +316,7 @@ export default function TestimonialsSection() {
               className="group"
             >
               <div className="h-full p-6 rounded-xl border border-border bg-card hover:border-primary/30 transition-all duration-200">
-                
+
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -164,7 +324,7 @@ export default function TestimonialsSection() {
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
                       {testimonial.name.charAt(0)}
                     </div>
-                    
+
                     <div>
                       <p className="font-medium text-sm text-foreground">{testimonial.name}</p>
                       <p className="text-xs text-muted-foreground">{testimonial.date}</p>
@@ -187,7 +347,7 @@ export default function TestimonialsSection() {
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-3 border-t border-border">
                   <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-                  
+
                   <button className="text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                     Read more →
                   </button>
@@ -197,9 +357,9 @@ export default function TestimonialsSection() {
           ))}
         </div>
 
-        
 
-          
+
+
         {/* Simple Stats */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}

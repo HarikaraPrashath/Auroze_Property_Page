@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { ArrowRight, X, Sparkles, Zap, Shield, TrendingUp, FileText, Users } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -95,6 +95,46 @@ const features = [
 export default function RentalFeaturesSection() {
   const [selectedFeature, setSelectedFeature] = useState<any>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Mobile animation variants
+  const getMobileAnimation = (index: number) => {
+    // Even indices (0,2,4) - come from left
+    if (index % 2 === 0) {
+      return {
+        initial: { opacity: 0, x: -100, y: 50 },
+        animate: { opacity: 1, x: 0, y: 0 },
+        exit: { opacity: 0, x: -100, y: 50 }
+      }
+    }
+    // Odd indices (1,3,5) - come from right
+    else {
+      return {
+        initial: { opacity: 0, x: 100, y: 50 },
+        animate: { opacity: 1, x: 0, y: 0 },
+        exit: { opacity: 0, x: 100, y: 50 }
+      }
+    }
+  }
+
+  // Desktop animation variants
+  const desktopAnimation = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 20 }
+  }
 
   return (
     <section className="relative py-32 px-6 overflow-hidden bg-background">
@@ -108,27 +148,94 @@ export default function RentalFeaturesSection() {
       <div className="relative max-w-7xl mx-auto z-10">
 
         {/* Header with modern typography - Using theme colors */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <motion.div
+          key="header-container" // Add a key to force re-render on refresh
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           className="text-center mb-20"
         >
-         
-          <h2 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/60">
-              Complete Rental
-            </span>
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
-              Management Solutions
-            </span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Experience the future of property management with our cutting-edge platform.
-          </p>
-        </motion.div>
+          {/* First line with character animation */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="overflow-hidden"
+          >
+            <motion.h2
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{
+                duration: 0.8,
+                type: "spring",
+                stiffness: 70,
+                damping: 12
+              }}
+              className="text-5xl md:text-7xl font-bold mb-2"
+            >
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/60"
+              >
+                Complete Rental
+              </motion.span>
+            </motion.h2>
+          </motion.div>
 
+          {/* Second line with slide-up */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="overflow-hidden"
+          >
+            <motion.h2
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.2,
+                type: "spring",
+                stiffness: 70,
+                damping: 12
+              }}
+              className="text-5xl md:text-7xl font-bold mb-6"
+            >
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80"
+              >
+                Management Solutions
+              </motion.span>
+            </motion.h2>
+          </motion.div>
+
+          {/* Description with fade and slide */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.8,
+              ease: "easeOut"
+            }}
+          >
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Experience the future of property management with our cutting-edge platform.
+            </p>
+          </motion.div>
+
+          {/* Decorative line */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="h-0.5 w-24 bg-gradient-to-r from-primary via-primary/50 to-transparent mx-auto mt-8"
+          />
+        </motion.div>
         {/* Feature Grid - Asymmetrical Layout */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(200px,auto)]">
           {features.map((feature, index) => {
@@ -136,13 +243,25 @@ export default function RentalFeaturesSection() {
             const isLarge = index === 0 || index === 3 || index === 5
             const colSpan = isLarge ? "md:col-span-2" : "md:col-span-1"
             const rowSpan = index === 1 ? "md:row-span-2" : ""
-            
+
+            // Choose animation based on device
+            const animationVariant = isMobile ? getMobileAnimation(index) : desktopAnimation
+
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={animationVariant}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, amount: 0.3 }}
+                exit="exit"
+                transition={{
+                  duration: 0.6,
+                  delay: isMobile ? 0 : index * 0.1,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 20
+                }}
                 className={`group relative ${colSpan} ${rowSpan}`}
                 onHoverStart={() => setHoveredIndex(index)}
                 onHoverEnd={() => setHoveredIndex(null)}
@@ -168,10 +287,10 @@ export default function RentalFeaturesSection() {
                       className="object-cover"
                     />
                   </motion.div>
-                  
+
                   {/* Gradient Overlay - Adjusted for better visibility */}
                   <div className={`absolute inset-0 bg-gradient-to-t ${feature.color} opacity-80 mix-blend-overlay`} />
-                  
+
                   {/* Content */}
                   <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
                     {/* Icon */}
@@ -187,14 +306,14 @@ export default function RentalFeaturesSection() {
                         <Icon className="w-7 h-7" />
                       </div>
                     </motion.div>
-                    
+
                     <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
                     <p className="text-sm text-white/80 mb-4 line-clamp-2">{feature.description}</p>
-                    
+
                     {/* Animated Button */}
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
-                      animate={{ 
+                      animate={{
                         opacity: hoveredIndex === index ? 1 : 0,
                         x: hoveredIndex === index ? 0 : -20
                       }}
@@ -236,7 +355,7 @@ export default function RentalFeaturesSection() {
               initial={{ scale: 0.5, rotateX: -90, opacity: 0 }}
               animate={{ scale: 1, rotateX: 0, opacity: 1 }}
               exit={{ scale: 0.5, rotateX: 90, opacity: 0 }}
-              transition={{ 
+              transition={{
                 type: "spring",
                 stiffness: 300,
                 damping: 25,
@@ -298,7 +417,7 @@ export default function RentalFeaturesSection() {
                   {selectedFeature.icon && <selectedFeature.icon className="w-10 h-10 text-white" />}
                 </motion.div>
 
-                <motion.h3 
+                <motion.h3
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
@@ -307,7 +426,7 @@ export default function RentalFeaturesSection() {
                   {selectedFeature.title}
                 </motion.h3>
 
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
@@ -317,7 +436,7 @@ export default function RentalFeaturesSection() {
                 </motion.p>
 
                 {selectedFeature.points && (
-                  <motion.ul 
+                  <motion.ul
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}

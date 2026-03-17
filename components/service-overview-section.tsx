@@ -78,34 +78,94 @@ export default function ServiceOverviewSection() {
     <section className="py-24 px-6 bg-background">
       <div className="relative max-w-7xl mx-auto">
         {/* Header with clean rise animation */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-      
+     <motion.div 
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  viewport={{ once: true }}
+  className="text-center mb-16 relative"
+>
+  {/* Cinematic spotlight that grows */}
+  <motion.div
+    initial={{ scale: 0, opacity: 0 }}
+    whileInView={{ scale: 2, opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 2 }}
+    className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)/10%,transparent_70%)] -z-10"
+  />
 
-          {/* Clean heading */}
-          <div className="space-y-2">
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 text-primary">
-              Comprehensive Service <span className="text-foreground">Suite</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Everything you need for professional property management, delivered with excellence.
-            </p>
-          </div>
+  {/* Text with dramatic staggered entrance */}
+  <div className="space-y-4">
+    <motion.h2 
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ 
+        duration: 1.2,
+        type: "spring",
+        stiffness: 50,
+        damping: 12
+      }}
+      className="text-5xl md:text-7xl font-bold"
+    >
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="text-primary"
+      >
+        Comprehensive
+      </motion.span>{' '}
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="text-primary"
+      >
+        Service
+      </motion.span>{' '}
+      <motion.span
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ 
+          duration: 0.8,
+          delay: 0.9,
+          type: "spring"
+        }}
+        className="text-foreground inline-block"
+      >
+        Suite
+      </motion.span>
+    </motion.h2>
 
-          {/* Simple decorative line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="h-0.5 w-20 bg-primary/30 mx-auto mt-6"
-          />
-        </motion.div>
+    <motion.p 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 1.2 }}
+      className="text-muted-foreground text-lg max-w-2xl mx-auto"
+    >
+      Everything you need for professional property management, delivered with excellence.
+    </motion.p>
+  </div>
+
+  {/* Cinematic line with light sweep */}
+  <motion.div
+    initial={{ width: 0 }}
+    whileInView={{ width: "5rem" }}
+    viewport={{ once: true }}
+    transition={{ duration: 1, delay: 1.5 }}
+    className="h-0.5 bg-primary/30 mx-auto mt-8 relative overflow-hidden"
+  >
+    <motion.div
+      animate={{ x: [-100, 100] }}
+      transition={{ duration: 2, delay: 2, repeat: Infinity }}
+      className="absolute inset-0 w-20 bg-gradient-to-r from-transparent via-primary to-transparent"
+    />
+  </motion.div>
+</motion.div>
 
         {/* Clean Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-5 mb-16">
