@@ -123,7 +123,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="md:hidden bg-black/90 backdrop-blur-xl rounded-b-3xl px-6 pb-6"
+            className="md:hidden   rounded-b-3xl px-6 pb-6"
           >
 
             <div className="flex flex-col gap-5 pt-4">
