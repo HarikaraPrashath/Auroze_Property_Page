@@ -1,84 +1,175 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react"
+import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false)
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/services', label: 'Services' },
-    { href: '/contact', label: 'Contact' },
-  ];
+    { href: "/", label: "Home" },
+    { href: "/services", label: "Services" },
+    { href: "/contact", label: "Contact" },
+  ]
 
   return (
-<nav className="fixed left-1/2 -translate-x-1/2 top-0 z-50 w-[70%] mt-10 rounded-4xl bg-white/90 border-b border-border backdrop-blur-none shadow-none animate-in fade-in slide-in-from-top-2">      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <motion.nav
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.22,1,0.36,1] }}
+      className="fixed left-1/2 -translate-x-1/2 top-6 z-50 w-[75%] rounded-full 
+      bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl"
+    >
+
+      <div className="px-6 lg:px-10">
+
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:shadow-lg transition-shadow">
+
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-3 group">
+
+            <motion.div
+              whileHover={{ rotate: 10, scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold"
+            >
               PM
-            </div>
-            <span className="hidden sm:inline font-bold text-lg text-foreground">ProManage</span>
+            </motion.div>
+
+            <span className="hidden sm:block font-bold text-white text-lg tracking-wide">
+              ProManage
+            </span>
+
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* DESKTOP MENU */}
+          <div className="hidden md:flex items-center gap-10">
+
             {navLinks.map((link) => (
-              <Link
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="text-foreground hover:text-primary transition-colors font-medium text-sm"
+                whileHover="hover"
+                className="relative"
               >
-                {link.label}
-              </Link>
-            ))}
-            <Button asChild className="bg-primary hover:bg-primary/90 text-white">
-              <a href="https://wa.me/94XXXXXXXXX" target="_blank" rel="noopener noreferrer">
-                Whats app
-              </a>
-            </Button>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden border-t border-border animate-in fade-in slide-in-from-top-2">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navLinks.map((link) => (
                 <Link
-                  key={link.href}
                   href={link.href}
-                  className="block px-3 py-2 rounded-md text-foreground hover:bg-muted transition-colors"
-                  onClick={() => setIsOpen(false)}
+                  className="text-white/90 font-medium text-sm tracking-wide"
                 >
                   {link.label}
                 </Link>
-              ))}
+
+                {/* Animated underline */}
+                <motion.span
+                  variants={{
+                    hover: { width: "100%" },
+                    initial: { width: "0%" }
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute left-0 -bottom-1 h-[2px] bg-primary"
+                />
+
+              </motion.div>
+            ))}
+
+            {/* CTA BUTTON */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+
               <Button
                 asChild
-                className="w-full bg-primary hover:bg-primary/90 text-white mt-2"
+                className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 shadow-lg"
               >
-                <a href="https://wa.me/94XXXXXXXXX" target="_blank" rel="noopener noreferrer">
-                  Get Started
+                <a
+                  href="https://wa.me/94XXXXXXXXX"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
                 </a>
               </Button>
-            </div>
+
+            </motion.div>
+
           </div>
-        )}
+
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={26}/> : <Menu size={26}/>}
+          </button>
+
+        </div>
       </div>
-    </nav>
-  );
+
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+
+        {isOpen && (
+
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="md:hidden bg-black/90 backdrop-blur-xl rounded-b-3xl px-6 pb-6"
+          >
+
+            <div className="flex flex-col gap-5 pt-4">
+
+              {navLinks.map((link, index) => (
+
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+
+                  <Link
+                    href={link.href}
+                    className="text-white text-lg font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+
+                </motion.div>
+
+              ))}
+
+              <Button
+                asChild
+                className="mt-3 bg-primary hover:bg-primary/90 text-white rounded-full"
+              >
+                <a
+                  href="https://wa.me/94XXXXXXXXX"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
+                </a>
+              </Button>
+
+            </div>
+
+          </motion.div>
+
+        )}
+
+      </AnimatePresence>
+
+    </motion.nav>
+  )
 }
