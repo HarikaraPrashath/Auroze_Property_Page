@@ -52,7 +52,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <div key={link.label} className="relative">
                 {link.dropdown ? (
-                  // Dropdown Menu
+                  // Dropdown 
                   <div>
                     <motion.button
                       onClick={() => setServicesOpen(!servicesOpen)}
