@@ -89,7 +89,7 @@ export default function AboutSection() {
               variants={textItem}
               className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
             >
-              <span className="text-primary font-semibold text-sm">
+              <span className="text-foreground font-semibold text-sm">
                 About Us
               </span>
             </motion.div>
