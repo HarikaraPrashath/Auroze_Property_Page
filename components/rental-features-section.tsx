@@ -176,7 +176,7 @@ export default function RentalFeaturesSection() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/60"
+                className="inline-block bg-clip-text text-transparent bg-linear-to-r from-primary via-primary/80 to-primary/60"
               >
                 Complete Rental
               </motion.span>
@@ -206,7 +206,7 @@ export default function RentalFeaturesSection() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80"
+                className="inline-block bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/80"
               >
                 Management Solutions
               </motion.span>
@@ -233,7 +233,7 @@ export default function RentalFeaturesSection() {
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="h-0.5 w-24 bg-gradient-to-r from-primary via-primary/50 to-transparent mx-auto mt-8"
+            className="h-0.5 w-24 bg-linear-to-r from-primary via-primary/50 to-transparent mx-auto mt-8"
           />
         </motion.div>
         {/* Feature Grid - Asymmetrical Layout */}
@@ -270,7 +270,7 @@ export default function RentalFeaturesSection() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  className="relative h-full min-h-[280px] rounded-3xl overflow-hidden cursor-pointer border border-border/50 shadow-lg"
+                  className="relative h-full min-h-70 rounded-3xl overflow-hidden cursor-pointer border border-border/50 shadow-lg"
                 >
                   {/* Background Image with Parallax */}
                   <motion.div
@@ -289,7 +289,7 @@ export default function RentalFeaturesSection() {
                   </motion.div>
 
                   {/* Gradient Overlay - Adjusted for better visibility */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${feature.color} opacity-80 mix-blend-overlay`} />
+                  <div className={`absolute inset-0 bg-linear-to-t ${feature.color} opacity-80 mix-blend-overlay`} />
 
                   {/* Content */}
                   <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
@@ -403,7 +403,7 @@ export default function RentalFeaturesSection() {
                   fill
                   className="object-cover"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${selectedFeature.color} opacity-60 mix-blend-overlay`} />
+                <div className={`absolute inset-0 bg-linear-to-t ${selectedFeature.color} opacity-60 mix-blend-overlay`} />
               </div>
 
               <div className="relative p-10">
@@ -412,7 +412,7 @@ export default function RentalFeaturesSection() {
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ delay: 0.2, type: "spring" }}
-                  className={`absolute -top-12 left-10 w-20 h-20 rounded-2xl bg-gradient-to-br ${selectedFeature.color} flex items-center justify-center shadow-xl border-2 border-border`}
+                  className={`absolute -top-12 left-10 w-20 h-20 rounded-2xl bg-linear-to-br ${selectedFeature.color} flex items-center justify-center shadow-xl border-2 border-border`}
                 >
                   {selectedFeature.icon && <selectedFeature.icon className="w-10 h-10 text-white" />}
                 </motion.div>
@@ -450,7 +450,7 @@ export default function RentalFeaturesSection() {
                         transition={{ delay: 0.6 + idx * 0.1 }}
                         className="flex items-center gap-3 text-foreground/80"
                       >
-                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${selectedFeature.color}`} />
+                        <div className={`w-2 h-2 rounded-full bg-linear-to-r ${selectedFeature.color}`} />
                         {point}
                       </motion.li>
                     ))}

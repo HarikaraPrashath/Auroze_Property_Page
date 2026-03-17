@@ -3,14 +3,13 @@
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import ContactForm from '@/components/contact-form';
-import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageCircle, CheckCircle, ArrowRight, Building2, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
-
 
 export default function ContactPage() {
   const contactCards = [
     {
-      icon: <Phone className="w-6 h-6 text-primary" />,
+      icon: Phone,
       title: 'Phone',
       value: '+94 XXXXXXXXX',
       description: 'Available during business hours',
@@ -18,9 +17,10 @@ export default function ContactPage() {
       border: 'border-primary/20',
       link: 'tel:+94XXXXXXXXX',
       colorClass: 'text-primary',
+      gradient: 'from-primary/20 to-transparent',
     },
     {
-      icon: <Mail className="w-6 h-6 text-secondary" />,
+      icon: Mail,
       title: 'Email',
       value: 'info@promanage.lk',
       description: 'Response within 24 hours',
@@ -28,9 +28,10 @@ export default function ContactPage() {
       border: 'border-secondary/20',
       link: 'mailto:info@promanage.lk',
       colorClass: 'text-secondary',
+      gradient: 'from-secondary/20 to-transparent',
     },
     {
-      icon: <MessageCircle className="w-6 h-6 text-green-500" />,
+      icon: MessageCircle,
       title: 'WhatsApp',
       value: '+94 XXXXXXXXX',
       description: 'Quick responses 24/7',
@@ -38,9 +39,10 @@ export default function ContactPage() {
       border: 'border-green-500/20',
       link: 'https://wa.me/94XXXXXXXXX',
       colorClass: 'text-green-500',
+      gradient: 'from-green-500/20 to-transparent',
     },
     {
-      icon: <MapPin className="w-6 h-6 text-foreground" />,
+      icon: MapPin,
       title: 'Location',
       value: 'Colombo 3, Sri Lanka',
       description: 'Visit our office',
@@ -48,112 +50,240 @@ export default function ContactPage() {
       border: 'border-border',
       link: null,
       colorClass: 'text-foreground',
+      gradient: 'from-foreground/10 to-transparent',
     },
   ];
 
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const cardReveal = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring" as const,
+        stiffness: 80,
+        damping: 15
+      }
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-background font-sans">
+    <main className="min-h-screen bg-background font-sans overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 relative overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10">
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-foreground mb-4">
-            Get In Touch With Us
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+        {/* Professional gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          {/* Professional badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+          >
+            <Building2 className="w-4 h-4 text-primary" />
+            <span className="text-primary font-medium text-sm">Contact Us</span>
+          </motion.div>
+
+          {/* Main heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4"
+          >
+            Get In Touch{' '}
+            <span className="text-primary">With Us</span>
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
             We're here to help. Reach out through any of our contact channels
-          </p>
+          </motion.p>
+
+          {/* Decorative line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="h-0.5 w-20 bg-primary/30 mx-auto mt-8"
+          />
         </div>
-        {/* Decorative shapes */}
-        <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-72 h-72 bg-secondary/10 rounded-full blur-3xl animate-pulse"></div>
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {contactCards.map((card, index) => (
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {contactCards.map((card, index) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={index}
+                  variants={cardReveal}
+                  whileHover={{ y: -5 }}
+                  className="group"
+                >
+                  <div className={`relative p-6 rounded-xl border ${card.border} ${card.bg} hover:shadow-lg transition-all duration-300`}>
+                    {/* Icon */}
+                    <div className="w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className={`w-5 h-5 ${card.colorClass}`} />
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="text-lg font-semibold text-foreground mb-1">{card.title}</h3>
+                    {card.link ? (
+                      <a 
+                        href={card.link} 
+                        className={`text-base font-medium ${card.colorClass} hover:underline inline-flex items-center gap-1`}
+                      >
+                        {card.value}
+                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                      </a>
+                    ) : (
+                      <p className={`text-base font-medium ${card.colorClass}`}>{card.value}</p>
+                    )}
+                    <p className="text-sm text-muted-foreground mt-2">{card.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Form & Info */}
+      <section className="py-16 px-6 bg-muted/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Form Section */}
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50, rotateX: index % 2 === 0 ? -5 : 5 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ delay: index * 0.1, type: 'spring', stiffness: 120 }}
-              className={`p-8 rounded-3xl shadow-2xl border ${card.border} ${card.bg} hover:shadow-3xl hover:-translate-y-2 transition-all cursor-pointer text-center`}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="w-16 h-16 mx-auto rounded-lg flex items-center justify-center mb-4 bg-opacity-30 bg-white">
-                {card.icon}
+              <div className="bg-card rounded-xl border border-border p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">Send Us a Message</h2>
+                  <p className="text-muted-foreground text-sm">
+                    Fill out the form below and we'll get back to you as soon as possible
+                  </p>
+                </div>
+                <ContactForm />
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">{card.title}</h3>
-              {card.link ? (
-                <a href={card.link} className={`text-lg font-medium ${card.colorClass} hover:opacity-80 transition`}>
-                  {card.value}
-                </a>
-              ) : (
-                <p className={`text-lg font-medium ${card.colorClass}`}>{card.value}</p>
-              )}
-              <p className="text-sm text-muted-foreground mt-2">{card.description}</p>
             </motion.div>
-          ))}
-        </div>
-      </section>
 
-      {/* Contact Form */}
-      <section className="py-20 px-6 bg-foreground/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Send Us a Message
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Fill out the form below and we'll get back to you as soon as possible
-            </p>
+            {/* Info Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              {/* Business Hours Card */}
+              <div className="bg-card rounded-xl border border-border p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Business Hours</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-medium text-foreground">Monday - Friday</span>
+                    <span className="text-primary">8:30 AM - 5:30 PM</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-medium text-foreground">Saturday</span>
+                    <span className="text-primary">9:00 AM - 2:00 PM</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-medium text-foreground">Sunday</span>
+                    <span className="text-muted-foreground">Closed</span>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/10">
+                  <p className="text-sm text-muted-foreground flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Emergency services available 24/7 for tenants and property owners</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick Response Card */}
+              <div className="bg-card rounded-xl border border-secondary/20 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
+                    <Users className="w-5 h-5 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Quick Response</h3>
+                </div>
+
+                <div className="space-y-3">
+                  {[
+                    'Phone: Response within 30 minutes',
+                    'Email: Response within 24 hours',
+                    'WhatsApp: Immediate response',
+                    'Emergencies: 24/7 support hotline'
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 text-secondary flex-shrink-0" />
+                      <span className="text-foreground text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-border">
+                  <p className="text-sm text-muted-foreground">
+                    Our team is ready to assist you with any questions
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: 'spring', stiffness: 120 }}
-          >
-            <ContactForm />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Business Hours & Quick Response */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: 'spring', stiffness: 120 }}
-            className="p-10 rounded-3xl shadow-2xl bg-primary/5 border border-primary/20"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <Clock className="w-6 h-6 text-primary" />
-              <h3 className="text-2xl font-semibold text-foreground">Business Hours</h3>
-            </div>
-            <div className="space-y-3 text-foreground">
-              <p><span className="font-semibold">Monday - Friday:</span> 8:30 AM - 5:30 PM</p>
-              <p><span className="font-semibold">Saturday:</span> 9:00 AM - 2:00 PM</p>
-              <p><span className="font-semibold">Sunday:</span> Closed</p>
-              <p className="text-sm text-muted-foreground mt-4">Emergency services available 24/7 for tenants and property owners</p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: 'spring', stiffness: 120, delay: 0.1 }}
-            className="p-10 rounded-3xl shadow-2xl bg-secondary/5 border border-secondary/20"
-          >
-            <h3 className="text-2xl font-semibold text-foreground mb-6">Quick Response</h3>
-            <ul className="space-y-3 text-foreground">
-              <li>✓ Phone: Response within 30 minutes</li>
-              <li>✓ Email: Response within 24 hours</li>
-              <li>✓ WhatsApp: Immediate response</li>
-              <li>✓ Emergencies: 24/7 support hotline</li>
-            </ul>
-          </motion.div>
         </div>
       </section>
 

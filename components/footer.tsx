@@ -217,19 +217,15 @@ export default function Footer() {
               {quickLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
-                  <motion.li
-                    key={index}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
+                  <li key={index} className="flex items-center gap-3">
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
+                      className="group text-muted-foreground hover:text-primary transition-colors"
                     >
                       <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                       <span className="text-sm">{link.name}</span>
                     </Link>
-                  </motion.li>
+                  </li>
                 );
               })}
             </ul>
@@ -245,19 +241,15 @@ export default function Footer() {
               {serviceLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
-                  <motion.li
-                    key={index}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
+                  <li key={index} className="flex items-center gap-3">
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
+                      className="group text-muted-foreground hover:text-primary transition-colors"
                     >
                       <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                       <span className="text-sm">{link.name}</span>
                     </Link>
-                  </motion.li>
+                  </li>
                 );
               })}
             </ul>
@@ -273,15 +265,11 @@ export default function Footer() {
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <motion.li
-                    key={index}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
+                  <li key={index} className="flex items-start gap-3">
                     {item.href !== '#' ? (
                       <a
                         href={item.href}
-                        className="flex items-start gap-3 group"
+                        className="group"
                       >
                         <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                         <span className="text-muted-foreground group-hover:text-primary transition-colors text-sm">
@@ -289,14 +277,14 @@ export default function Footer() {
                         </span>
                       </a>
                     ) : (
-                      <div className="flex items-start gap-3">
+                      <>
                         <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                         <span className="text-muted-foreground text-sm">
                           {item.text}
                         </span>
-                      </div>
+                      </>
                     )}
-                  </motion.li>
+                  </li>
                 );
               })}
             </ul>

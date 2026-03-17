@@ -34,7 +34,7 @@ export default function CTASection() {
   ];
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden bg-gradient-to-br from-background via-background to-background">
+    <section className="relative py-32 px-4 overflow-hidden bg-linear-to-br from-background via-background to-background">
       {/* Modern animated background pattern */}
       <div className="absolute inset-0">
         {/* Grid pattern */}
@@ -122,7 +122,7 @@ export default function CTASection() {
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
                 transition={{ duration: 5, repeat: Infinity }}
-                className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary bg-[length:200%_auto]"
+                className="bg-clip-text text-transparent bg-linear-to-r from-primary via-primary/80 to-primary bg-size-[200%_auto]"
               >
                 Property Management?
               </motion.span>
@@ -165,7 +165,7 @@ export default function CTASection() {
               >
                 {/* Button shine effect */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '100%' }}
                   transition={{ duration: 0.5 }}
@@ -231,7 +231,7 @@ export default function CTASection() {
                   whileHover={{ y: -5 }}
                   className="relative group"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-t from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   <div className="relative p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
                     {/* Icon */}
@@ -281,7 +281,7 @@ export default function CTASection() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 1.5 }}
-            className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent w-full max-w-md mx-auto mt-16"
+            className="h-px bg-linear-to-r from-transparent via-primary/50 to-transparent w-full max-w-md mx-auto mt-16"
           />
         </motion.div>
       </div>

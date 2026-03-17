@@ -82,9 +82,9 @@ export default function PricingSection() {
   }, []);
 
   return (
-    <section className="relative py-28 px-4 bg-gradient-to-b from-background via-background to-background/95 overflow-hidden">
+    <section className="relative py-28 px-4 bg-linear-to-b from-background via-background to-background/95 overflow-hidden">
       {/* Animated background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden">
@@ -181,7 +181,7 @@ export default function PricingSection() {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="absolute -inset-1 bg-gradient-to-r from-primary via-primary/50 to-primary rounded-3xl opacity-75 blur-xl"
+                      className="absolute -inset-1 bg-linear-to-r from-primary via-primary/50 to-primary rounded-3xl opacity-75 blur-xl"
                     />
 
                     {/* Floating lightning bolts */}
@@ -224,7 +224,7 @@ export default function PricingSection() {
                       }}
                       className="absolute -top-4 left-1/2 -translate-x-1/2 z-30"
                     >
-                      <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-primary to-primary/80 text-white text-xs font-semibold whitespace-nowrap shadow-lg shadow-primary/30 flex items-center gap-1">
+                      <div className="px-4 py-1.5 rounded-full bg-linear-to-r from-primary to-primary/80 text-white text-xs font-semibold whitespace-nowrap shadow-lg shadow-primary/30 flex items-center gap-1">
                         <Star className="w-3 h-3 fill-white" />
                         Most Popular
                       </div>
@@ -241,7 +241,7 @@ export default function PricingSection() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className={`relative rounded-2xl transition-all duration-300 h-full ${
                     plan.highlight
-                      ? 'bg-gradient-to-b from-primary/5 via-background to-background border-2 border-primary shadow-2xl'
+                      ? 'bg-linear-to-b from-primary/5 via-background to-background border-2 border-primary shadow-2xl'
                       : 'border border-border bg-card hover:border-primary/50 hover:shadow-xl'
                   }`}
                 >
@@ -292,26 +292,22 @@ export default function PricingSection() {
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-4 mb-8 flex-grow">
+                    <ul className="space-y-4 mb-8 grow">
                       {plan.features.map((feature, featureIndex) => (
-                        <motion.li
-                          key={featureIndex}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: featureIndex * 0.1 }}
-                          className="flex items-start gap-3 group/item"
-                        >
+                        <li key={featureIndex} className="flex items-start gap-3 group/item">
                           <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: featureIndex * 0.1 }}
                             whileHover={{ scale: 1.2, rotate: 360 }}
-                            transition={{ duration: 0.3 }}
                           >
-                            <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                           </motion.div>
                           <span className="text-foreground/80 text-sm group-hover/item:text-foreground transition-colors">
                             {feature}
                           </span>
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
 
@@ -340,7 +336,7 @@ export default function PricingSection() {
                         
                         {/* Button shine effect */}
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                          className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
                           initial={{ x: '-100%' }}
                           whileHover={{ x: '100%' }}
                           transition={{ duration: 0.5 }}
@@ -374,7 +370,7 @@ export default function PricingSection() {
           className="bg-card border border-border rounded-2xl p-10 text-center relative overflow-hidden group"
         >
           {/* Animated background pattern */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-linear-to-r from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           <motion.div
             animate={{
