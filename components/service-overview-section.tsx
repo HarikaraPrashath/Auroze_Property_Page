@@ -5,7 +5,7 @@ import Link from "next/link"
 import { ArrowRight, Sparkles, Zap, Shield, Home, Gavel, Key } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const services = [
   {
@@ -60,6 +60,39 @@ const services = [
 
 export default function ServiceOverviewSection() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+
+  // Check if mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 750)
+      }
+    }
+
+    checkMobile()
+    
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', checkMobile)
+      return () => window.removeEventListener('resize', checkMobile)
+    }
+  }, [])
+
+  // Trigger animation on page load/refresh for mobile
+  useEffect(() => {
+    // Always trigger animation on mount for mobile
+    if (isMobile) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        setShouldAnimate(true)
+      }, 100)
+      
+      return () => clearTimeout(timer)
+    } else {
+      setShouldAnimate(false)
+    }
+  }, [isMobile])
 
   // Clean asymmetrical layout
   const getGridPosition = (index: number) => {
@@ -74,101 +107,164 @@ export default function ServiceOverviewSection() {
     return positions[index]
   }
 
+  // Mobile animation variants with alternating directions
+  const getMobileAnimation = (index: number) => {
+    // Even indices (0,2,4) - come from right
+    if (index % 2 === 0) {
+      return {
+        hidden: { opacity: 0, x: 100 },
+        visible: { 
+          opacity: 1, 
+          x: 0,
+          transition: {
+            type: "spring",
+            stiffness: 50,
+            damping: 20,
+            duration: 0.6,
+            delay: index * 0.15 // Stagger the animations
+          }
+        }
+      }
+    }
+    // Odd indices (1,3,5) - come from left
+    else {
+      return {
+        hidden: { opacity: 0, x: -100 },
+        visible: { 
+          opacity: 1, 
+          x: 0,
+          transition: {
+            type: "spring",
+            stiffness: 50,
+            damping: 20,
+            duration: 0.6,
+            delay: index * 0.15 // Stagger the animations
+          }
+        }
+      }
+    }
+  }
+
+  // Desktop animation variants (scroll-triggered)
+  const desktopAnimation = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.4,
+        type: "spring",
+        stiffness: 80,
+        damping: 15
+      }
+    }
+  }
+
   return (
     <section className="py-24 px-6 bg-background">
       <div className="relative max-w-7xl mx-auto">
-        {/* Header with clean rise animation */}
-     <motion.div 
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  viewport={{ once: true }}
-  className="text-center mb-16 relative"
->
-  {/* Cinematic spotlight that grows */}
-  <motion.div
-    initial={{ scale: 0, opacity: 0 }}
-    whileInView={{ scale: 2, opacity: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 2 }}
-    className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)/10%,transparent_70%)] -z-10"
-  />
+        {/* Header with clean rise animation - only animate on desktop */}
+        <motion.div 
+          initial={!isMobile ? { opacity: 0 } : { opacity: 1 }}
+          whileInView={!isMobile ? { opacity: 1 } : {}}
+          viewport={!isMobile ? { once: true } : undefined}
+          className="text-center mb-16 relative"
+        >
+          {/* Cinematic spotlight that grows - only on desktop */}
+          {!isMobile && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 2, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2 }}
+              className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)/10%,transparent_70%)] -z-10"
+            />
+          )}
 
-  {/* Text with dramatic staggered entrance */}
-  <div className="space-y-4">
-    <motion.h2 
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ 
-        duration: 1.2,
-        type: "spring",
-        stiffness: 50,
-        damping: 12
-      }}
-      className="text-5xl md:text-7xl font-bold"
-    >
-      <motion.span
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="text-primary"
-      >
-        Comprehensive
-      </motion.span>{' '}
-      <motion.span
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="text-primary"
-      >
-        Service
-      </motion.span>{' '}
-      <motion.span
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ 
-          duration: 0.8,
-          delay: 0.9,
-          type: "spring"
-        }}
-        className="text-foreground inline-block"
-      >
-        Suite
-      </motion.span>
-    </motion.h2>
+          {/* Text with dramatic staggered entrance - only animate on desktop */}
+          <div className="space-y-4">
+            <motion.h2 
+              initial={!isMobile ? { opacity: 0, y: 100 } : { opacity: 1, y: 0 }}
+              whileInView={!isMobile ? { opacity: 1, y: 0 } : {}}
+              viewport={!isMobile ? { once: true } : undefined}
+              transition={{ 
+                duration: 1.2,
+                type: "spring",
+                stiffness: 50,
+                damping: 12
+              }}
+              className="text-5xl md:text-7xl font-bold"
+            >
+              <motion.span
+                initial={!isMobile ? { opacity: 0 } : { opacity: 1 }}
+                whileInView={!isMobile ? { opacity: 1 } : {}}
+                viewport={!isMobile ? { once: true } : undefined}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-primary"
+              >
+                Comprehensive
+              </motion.span>{' '}
+              <motion.span
+                initial={!isMobile ? { opacity: 0 } : { opacity: 1 }}
+                whileInView={!isMobile ? { opacity: 1 } : {}}
+                viewport={!isMobile ? { once: true } : undefined}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-primary"
+              >
+                Service
+              </motion.span>{' '}
+              <motion.span
+                initial={!isMobile ? { scale: 0 } : { scale: 1 }}
+                whileInView={!isMobile ? { scale: 1 } : {}}
+                viewport={!isMobile ? { once: true } : undefined}
+                transition={{ 
+                  duration: 0.8,
+                  delay: 0.9,
+                  type: "spring"
+                }}
+                className="text-foreground inline-block"
+              >
+                Suite
+              </motion.span>
+            </motion.h2>
 
-    <motion.p 
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 1.2 }}
-      className="text-muted-foreground text-lg max-w-2xl mx-auto"
-    >
-      Everything you need for professional property management, delivered with excellence.
-    </motion.p>
-  </div>
+            <motion.p 
+              initial={!isMobile ? { opacity: 0, y: 50 } : { opacity: 1, y: 0 }}
+              whileInView={!isMobile ? { opacity: 1, y: 0 } : {}}
+              viewport={!isMobile ? { once: true } : undefined}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            >
+              Everything you need for professional property management, delivered with excellence.
+            </motion.p>
+          </div>
 
-  {/* Cinematic line with light sweep */}
-  <motion.div
-    initial={{ width: 0 }}
-    whileInView={{ width: "5rem" }}
-    viewport={{ once: true }}
-    transition={{ duration: 1, delay: 1.5 }}
-    className="h-0.5 bg-primary/30 mx-auto mt-8 relative overflow-hidden"
-  >
-    <motion.div
-      animate={{ x: [-100, 100] }}
-      transition={{ duration: 2, delay: 2, repeat: Infinity }}
-      className="absolute inset-0 w-20 bg-gradient-to-r from-transparent via-primary to-transparent"
-    />
-  </motion.div>
-</motion.div>
+          {/* Cinematic line with light sweep - only on desktop */}
+          {!isMobile && (
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "5rem" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="h-0.5 bg-primary/30 mx-auto mt-8 relative overflow-hidden"
+            >
+              <motion.div
+                animate={{ x: [-100, 100] }}
+                transition={{ duration: 2, delay: 2, repeat: Infinity }}
+                className="absolute inset-0 w-20 bg-gradient-to-r from-transparent via-primary to-transparent"
+              />
+            </motion.div>
+          )}
+        </motion.div>
 
         {/* Clean Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-5 mb-16">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-5 mb-16"
+          initial="hidden"
+          animate={shouldAnimate && isMobile ? "visible" : !isMobile ? "visible" : "hidden"}
+          whileInView={!isMobile ? "visible" : undefined}
+          viewport={!isMobile ? { once: true, amount: 0.1 } : undefined}
+        >
           {services.map((service, index) => {
             const Icon = service.icon
             const isHovered = hoveredId === service.id
@@ -177,10 +273,7 @@ export default function ServiceOverviewSection() {
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                variants={isMobile ? getMobileAnimation(index) : desktopAnimation}
                 onHoverStart={() => setHoveredId(service.id)}
                 onHoverEnd={() => setHoveredId(null)}
                 className={`${gridPosition}`}
@@ -198,6 +291,7 @@ export default function ServiceOverviewSection() {
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         priority={index < 3}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       {/* Simple gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
@@ -255,13 +349,13 @@ export default function ServiceOverviewSection() {
               </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
         {/* Clean CTA Button */}
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={!isMobile ? { opacity: 0, y: 10 } : { opacity: 1, y: 0 }}
+          whileInView={!isMobile ? { opacity: 1, y: 0 } : {}}
+          viewport={!isMobile ? { once: true } : undefined}
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-center"
         >
