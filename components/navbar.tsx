@@ -6,6 +6,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown, Building2, Headset, Settings, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -19,7 +20,8 @@ export default function Navbar() {
       dropdown: true,
       items: [
         { href: "/services/management", label: "Management", description: "Property & Tenant Management" },
-        { href: "/services/support", label: "Support", description: " Property Support Service" },]
+        { href: "/services/support", label: "Support", description: "Property Support Service" },
+      ]
     },
     { href: "/contact", label: "Contact" },
   ]
@@ -29,7 +31,7 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22,1,0.36,1] }}
-      className="fixed left-1/2 -translate-x-1/2 top-6 z-50 w-[90%] lg:w-[75%] rounded-2xl lg:rounded-full bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl"
+      className="fixed left-1/2 -translate-x-1/2 top-6 z-50 w-[90%] lg:w-[75%] rounded-2xl lg:rounded-full bg-background/80 backdrop-blur-xl border border-border/50 shadow-lg"
     >
       <div className="px-4 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -38,12 +40,19 @@ export default function Navbar() {
             <motion.div
               whileHover={{ rotate: 10, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200 }}
-              className="w-8 h-8 lg:w-10 lg:h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-sm lg:text-base"
+              className=""
             >
-              PM
+              <Image
+                src="/logo.png"
+                alt="SoulRoots Logo"
+                width={48}
+                height={48}
+                className="w-14 h-14 lg:w-12 lg:h-12 rounded-xl shadow-lg border border-border  object-contain"
+                priority
+              />
             </motion.div>
-            <span className="hidden sm:block font-bold text-white text-base lg:text-lg tracking-wide">
-              ProManage
+            <span className="hidden sm:block font-bold text-foreground text-xl lg:text-2xl tracking-wide drop-shadow-lg">
+              SoulRoots
             </span>
           </Link>
 
@@ -56,7 +65,7 @@ export default function Navbar() {
                   <div>
                     <motion.button
                       onClick={() => setServicesOpen(!servicesOpen)}
-                      className="flex items-center gap-1 text-white/90 font-medium text-sm tracking-wide hover:text-white transition-colors"
+                      className="flex items-center gap-1 text-foreground/80 font-medium text-sm tracking-wide hover:text-foreground transition-colors"
                     >
                       {link.label}
                       <motion.div
@@ -74,7 +83,7 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute left-0 mt-3 w-72 rounded-2xl bg-black backdrop-blur-xl border border-white/20 shadow-xl overflow-hidden"
+                          className="absolute left-0 mt-3 w-72 rounded-2xl bg-background/95 backdrop-blur-xl border border-border/50 shadow-xl overflow-hidden"
                         >
                           <div className="p-2">
                             {link.items?.map((item, index) => (
@@ -86,15 +95,15 @@ export default function Navbar() {
                               >
                                 <Link
                                   href={item.href}
-                                  className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors group"
+                                  className="flex items-start gap-3 p-3 rounded-xl hover:bg-accent transition-colors group"
                                   onClick={() => {
                                     setServicesOpen(false);
                                     setIsOpen(false);
                                   }}
                                 >
                                   <div className="flex-1">
-                                    <p className="text-white font-medium text-sm">{item.label}</p>
-                                    <p className="text-white/60 text-xs">{item.description}</p>
+                                    <p className="text-foreground font-medium text-sm">{item.label}</p>
+                                    <p className="text-muted-foreground text-xs">{item.description}</p>
                                   </div>
                                 </Link>
                               </motion.div>
@@ -111,7 +120,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href || "#"}
-                      className="text-white/90 font-medium text-sm tracking-wide hover:text-white transition-colors"
+                      className="text-foreground/80 font-medium text-sm tracking-wide hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -135,7 +144,7 @@ export default function Navbar() {
             >
               <Button
                 asChild
-                className="bg-primary hover:bg-primary/90 text-white rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base"
               >
                 <a
                   href="https://wa.me/94XXXXXXXXX"
@@ -151,16 +160,16 @@ export default function Navbar() {
             <Button
               variant="outline"
               size="icon"
-              className="ml-2 border-white/20 hover:bg-white/10"
+              className="ml-2 border-border hover:bg-accent"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 lg:w-5 lg:h-5 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 lg:w-5 lg:h-5 text-foreground">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m8.485-8.485l-.707.707M4.222 4.222l-.707.707M21 12h1M3 12H2m16.485 4.485l-.707-.707M4.222 19.778l-.707-.707M12 5a7 7 0 100 14a7 7 0 000-14z" />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 lg:w-5 lg:h-5 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 lg:w-5 lg:h-5 text-foreground">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0112 21c-5.523 0-10-4.477-10-10c0-4.418 2.865-8.167 6.839-9.543c.513-.17.998.296.89.82A7.5 7.5 0 0012 19.5c2.485 0 4.675-1.21 6.063-3.063c.322-.447.98-.5 1.19.07z" />
                 </svg>
               )}
@@ -169,7 +178,7 @@ export default function Navbar() {
 
           {/* MOBILE MENU BUTTON */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-foreground"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24}/> : <Menu size={24}/>} 
@@ -200,7 +209,7 @@ export default function Navbar() {
                     <div className="space-y-2">
                       <button
                         onClick={() => setServicesOpen(!servicesOpen)}
-                        className="flex items-center justify-between w-full text-white text-lg font-medium"
+                        className="flex items-center justify-between w-full text-foreground text-lg font-medium"
                       >
                         <span>{link.label}</span>
                         <motion.div
@@ -223,16 +232,15 @@ export default function Navbar() {
                               <Link
                                 key={item.href}
                                 href={item.href}
-                                className="flex items-center gap-3 py-2 text-white/80 hover:text-white"
+                                className="flex items-center gap-3 py-2 text-muted-foreground hover:text-foreground"
                                 onClick={() => {
                                   setIsOpen(false)
                                   setServicesOpen(false)
                                 }}
                               >
-                              
                                 <div>
-                                  <p className="text-sm font-medium">{item.label}</p>
-                                  <p className="text-xs text-white/60">{item.description}</p>
+                                  <p className="text-sm font-medium text-foreground">{item.label}</p>
+                                  <p className="text-xs text-muted-foreground">{item.description}</p>
                                 </div>
                               </Link>
                             ))}
@@ -243,7 +251,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={link.href || "#"}
-                      className="block text-white text-lg font-medium"
+                      className="block text-foreground text-lg font-medium"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
@@ -255,7 +263,7 @@ export default function Navbar() {
               <div className="pt-4 space-y-3">
                 <Button
                   asChild
-                  className="w-full bg-primary hover:bg-primary/90 text-white rounded-full"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
                 >
                   <a
                     href="https://wa.me/94XXXXXXXXX"
@@ -270,7 +278,7 @@ export default function Navbar() {
                 <Button
                   variant="outline"
                   size="default"
-                  className="w-full border-white/20 hover:bg-white/10 text-white"
+                  className="w-full border-border hover:bg-accent text-foreground"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 >
                   {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
