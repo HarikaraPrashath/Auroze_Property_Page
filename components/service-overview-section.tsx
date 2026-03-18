@@ -4,8 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Sparkles, Zap, Shield, Home, Gavel, Key } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { useState, useEffect, useRef } from "react"
 
 const services = [
   {
@@ -61,7 +61,10 @@ const services = [
 export default function ServiceOverviewSection() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
-  const [visibleCards, setVisibleCards] = useState<number[]>([])
+  const containerRef = useRef<HTMLDivElement>(null)
+  const horizontalRef = useRef<HTMLDivElement>(null)
+  const [horizontalWidth, setHorizontalWidth] = useState(0)
+  const [activeCardIndex, setActiveCardIndex] = useState(0)
 
   // Check if mobile view
   useEffect(() => {
@@ -79,291 +82,405 @@ export default function ServiceOverviewSection() {
     }
   }, [])
 
+  // Calculate horizontal scroll width
   useEffect(() => {
-    if (!isMobile) {
-      setVisibleCards([])
-      return
+    const updateHorizontalWidth = () => {
+      if (horizontalRef.current) {
+        setHorizontalWidth(horizontalRef.current.scrollWidth - horizontalRef.current.clientWidth)
+      }
     }
 
-    const elements = document.querySelectorAll(".service-overview-card")
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          const idx = Number(entry.target.getAttribute("data-index"))
-          setVisibleCards((prev) => (prev.includes(idx) ? prev : [...prev, idx]))
-        })
-      },
-      { threshold: 0.2 }
-    )
+    updateHorizontalWidth()
+    window.addEventListener("resize", updateHorizontalWidth)
+    return () => window.removeEventListener("resize", updateHorizontalWidth)
+  }, [])
 
-    elements.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [isMobile])
+  // Scroll progress for horizontal movement
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
 
-  // Clean asymmetrical layout
-  const getGridPosition = (index: number) => {
-    const positions = [
-      "md:col-span-2 md:row-span-2", // Large - first card
-      "md:col-span-1 md:row-span-2", // Tall - second card
-      "md:col-span-1 md:row-span-1", // Medium - third card
-      "md:col-span-1 md:row-span-1", // Small - fourth card
-      "md:col-span-1 md:row-span-1", // Small - fifth card
-      "md:col-span-2 md:row-span-1", // Wide - sixth card
-    ]
-    return positions[index]
+  // Smooth spring animation
+  const smoothX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
+
+  const x = useTransform(smoothX, [0, 1], ["0%", `-${horizontalWidth}px`])
+
+  // Track active card
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((value) => {
+      const cardIndex = Math.floor(value * services.length)
+      setActiveCardIndex(Math.min(cardIndex, services.length - 1))
+    })
+    return () => unsubscribe()
+  }, [scrollYProgress, services.length])
+
+  // Cinematic heading animations
+  const headingVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.3,
+      }
+    }
   }
 
-  // Mobile cards enter from opposite sides only on small screens.
-  const getMobileInitial = (index: number) => {
-    const fromLeft = index % 2 === 0
-    return { opacity: 0, x: fromLeft ? -140 : 140 }
+  const wordVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      rotateX: -90,
+      scale: 0.8
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      rotateX: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 200
+      }
+    }
   }
+
+  const glowVariants = {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { 
+      opacity: [0.2, 0.5, 0.2],
+      scale: [0.8, 1.2, 0.8],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  }
+
+  // Card entrance animations
+  const cardVariants = {
+    initial: (index: number) => ({
+      opacity: 0,
+      x: 100,
+      scale: 0.8,
+      rotateY: 45,
+      filter: "blur(10px)"
+    }),
+    visible: (index: number) => ({
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      rotateY: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring",
+        damping: 20,
+        stiffness: 100,
+        delay: index * 0.15,
+        duration: 0.8
+      }
+    }),
+    hover: {
+      scale: 1.05,
+      rotateY: 5,
+      transition: {
+        type: "spring",
+        damping: 10,
+        stiffness: 300
+      }
+    }
+  }
+
+  const titleWords = ["Comprehensive", "Service", "Suite"]
 
   return (
-    <section className="py-24 px-6 bg-background">
-      <div className="relative max-w-7xl mx-auto">
-        {/* Header with clean rise animation - only animate on desktop */}
-        <motion.div 
-          initial={!isMobile ? { opacity: 0 } : undefined}
-          animate={isMobile ? { opacity: 1 } : undefined}
-          whileInView={!isMobile ? { opacity: 1 } : undefined}
-          viewport={!isMobile ? { once: true } : undefined}
-          className="text-center mb-16 relative"
-        >
-          {/* Cinematic spotlight that grows - only on desktop */}
-          {!isMobile && (
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 2, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 2 }}
-              className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)/10%,transparent_70%)] -z-10"
-            />
-          )}
+    <>
+      {/* Heading Section - Now with cinematic animations */}
+      <section className="relative overflow-hidden bg-background px-4 pt-16 pb-8 sm:px-6 md:pt-20 md:pb-10 lg:pt-24">
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div 
+            variants={glowVariants}
+            initial="initial"
+            animate="animate"
+            className="absolute -top-40 -right-40 w-80 h-80 bg-primary/30 rounded-full mix-blend-normal blur-3xl opacity-50"
+          />
+          <motion.div 
+            variants={glowVariants}
+            initial="initial"
+            animate="animate"
+            transition={{ delay: 1 }}
+            className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/30 rounded-full mix-blend-normal blur-3xl opacity-50"
+          />
+        </div>
 
-          {/* Text with dramatic staggered entrance - only animate on desktop */}
-          <div className="space-y-4">
-            <motion.h2 
-              initial={!isMobile ? { opacity: 0, y: 100 } : undefined}
-              animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-              whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
-              viewport={!isMobile ? { once: true } : undefined}
-              transition={{ 
-                duration: 1.2,
-                type: "spring",
-                stiffness: 50,
-                damping: 12
-              }}
-              className="text-5xl md:text-7xl font-bold"
-            >
-              <motion.span
-                initial={!isMobile ? { opacity: 0 } : undefined}
-                animate={isMobile ? { opacity: 1 } : undefined}
-                whileInView={!isMobile ? { opacity: 1 } : undefined}
-                viewport={!isMobile ? { once: true } : undefined}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-primary"
-              >
-                Comprehensive
-              </motion.span>{' '}
-              <motion.span
-                initial={!isMobile ? { opacity: 0 } : undefined}
-                animate={isMobile ? { opacity: 1 } : undefined}
-                whileInView={!isMobile ? { opacity: 1 } : undefined}
-                viewport={!isMobile ? { once: true } : undefined}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-primary"
-              >
-                Service
-              </motion.span>{' '}
-              <motion.span
-                initial={!isMobile ? { scale: 0 } : undefined}
-                animate={isMobile ? { scale: 1 } : undefined}
-                whileInView={!isMobile ? { scale: 1 } : undefined}
-                viewport={!isMobile ? { once: true } : undefined}
-                transition={{ 
-                  duration: 0.8,
-                  delay: 0.9,
-                  type: "spring"
-                }}
-                className="text-foreground inline-block"
-              >
-                Suite
-              </motion.span>
-            </motion.h2>
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <motion.div
+            variants={headingVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="mx-auto max-w-4xl text-center"
+          >
+            <motion.div className="flex justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-primary md:w-8 md:h-8" />
+            </motion.div>
 
-            <motion.p 
-              initial={!isMobile ? { opacity: 0, y: 50 } : undefined}
-              animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-              whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
-              viewport={!isMobile ? { once: true } : undefined}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            <h2 className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+              {titleWords.map((word, wordIndex) => (
+                <motion.span 
+                  key={wordIndex} 
+                  variants={wordVariants}
+                  className={`inline-block mr-2 md:mr-4 last:mr-0 ${
+                    wordIndex < 2 ? 'text-primary' : 'text-foreground'
+                  }`}
+                  style={{
+                    textShadow: "0 0 30px rgba(59, 130, 246, 0.3)"
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h2>
+
+            <motion.p
+              variants={wordVariants}
+              className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base"
             >
               Everything you need for professional property management, delivered with excellence.
             </motion.p>
-          </div>
 
-          {/* Cinematic line with light sweep - only on desktop */}
-          {!isMobile && (
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: "5rem" }}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 1.5 }}
-              className="h-0.5 bg-primary/30 mx-auto mt-8 relative overflow-hidden"
-            >
-              <motion.div
-                animate={{ x: [-100, 100] }}
-                transition={{ duration: 2, delay: 2, repeat: Infinity }}
-                className="absolute inset-0 w-20 bg-linear-to-r from-transparent via-primary to-transparent"
-              />
-            </motion.div>
-          )}
-        </motion.div>
+              className="mx-auto mt-6 h-0.5 w-20 bg-gradient-to-r from-primary via-primary/50 to-transparent"
+            />
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Clean Bento Grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-5 mb-16"
-        >
-          {services.map((service, index) => {
-            const Icon = service.icon
-            const isHovered = hoveredId === service.id
-            const gridPosition = getGridPosition(index)
-            const hasEntered = visibleCards.includes(index)
-
-            const mobileInitial = getMobileInitial(index)
-            const mobileAnimate = {
-              opacity: 1,
-              x: 0,
-              transition: {
-                duration: 0.55,
-                ease: [0.22, 1, 0.36, 1] as const,
-                delay: (index % 3) * 0.06,
-              },
-            }
-
-            const desktopInitial = { opacity: 0, y: 15 }
-            const desktopAnimate = {
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.4,
-                type: "spring" as const,
-                stiffness: 80,
-                damping: 15,
-              },
-            }
-
-            const initial = isMobile ? mobileInitial : desktopInitial
-            const animate = isMobile ? (hasEntered ? mobileAnimate : mobileInitial) : desktopAnimate
-
-            return (
-              <motion.div
-                key={service.id}
-                data-index={index}
-                initial={initial}
-                animate={animate}
-                whileInView={isMobile ? undefined : desktopAnimate}
-                viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
-                onHoverStart={() => setHoveredId(service.id)}
-                onHoverEnd={() => setHoveredId(null)}
-                className={`service-overview-card ${gridPosition}`}
-              >
-                <Link
-                  href={`/services#${service.id}`}
-                  className="relative block h-full w-full group"
-                >
-                  <div className="relative h-full w-full rounded-xl overflow-hidden border border-border bg-card hover:border-primary/30 transition-all duration-300">
-                    {/* Image with overlay */}
-                    <div className="absolute inset-0">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        priority={index < 3}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                      {/* Simple gradient overlay */}
-                      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute inset-0 p-5 flex flex-col justify-end">
-                      {/* Icon */}
-                      <motion.div
-                        animate={{ y: isHovered ? -3 : 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="mb-2"
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                          <Icon className="w-5 h-5 text-white" />
-                        </div>
-                      </motion.div>
-
-                      {/* Title */}
-                      <h3 className="text-lg font-semibold text-white mb-1">
-                        {service.title}
-                      </h3>
-                      
-                      {/* Description - appears on hover */}
-                      <motion.p 
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ 
-                          opacity: isMobile || isHovered ? 1 : 0,
-                          height: isMobile || isHovered ? "auto" : 0
-                        }}
-                        transition={{ duration: 0.2 }}
-                        className="text-xs text-white/80 mb-2 overflow-hidden"
-                      >
-                        {service.description}
-                      </motion.p>
-
-                      {/* Learn more link */}
-                      <motion.div
-                        animate={{ opacity: isMobile || isHovered ? 1 : 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex items-center gap-1 text-xs font-medium text-white/90"
-                      >
-                        <span>Learn more</span>
-                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                      </motion.div>
-                    </div>
-
-                    {/* Simple hover border */}
-                    <motion.div
-                      animate={{ opacity: isHovered ? 1 : 0 }}
-                      className="absolute inset-0 border border-primary/50 rounded-xl pointer-events-none"
-                    />
-                  </div>
-                </Link>
-              </motion.div>
-            )
-          })}
-        </motion.div>
-
-        {/* Clean CTA Button */}
-        <motion.div 
-          initial={!isMobile ? { opacity: 0, y: 10 } : { opacity: 1, y: 0 }}
-          whileInView={!isMobile ? { opacity: 1, y: 0 } : {}}
-          viewport={!isMobile ? { once: true } : undefined}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="text-center"
-        >
-          <Button 
-            asChild 
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+      {/* Horizontal Scroll Section */}
+      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-2">
+        <div className="sticky top-0 h-screen overflow-hidden">
+          {/* Progress indicator */}
+          <motion.div 
+            className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
           >
-            <Link href="/services" className="flex items-center gap-2">
-              <span>Explore All Services</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
-        </motion.div>
-      </div>
-    </section>
+            {services.map((_, index) => (
+              <motion.div
+                key={index}
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  index === activeCardIndex ? 'w-8 bg-primary' : 'w-2 bg-primary/30'
+                }`}
+                animate={{
+                  scale: index === activeCardIndex ? 1.2 : 1,
+                }}
+              />
+            ))}
+          </motion.div>
+
+          <motion.div 
+            ref={horizontalRef}
+            style={{ x }}
+            className="flex h-full items-center gap-4 px-4 sm:gap-6 sm:px-6 lg:gap-8 lg:px-8"
+          >
+            {services.map((service, index) => {
+              const Icon = service.icon
+              const isHovered = hoveredId === service.id
+
+              return (
+                <motion.div
+                  key={service.id}
+                  custom={index}
+                  variants={cardVariants}
+                  initial="initial"
+                  whileInView="visible"
+                  whileHover="hover"
+                  viewport={{ once: true, amount: 0.5 }}
+                  className="relative h-[400px] min-w-[85vw] sm:h-[450px] sm:min-w-[400px] md:h-[500px] md:min-w-[450px] lg:h-[550px] lg:min-w-[500px] group"
+                  onHoverStart={() => setHoveredId(service.id)}
+                  onHoverEnd={() => setHoveredId(null)}
+                >
+                  {/* Card glow effect */}
+                  <motion.div
+                    className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    animate={{
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+
+                  <Link href={`/services#${service.id}`} className="block h-full w-full">
+                    <div className="relative h-full w-full rounded-2xl overflow-hidden border border-border/50 shadow-lg cursor-pointer">
+                      {/* Image with zoom on hover */}
+                      <motion.div
+                        className="absolute inset-0"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 85vw, 500px"
+                          priority={index < 3}
+                        />
+                      </motion.div>
+
+                      {/* Gradient overlays */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      
+                      {/* Colored overlay on hover */}
+                      <motion.div
+                        animate={{ opacity: isHovered ? 0.3 : 0 }}
+                        className={`absolute inset-0 bg-gradient-to-br ${
+                          index === 0 ? 'from-blue-500/30 to-cyan-500/30' :
+                          index === 1 ? 'from-green-500/30 to-emerald-500/30' :
+                          index === 2 ? 'from-purple-500/30 to-pink-500/30' :
+                          index === 3 ? 'from-orange-500/30 to-red-500/30' :
+                          index === 4 ? 'from-indigo-500/30 to-purple-500/30' :
+                          'from-amber-500/30 to-yellow-500/30'
+                        }`}
+                      />
+
+                      {/* Content */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white sm:p-7 md:p-8">
+                        <motion.div
+                          initial={{ y: 20, opacity: 0 }}
+                          whileInView={{ y: 0, opacity: 1 }}
+                          transition={{ delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="mb-3"
+                        >
+                          <motion.div 
+                            className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30"
+                            whileHover={{ rotate: 360 }}
+                            transition={{ duration: 0.6 }}
+                          >
+                            <Icon className="w-6 h-6" />
+                          </motion.div>
+                        </motion.div>
+
+                        <motion.h3 
+                          className="mb-1.5 text-xl font-bold leading-snug tracking-tight sm:text-2xl"
+                          initial={{ x: -20, opacity: 0 }}
+                          whileInView={{ x: 0, opacity: 1 }}
+                          transition={{ delay: index * 0.1 + 0.2 }}
+                        >
+                          {service.title}
+                        </motion.h3>
+                        
+                        <motion.p 
+                          className="mb-4 max-w-[32ch] text-xs text-white/85 line-clamp-2 sm:text-sm"
+                          initial={{ x: -20, opacity: 0 }}
+                          whileInView={{ x: 0, opacity: 1 }}
+                          transition={{ delay: index * 0.1 + 0.3 }}
+                        >
+                          {service.description}
+                        </motion.p>
+
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 + 0.4 }}
+                          className="flex items-center text-xs font-medium text-white group-hover:translate-x-2 transition-transform duration-300 sm:text-sm"
+                        >
+                          Learn more
+                          <ArrowRight className="ml-2 w-3.5 h-3.5" />
+                        </motion.div>
+                      </div>
+
+                      {/* Hover border */}
+                      <motion.div
+                        animate={{ opacity: isHovered ? 1 : 0 }}
+                        className="absolute inset-0 border-2 border-white/30 rounded-2xl pointer-events-none"
+                      />
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative overflow-hidden bg-background px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-24">
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, type: "spring" }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+              className="inline-block mb-6"
+            >
+              <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                Complete Property Solutions
+              </span>
+            </motion.div>
+
+            <Button 
+              asChild 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group"
+            >
+              <Link href="/services" className="flex items-center gap-2">
+                <span>Explore All Services</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      <style jsx>{`
+        @keyframes blob {
+          0%,
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+        }
+
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
+    </>
   )
 }

@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import { ArrowRight, FileText, Shield, TrendingUp, Users, X, Zap } from "lucide-react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 
 const features = [
   {
@@ -101,178 +101,181 @@ type Feature = (typeof features)[number]
 
 export default function RentalFeaturesSection() {
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
-  const [visibleCards, setVisibleCards] = useState<number[]>([])
-
+  const containerRef = useRef<HTMLDivElement>(null)
+  const horizontalRef = useRef<HTMLDivElement>(null)
+  const [horizontalWidth, setHorizontalWidth] = useState(0)
+  
+  // Keep horizontal distance in sync with viewport and track size.
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+    const updateHorizontalWidth = () => {
+      if (horizontalRef.current) {
+        setHorizontalWidth(horizontalRef.current.scrollWidth - horizontalRef.current.clientWidth)
+      }
     }
 
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
+    updateHorizontalWidth()
+    window.addEventListener("resize", updateHorizontalWidth)
+
+    return () => {
+      window.removeEventListener("resize", updateHorizontalWidth)
+    }
   }, [])
 
-  useEffect(() => {
-    if (!isMobile) {
-      setVisibleCards([])
-      return
-    }
+  // Use scroll progress to transform the horizontal scroll
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
 
-    const elements = document.querySelectorAll(".rental-feature-card")
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          const idx = Number(entry.target.getAttribute("data-index"))
-          setVisibleCards((prev) => (prev.includes(idx) ? prev : [...prev, idx]))
-        })
-      },
-      { threshold: 0.2 }
-    )
-
-    elements.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [isMobile])
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${horizontalWidth}px`])
 
   return (
-    <section className="relative py-32 px-6 overflow-hidden bg-background">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-accent/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob animation-delay-4000" />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
-          >
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-primary via-primary/80 to-primary/60">
-              Complete Rental
-            </span>
-            <br />
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/80">
-              Management Solutions
-            </span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
-          >
-            Experience the future of property management with our cutting-edge platform.
-          </motion.p>
-
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="h-0.5 w-24 bg-linear-to-r from-primary via-primary/50 to-transparent mx-auto mt-8"
-          />
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(200px,auto)]">
-          {features.map((feature, index) => {
-            const Icon = feature.icon
-            const isLarge = index === 0 || index === 3 || index === 5
-            const colSpan = isLarge ? "md:col-span-2" : "md:col-span-1"
-            const rowSpan = index === 1 ? "md:row-span-2" : ""
-
-            const fromLeft = index % 2 === 0
-            const mobileInitial = { opacity: 0, x: fromLeft ? -140 : 140 }
-            const mobileAnimate = {
-              opacity: 1,
-              x: 0,
-              transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: (index % 3) * 0.06 },
-            }
-
-            const desktopInitial = { opacity: 0, y: 30 }
-            const desktopAnimate = { opacity: 1, y: 0, transition: { duration: 0.45 } }
-
-            const hasEntered = visibleCards.includes(index)
-            const initial = isMobile ? mobileInitial : desktopInitial
-            const animate = isMobile ? (hasEntered ? mobileAnimate : mobileInitial) : desktopAnimate
-
-            return (
-              <motion.div
-                key={index}
-                data-index={index}
-                className={`rental-feature-card group relative ${colSpan} ${rowSpan}`}
-                initial={initial}
-                animate={animate}
-                whileInView={isMobile ? undefined : desktopAnimate}
-                viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                onClick={() => setSelectedFeature(feature)}
-              >
-                <motion.div
-                  whileHover={{ scale: isMobile ? 1 : 1.02 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  className="relative h-full min-h-[250px] md:min-h-70 rounded-3xl overflow-hidden cursor-pointer border border-border/50 shadow-lg"
-                >
-                  <motion.div
-                    animate={{ scale: hoveredIndex === index ? 1.1 : 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0"
-                  >
-                    <Image src={feature.image} alt={feature.title} fill className="object-cover" />
-                  </motion.div>
-
-                  <div className={`absolute inset-0 bg-linear-to-t ${feature.color} opacity-80 mix-blend-overlay`} />
-
-                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">
-                    <motion.div
-                      animate={{ y: hoveredIndex === index ? -10 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="mb-4"
-                    >
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
-                        <Icon className="w-6 h-6 md:w-7 md:h-7" />
-                      </div>
-                    </motion.div>
-
-                    <h3 className="text-xl md:text-2xl font-bold mb-2">{feature.title}</h3>
-                    <p className="text-xs md:text-sm text-white/80 mb-4 line-clamp-2">{feature.description}</p>
-
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{
-                        opacity: hoveredIndex === index ? 1 : 0,
-                        x: hoveredIndex === index ? 0 : -20,
-                      }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-center text-sm font-medium text-white"
-                    >
-                      Explore Feature
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition" />
-                    </motion.div>
-                  </div>
-
-                  <motion.div
-                    animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                    className="absolute inset-0 border-2 border-white/50 rounded-3xl pointer-events-none"
-                  />
-                </motion.div>
-              </motion.div>
-            )
-          })}
+    <>
+      {/* Normal vertical section before horizontal scroll - REDUCED SPACING */}
+      <section className="relative overflow-hidden bg-background px-4 pt-16 pb-8 sm:px-6 md:pt-20 md:pb-10 lg:pt-24">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob animation-delay-2000" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-accent/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob animation-delay-4000" />
         </div>
-      </div>
 
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-4xl text-center"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
+            >
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/60">
+                Complete Rental
+              </span>
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
+                Management Solutions
+              </span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base"
+            >
+              Experience the future of property management with our cutting-edge platform.
+            </motion.p>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="mx-auto mt-6 h-0.5 w-20 bg-gradient-to-r from-primary via-primary/50 to-transparent"
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Horizontal scroll section - NOW DIRECTLY FOLLOWS WITH MINIMAL GAP */}
+      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-2">
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <motion.div 
+            ref={horizontalRef}
+            style={{ x }}
+            className="flex h-full items-center gap-4 px-4 sm:gap-6 sm:px-6 lg:gap-8 lg:px-8"
+          >
+            {features.map((feature, index) => {
+              const Icon = feature.icon
+              
+              return (
+                <motion.div
+                  key={index}
+                  className="group relative h-[400px] min-w-[85vw] sm:h-[450px] sm:min-w-[400px] md:h-[500px] md:min-w-[450px] lg:h-[550px] lg:min-w-[500px]"
+                  onClick={() => setSelectedFeature(feature)}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <div className="relative h-full rounded-2xl overflow-hidden cursor-pointer border border-border/50 shadow-lg">
+                    <motion.div
+                      className="absolute inset-0"
+                    >
+                      <Image 
+                        src={feature.image} 
+                        alt={feature.title} 
+                        fill 
+                        className="object-cover"
+                        sizes="(max-width: 768px) 85vw, 500px"
+                      />
+                    </motion.div>
+
+                    <div className={`absolute inset-0 bg-gradient-to-t ${feature.color} opacity-80 mix-blend-overlay`} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 text-white sm:p-7 md:p-8">
+                      <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="mb-3"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                          <Icon className="w-6 h-6" />
+                        </div>
+                      </motion.div>
+
+                      <h3 className="mb-1.5 text-xl font-bold leading-snug tracking-tight sm:text-2xl">{feature.title}</h3>
+                      <p className="mb-4 max-w-[32ch] text-xs text-white/85 line-clamp-2 sm:text-sm">{feature.description}</p>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileHover={{ opacity: 1, x: 0 }}
+                        className="flex items-center text-xs font-medium text-white sm:text-sm"
+                      >
+                        Explore Feature
+                        <ArrowRight className="ml-2 w-3.5 h-3.5 group-hover:translate-x-1 transition" />
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Normal vertical section after horizontal scroll */}
+      <section className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28">
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+              Ready to Get Started?
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl text-sm text-muted-foreground sm:text-base md:text-lg">
+              Join thousands of landlords who trust our platform for their property management needs.
+            </p>
+            <button className="px-6 py-3 rounded-xl bg-primary text-foreground font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/30 text-sm sm:text-base sm:px-8 sm:py-4">
+              Start Your Journey
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Modal remains the same */}
       <AnimatePresence>
         {selectedFeature && (
           <motion.div
@@ -287,41 +290,47 @@ export default function RentalFeaturesSection() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-4xl w-full bg-card rounded-3xl overflow-hidden border border-border shadow-2xl"
+              className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-card shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedFeature(null)}
-                className="absolute top-4 right-4 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-accent transition-colors"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground hover:bg-accent transition-colors"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
 
-              <div className="relative h-64 md:h-96">
-                <Image src={selectedFeature.image} alt={selectedFeature.title} fill className="object-cover" />
-                <div className={`absolute inset-0 bg-linear-to-t ${selectedFeature.color} opacity-60 mix-blend-overlay`} />
+              <div className="relative h-56 md:h-96">
+                <Image 
+                  src={selectedFeature.image} 
+                  alt={selectedFeature.title} 
+                  fill 
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${selectedFeature.color} opacity-60 mix-blend-overlay`} />
               </div>
 
-              <div className="relative p-6 md:p-10">
+              <div className="relative p-5 md:p-10">
                 <div
-                  className={`absolute -top-12 left-6 md:left-10 w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-linear-to-br ${selectedFeature.color} flex items-center justify-center shadow-xl border-2 border-border`}
+                  className={`absolute -top-10 left-5 md:left-10 h-14 w-14 rounded-2xl border-2 border-border bg-gradient-to-br ${selectedFeature.color} flex items-center justify-center shadow-xl md:-top-12 md:h-20 md:w-20`}
                 >
-                  {selectedFeature.icon && <selectedFeature.icon className="w-8 h-8 md:w-10 md:h-10 text-white" />}
+                  {selectedFeature.icon && <selectedFeature.icon className="w-6 h-6 md:w-10 md:h-10 text-white" />}
                 </div>
 
-                <h3 className="text-2xl md:text-4xl font-bold text-foreground mb-4 mt-8 md:mt-4">
+                <h3 className="mb-3 mt-8 text-xl font-bold text-foreground md:mt-4 md:text-4xl">
                   {selectedFeature.title}
                 </h3>
 
-                <p className="text-muted-foreground text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
+                <p className="text-muted-foreground text-sm md:text-lg mb-5 md:mb-8 leading-relaxed">
                   {selectedFeature.details}
                 </p>
 
                 {selectedFeature.points && (
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-5 md:mb-8">
                     {selectedFeature.points.map((point, idx) => (
-                      <li key={idx} className="flex items-center gap-3 text-sm md:text-base text-foreground/80">
-                        <div className={`w-2 h-2 rounded-full bg-linear-to-r ${selectedFeature.color}`} />
+                      <li key={idx} className="flex items-center gap-2 text-xs md:text-base text-foreground/80">
+                        <div className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${selectedFeature.color}`} />
                         {point}
                       </li>
                     ))}
@@ -330,7 +339,7 @@ export default function RentalFeaturesSection() {
 
                 <button
                   onClick={() => setSelectedFeature(null)}
-                  className="w-full md:w-auto px-6 md:px-8 py-3 md:py-4 rounded-xl bg-primary text-foreground font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/30"
+                  className="w-full md:w-auto px-5 md:px-8 py-2.5 md:py-4 rounded-xl bg-primary text-foreground font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/30 text-sm md:text-base"
                 >
                   Get Started
                 </button>
@@ -366,6 +375,6 @@ export default function RentalFeaturesSection() {
           animation-delay: 4s;
         }
       `}</style>
-    </section>
+    </>
   )
 }
