@@ -151,7 +151,7 @@ export default function Navbar() {
             >
               <Button
                 asChild
-                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base"
+                className="bg-primary hover:bg-primary/90 text-foreground rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base"
               >
                 <a
                   href="https://wa.me/94XXXXXXXXX"
