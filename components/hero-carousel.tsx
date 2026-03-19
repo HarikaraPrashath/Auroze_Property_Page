@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Shield, Home, Gavel, Key, Sparkles, Wallet, Wrench, Users, FileCheck } from "lucide-react";
 
 const slides = [
   {
@@ -34,6 +35,20 @@ const slides = [
     bgImage: "/hero-4.jpg",
   },
 ];
+
+const serviceTicker = [
+  { name: "Rent Collection", icon: Wallet },
+  { name: "Tenant Management", icon: Users },
+  { name: "Property Maintenance", icon: Wrench },
+  { name: "Legal Compliance", icon: Gavel },
+  { name: "Security Monitoring", icon: Shield },
+  { name: "Housekeeping", icon: Sparkles },
+  { name: "Documentation", icon: FileCheck },
+  { name: "Pickup & Dropoff", icon: Key },
+  { name: "Facility Care", icon: Home },
+];
+
+const marqueeItems = [...serviceTicker, ...serviceTicker];
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
@@ -122,8 +137,31 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
+      {/* FULL-WIDTH AUTO LOOP SERVICE TICKER */}
+      <div className="absolute inset-x-0 bottom-18 z-20 w-full px-4 sm:bottom-20 sm:px-6 lg:bottom-24 lg:px-8">
+        <div className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl  ">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-black/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-black/60 to-transparent" />
+
+          <div className="hero-service-marquee flex min-w-max items-center gap-3 px-3 sm:gap-4">
+            {marqueeItems.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={`${item.name}-${index}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-xs font-medium text-white sm:text-sm"
+                >
+                  <Icon className="h-3.5 w-3.5 text-white sm:h-4 sm:w-4" />
+                  <span>{item.name}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       {/* DOT NAVIGATION */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+      <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -138,7 +176,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* SCROLL INDICATOR */}
-      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 text-white/70 animate-bounce">
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/70 animate-bounce">
         <svg width="24" height="24" fill="none" stroke="currentColor">
           <path
             strokeWidth="2"
@@ -148,6 +186,22 @@ export default function HeroCarousel() {
           />
         </svg>
       </div>
+
+      <style jsx>{`
+        .hero-service-marquee {
+          animation: heroTicker 22s linear infinite;
+          width: max-content;
+        }
+
+        @keyframes heroTicker {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
 
     </div>
   );

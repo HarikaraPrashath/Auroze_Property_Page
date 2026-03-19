@@ -1,0 +1,22 @@
+# SoilRoots chatbot knowledge base
+# Format: keywords | answer
+
+contact,how to contact,reach,contact us | You can contact us via phone, WhatsApp, or email. Visit the Contact page for all options: /contact
+whatsapp,wa,chat,whatsapp number | WhatsApp support: +94 XXXXXXXXX (quick response). You can also open: https://wa.me/94XXXXXXXXX
+phone,call,number | Phone support: +94 XXXXXXXXX (business hours).
+email,mail | Email support: info@promanage.lk (response within 24 hours).
+location,address,office | Office location: Colombo 3, Sri Lanka.
+business hours,working hours,open time,office hours | Business hours: Monday to Saturday, 8:30 AM to 6:00 PM. WhatsApp support is available for quick assistance.
+pricing,price,cost,plan | Pricing depends on property type and service scope. Ask for a custom quote through /contact.
+rental,rent collection,payment | We provide rent collection, payment tracking, and automated reminders for tenants.
+payment methods,payments,how to pay | Supported payment options include bank transfer and secure online methods depending on service package.
+maintenance,repair,service request | We handle routine and emergency maintenance with coordinated vendor support.
+emergency,urgent repair,breakdown | For urgent maintenance, message us on WhatsApp for immediate coordination and rapid dispatch.
+tenant,screening,background | Tenant services include screening, verification, and lifecycle management.
+legal,agreement,compliance | Legal support includes lease documentation and compliance assistance.
+housekeeping,cleaning | Housekeeping services include regular and deep cleaning schedules.
+pickup,dropoff,key,access | Pickup & Dropoff covers key handling and property access coordination.
+services,what do you do,offerings | Core services: rental management, tenant management, maintenance, legal, housekeeping, and key coordination.
+faq,questions,help,common questions | FAQs: 1) Contact: WhatsApp +94 XXXXXXXXX 2) Location: Colombo 3 3) Pricing: custom quote via /contact 4) Services: rentals, maintenance, legal, housekeeping, tenant support.
+response time,how fast,reply time | Typical response times: WhatsApp immediate, phone within 30 minutes during business hours, email within 24 hours.
+areas,coverage,service area | Primary coverage includes Colombo and nearby urban regions in Sri Lanka. Contact us to confirm your exact location.
