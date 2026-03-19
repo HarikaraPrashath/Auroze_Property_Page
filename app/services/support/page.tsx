@@ -211,7 +211,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8"
             >
-              <Sparkles className="w-4 h-4 text-primary" />
+            
               <span className="text-primary font-medium text-sm tracking-wide">Premium Property Management</span>
             </motion.div>
 
