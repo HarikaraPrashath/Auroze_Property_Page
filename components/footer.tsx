@@ -72,7 +72,7 @@ export default function Footer() {
 
   const contactInfo = [
     { icon: Phone, text: '+94 77 123 4567', href: 'tel:+94771234567' },
-    { icon: Mail, text: 'info@promanage.lk', href: 'mailto:info@promanage.lk' },
+    { icon: Mail, text: 'info@soulroots.lk', href: 'mailto:info@soulroots.lk' },
     { icon: MapPin, text: 'Colombo 03, Sri Lanka', href: '#' },
   ];
 
@@ -149,7 +149,7 @@ export default function Footer() {
               >
                 PM
               </motion.div>
-              <span className="font-bold text-2xl text-foreground">ProManage</span>
+              <span className="font-bold text-2xl text-foreground">SoulRoots</span>
             </div>
             
             <p className="text-muted-foreground text-base leading-relaxed mb-6 max-w-md">
@@ -364,7 +364,7 @@ export default function Footer() {
           className="flex flex-col md:flex-row justify-between items-center gap-4"
         >
           <p className="text-muted-foreground text-sm">
-            © {currentYear} ProManage. All rights reserved.
+            © {currentYear} SoulRoots. All rights reserved.
           </p>
           
           <div className="flex gap-6 text-sm">

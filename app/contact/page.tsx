@@ -22,11 +22,11 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@promanage.lk',
+      value: 'info@SoulRoots.lk',
       description: 'Response within 24 hours',
       bg: 'bg-secondary/5',
       border: 'border-secondary/20',
-      link: 'mailto:info@promanage.lk',
+      link: 'mailto:info@SoulRoots.lk',
       colorClass: 'text-secondary',
       gradient: 'from-secondary/20 to-transparent',
     },

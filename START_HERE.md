@@ -195,7 +195,7 @@ Update these files:
 
 ### Your Contact Info (Update These!)
 - Phone: +94 XXXXXXXXX
-- Email: info@promanage.lk
+- Email: info@SoulRoots.lk
 - WhatsApp: +94 XXXXXXXXX
 - Address: Colombo 3, Sri Lanka
 

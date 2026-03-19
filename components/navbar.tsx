@@ -102,7 +102,7 @@ export default function Navbar() {
                               >
                                 <Link
                                   href={item.href}
-                                  className="flex items-start gap-3 p-3 rounded-xl hover:bg-accent transition-colors group"
+                                  className="flex items-start gap-3 p-3 rounded-xl hover:bg-primary/30 transition-colors group"
                                   onClick={() => {
                                     setServicesOpen(false);
                                     setIsOpen(false);
@@ -151,7 +151,7 @@ export default function Navbar() {
             >
               <Button
                 asChild
-                className="bg-primary hover:bg-primary/90 text-foreground rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base"
+                className="bg-primary hover:bg-primary/90 text-white rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base"
               >
                 <a
                   href="https://wa.me/94XXXXXXXXX"
@@ -270,7 +270,7 @@ export default function Navbar() {
               <div className="pt-4 space-y-3">
                 <Button
                   asChild
-                  className="w-full bg-primary hover:bg-primary/90 text-foreground rounded-full"
+                  className="w-full bg-primary hover:bg-primary/90 text-white rounded-full"
                 >
                   <a
                     href="https://wa.me/94XXXXXXXXX"

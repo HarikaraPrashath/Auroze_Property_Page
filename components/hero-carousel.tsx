@@ -34,6 +34,22 @@ const slides = [
       "Full legal support and advanced security solutions",
     bgImage: "/hero-4.jpg",
   },
+
+  
+  {
+    id: 5,
+    title: "Smart Rent Collection & Payments",
+    description:
+      "Automated rent collection with secure online payment options and real-time tracking",
+    bgImage: "/collection.jpg", // or /payment.jpg
+  },
+  {
+    id: 6,
+    title: "Tenant Screening & Legal Support",
+    description:
+      "Verified tenants, secure deposits, and fully compliant legal documentation",
+    bgImage: "/tenant.jpg", // or /legal.jpg
+  },
 ];
 
 const serviceTicker = [

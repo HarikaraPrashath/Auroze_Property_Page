@@ -84,7 +84,7 @@ export default function TrustSection() {
         >
 
           <h2 className="text-5xl md:text-7xl  font-bold text-foreground mb-4">
-            Why Trust ProManage?
+            Why Trust SoulRoots?
           </h2>
 
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

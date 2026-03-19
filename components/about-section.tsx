@@ -63,7 +63,7 @@ export default function AboutSection() {
 
               <Image
                 src="/trust.jpg"
-                alt="Trust ProManage"
+                alt="Trust SoulRoots"
                 width={1000}
                 height={1000}
                 className="object-contain rounded-xl"
@@ -105,7 +105,7 @@ export default function AboutSection() {
               variants={textItem}
               className="text-muted-foreground text-base leading-relaxed mb-8"
             >
-              ProManage is Sri Lanka's leading property management company,
+              SoulRoots is Sri Lanka's leading property management company,
               dedicated to providing comprehensive and professional property
               solutions. We understand that managing properties requires
               expertise, reliability, and attention to detail.

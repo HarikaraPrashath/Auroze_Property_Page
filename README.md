@@ -1,4 +1,4 @@
-# ProManage - Professional Property Management Website
+# SoulRoots - Professional Property Management Website
 
 A modern, professional property management and rental services website built with Next.js, TypeScript, and Tailwind CSS. Designed for Sri Lanka's property management market with a green and dark yellow color theme.
 
@@ -47,7 +47,7 @@ A modern, professional property management and rental services website built wit
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd promanage
+cd SoulRoots
 ```
 
 2. Install dependencies:
@@ -207,13 +207,13 @@ Replace hero and property images in the `public/` folder:
 ## Support & Contact
 
 For questions or issues:
-- Email: info@promanage.lk
+- Email: info@SoulRoots.lk
 - Phone: +94 XXXXXXXXX
 - WhatsApp: +94 XXXXXXXXX
 
 ## License
 
-All rights reserved © 2024 ProManage
+All rights reserved © 2024 SoulRoots
 
 ---
 

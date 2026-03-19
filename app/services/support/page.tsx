@@ -6,10 +6,10 @@ import ServiceCard from '@/components/service-card'
 import PricingSection from '@/components/pricing-section'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { 
-  Sparkles, ArrowRight, CheckCircle, Zap, Shield, 
-  Home, Key, Wrench, FileText, Star, Award, 
-  Clock, Users, TrendingUp, Briefcase 
+import {
+  Sparkles, ArrowRight, CheckCircle, Zap, Shield,
+  Home, Key, Wrench, FileText, Star, Award,
+  Clock, Users, TrendingUp, Briefcase
 } from 'lucide-react'
 
 interface Service {
@@ -107,8 +107,8 @@ const stats = [
 // Animation Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.8
@@ -118,8 +118,8 @@ const fadeInUp = {
 
 const fadeInScale = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: {
       duration: 0.6
@@ -140,8 +140,8 @@ const staggerContainer = {
 
 const cardReveal = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       type: "spring" as const,
@@ -153,8 +153,8 @@ const cardReveal = {
 
 const slideInLeft = {
   hidden: { opacity: 0, x: -50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: {
       type: "spring" as const,
@@ -166,8 +166,8 @@ const slideInLeft = {
 
 const slideInRight = {
   hidden: { opacity: 0, x: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: {
       type: 'spring',
@@ -193,7 +193,7 @@ export default function ServicesPage() {
 
       {/* Hero Section with Parallax */}
       <section ref={heroRef} className="relative pt-36 pb-32 px-6 overflow-hidden">
-        <motion.div 
+        <motion.div
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative z-10"
         >
@@ -211,7 +211,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8"
             >
-            
+
               <span className="text-primary font-medium text-sm tracking-wide">Premium Property Management</span>
             </motion.div>
 
@@ -225,7 +225,7 @@ export default function ServicesPage() {
               >
                 Our Complete
               </motion.h1>
-              
+
               <motion.h1
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -263,7 +263,7 @@ export default function ServicesPage() {
                 Get Started
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
-              
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -327,75 +327,108 @@ export default function ServicesPage() {
             <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Support & Extra Services
             </motion.h2>
-            
+
             <motion.p variants={fadeInUp} className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Specialized services to complement your property management needs
             </motion.p>
           </motion.div>
 
           {/* Asymmetrical card grid */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr"
-          >
-            {additionalServices.map((service, index) => {
-              const Icon = service.icon
-              return (
-                <motion.div
-                  key={service.id}
-                  variants={cardReveal}
-                  whileHover={{ y: -10 }}
-                  className={`group relative ${
-                    index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''
-                  }`}
-                >
-                  <div className="relative h-full bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl transition-all duration-500">
-                    {/* Image container with overlay */}
-                    <div className="relative h-64 overflow-hidden">
+
+        </div>
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-fr"
+        >
+          {additionalServices.map((service, index) => {
+            const Icon = service.icon;
+            const isHousekeeping = index === 0;
+            return (
+              <motion.div
+                key={service.id}
+                variants={cardReveal}
+                whileHover={{ y: -8 }}
+                className={`group relative ${isHousekeeping ? 'lg:col-span-2 lg:row-span-2' : ''}`}
+              >
+                <div className="relative h-full bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-500">
+                  {/* Housekeeping: image fills entire card, content overlays absolutely */}
+                  {isHousekeeping ? (
+                    <>
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
                       />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
-                      
+                      {/* Strong gradient overlay for readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10" />
                       {/* Icon overlay */}
-                      <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                        {Icon && <Icon className="w-6 h-6 text-white" />}
+                      <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
+                        {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
                       </div>
-                    </div>
+                      {/* Content overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+                        <h3 className="font-bold text-white mb-2 drop-shadow-md text-3xl">{service.title}</h3>
+                        <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-base">{service.description}</p>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileHover={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="space-y-3"
+                        >
+                          {service.details.map((detail, i) => (
+                            <div key={i} className="flex items-center gap-2 text-white">
+                              <CheckCircle className="w-5 h-5 text-primary dark:text-primary-400 flex-shrink-0" />
+                              <span className="drop-shadow-sm text-base">{detail}</span>
+                            </div>
+                          ))}
 
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
-                      <p className="text-white/80 text-sm mb-4">{service.description}</p>
-                      
-                      {/* Features list */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        className="space-y-2"
-                      >
-                        {service.details.slice(0, 2).map((detail, i) => (
-                          <div key={i} className="flex items-center gap-2 text-sm">
-                            <CheckCircle className="w-4 h-4 text-primary" />
-                            <span>{detail}</span>
-                          </div>
-                        ))}
-                      </motion.div>
-                    </div>
-
-                    {/* Premium hover indicator */}
-                    <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  </div>
-                </motion.div>
-              )
-            })}
-          </motion.div>
-        </div>
+                        </motion.div>
+                      </div>
+                      {/* Premium hover indicator */}
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30" />
+                    </>
+                  ) : (
+                    <>
+                      {/* Standard card layout for other services */}
+                      <div className="relative h-64 overflow-hidden">
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                        <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
+                          {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
+                        </div>
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
+                        <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-sm">{service.description}</p>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileHover={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="space-y-3"
+                        >
+                          {service.details.slice(0, 2).map((detail, i) => (
+                            <div key={i} className="flex items-center gap-2 text-white">
+                              <CheckCircle className="w-4 h-4 text-primary dark:text-primary-400 flex-shrink-0" />
+                              <span className="drop-shadow-sm text-sm">{detail}</span>
+                            </div>
+                          ))}
+                        </motion.div>
+                      </div>
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                    </>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </section>
 
       {/* Section 2: Extra Value Services - Minimal Design */}
@@ -422,7 +455,7 @@ export default function ServicesPage() {
             >
               Additional Value Services
             </motion.h2>
-            
+
             <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg max-w-2xl mx-auto"

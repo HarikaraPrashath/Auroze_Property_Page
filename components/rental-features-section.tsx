@@ -357,7 +357,7 @@ export default function RentalFeaturesSection() {
             <p className="mx-auto mb-8 max-w-2xl text-sm text-muted-foreground sm:text-base md:text-lg">
               Join thousands of landlords who trust our platform for their property management needs.
             </p>
-            <button className="px-6 py-3 rounded-xl bg-primary text-foreground font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/30 text-sm sm:text-base sm:px-8 sm:py-4">
+            <button className="px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/30 text-sm sm:text-base sm:px-8 sm:py-4">
               Start Your Journey
             </button>
           </motion.div>

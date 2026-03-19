@@ -23,6 +23,7 @@ interface Service {
 }
 
 interface ExtraService {
+  id?: string
   title: string
   image: string
   description: string
@@ -73,42 +74,49 @@ const managementServices: Service[] = [
 
 const extraServices: ExtraService[] = [
   {
+    id: 'housekeeping',
     title: 'Housekeeping',
     image: '/housekeeping.jpg',
     description: 'Professional cleaning and housekeeping for your property.',
     icon: Home,
   },
   {
+    id: 'legal-compliance',
     title: 'Legal Compliance',
     image: '/legal_1.jpg',
     description: 'Ensuring all legal and regulatory requirements are met.',
     icon: Shield,
   },
   {
+    id: 'property-inspections',
     title: 'Property Inspections',
     image: '/apartment.jpg',
     description: 'Routine and special inspections for property upkeep.',
     icon: Award,
   },
   {
+    id: 'utility-bill-payments',
     title: 'Utility Bill Payments',
     image: '/Bill.jpg',
     description: 'Managing and paying all utility bills on your behalf.',
     icon: FileText,
   },
   {
+    id: 'furnishing-setup',
     title: 'Furnishing & Setup',
     image: '/setup.jpg',
     description: 'Coordinating furnishing and setup for new properties.',
     icon: Home,
   },
   {
+    id: 'renovation-management',
     title: 'Renovation Management',
     image: '/repaire.jpg',
     description: 'Overseeing renovations and upgrades for your property.',
     icon: Wrench,
   },
   {
+    id: 'key-holding',
     title: 'Key Holding',
     image: '/hold.jpg',
     description: 'Secure key holding and handover services.',
@@ -212,8 +220,8 @@ export default function ServicesPage() {
     <main className="min-h-screen bg-background font-sans overflow-x-hidden">
       <Navbar />
 
-      {/* Hero Section with Parallax */}
-      <section ref={heroRef} className="relative pt-36 pb-32 px-6 overflow-hidden">
+      {/* Hero Section with Parallax - compacted */}
+      <section ref={heroRef} className="relative pt-24 pb-16 px-2 md:px-6 overflow-hidden">
         <motion.div 
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative z-10"
@@ -221,36 +229,36 @@ export default function ServicesPage() {
           {/* Premium background pattern */}
           <div className="absolute inset-0">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[80px_80px]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[60px_60px]" />
           </div>
 
-          <div className="max-w-7xl mx-auto text-center relative z-20">
+          <div className="max-w-6xl mx-auto text-center relative z-20">
             {/* Animated Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8"
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
             >
-              <span className="text-primary font-medium text-sm tracking-wide">Premium Property Management</span>
+              <span className="text-primary font-medium text-xs tracking-wide">Premium Property Management</span>
             </motion.div>
 
             {/* Main heading with staggered reveal */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <motion.h1
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-extrabold text-foreground leading-[1.1]"
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight"
               >
                 Our Complete
               </motion.h1>
               
               <motion.h1
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-5xl md:text-7xl font-extrabold"
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-3xl md:text-5xl font-extrabold"
               >
                 <span className="bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary">
                   Service Suite
@@ -262,23 +270,23 @@ export default function ServicesPage() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mt-6"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mt-2"
             >
               Everything you need for professional property management
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="flex flex-wrap justify-center gap-4 mt-10"
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-wrap justify-center gap-2 mt-6"
             >
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center gap-2 shadow-lg shadow-primary/25"
+                className="px-6 py-3 bg-primary text-white rounded-full font-medium flex items-center gap-2 shadow-md shadow-primary/20"
               >
                 Get Started
                 <ArrowRight className="w-4 h-4" />
@@ -287,7 +295,7 @@ export default function ServicesPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-background border border-border rounded-full font-medium hover:border-primary/50 transition-colors"
+                className="px-6 py-3 bg-background border border-border rounded-full font-medium hover:border-primary/50 transition-colors"
               >
                 Learn More
               </motion.button>
@@ -295,19 +303,19 @@ export default function ServicesPage() {
 
             {/* Stats Bar */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16 p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border"
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-8 p-4 rounded-xl bg-card/40 backdrop-blur border border-border"
             >
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -3 }}
                   className="text-center"
                 >
-                  <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                  <stat.icon className="w-5 h-5 text-primary mx-auto mb-1" />
+                  <p className="text-lg font-bold text-foreground">{stat.value}</p>
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
                 </motion.div>
               ))}
@@ -317,208 +325,255 @@ export default function ServicesPage() {
           {/* Decorative elements */}
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-            className="absolute top-20 left-20 w-64 h-64 border border-primary/10 rounded-full -z-10"
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="absolute top-10 left-10 w-40 h-40 border border-primary/10 rounded-full -z-10"
           />
           <motion.div
             animate={{ rotate: -360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-20 right-20 w-48 h-48 border border-secondary/10 rounded-full -z-10"
+            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-10 right-10 w-32 h-32 border border-secondary/10 rounded-full -z-10"
           />
         </motion.div>
       </section>
 
-      {/* Section 1: Core Management Services - Asymmetrical Layout */}
-      <section className="py-28 px-6 bg-linear-to-b from-background to-muted/20">
-        <div className="max-w-7xl mx-auto">
+      {/* Section 1: Core Management Services - compact grid */}
+      <section className="py-16 px-2 md:px-6 bg-linear-to-b from-background to-muted/10">
+        <div className="max-w-6xl mx-auto">
           {/* Section header */}
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
-            className="text-center mb-20"
+            className="text-center mb-10"
           >
-            <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-3">
               <Zap className="w-4 h-4 text-primary" />
-              <span className="text-primary font-medium text-sm">Core Services</span>
+              <span className="text-primary font-medium text-xs">Core Services</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold text-foreground mb-2">
               Core Management Services
             </motion.h2>
             
-            <motion.p variants={fadeInUp} className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
               Streamline rent, tenants, and maintenance with our professional solutions.
             </motion.p>
 
             <motion.div
               variants={fadeInUp}
-              className="flex justify-center gap-2 mt-6"
+              className="flex justify-center gap-1 mt-3"
             >
               {[1, 2, 3].map((i) => (
                 <motion.div
                   key={i}
-                  animate={{ scale: [1, 1.5, 1] }}
-                  transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
-                  className="w-1.5 h-1.5 rounded-full bg-primary/40"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+                  className="w-1 h-1 rounded-full bg-primary/40"
                 />
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Asymmetrical card grid */}
+          {/* Compact card grid */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr"
+            viewport={{ once: true, margin: "-30px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr"
           >
             {managementServices.map((service, index) => {
-              const Icon = service.icon
+              const Icon = service.icon;
+              const isFirst = index === 0;
               return (
                 <motion.div
                   key={service.id}
                   variants={cardReveal}
-                  whileHover={{ y: -10 }}
-                  className={`group relative ${
-                    index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''
-                  }`}
+                  whileHover={{ y: -8 }}
+                  className={`group relative ${isFirst ? 'lg:col-span-2 lg:row-span-2' : ''}`}
                 >
-                  <div className="relative h-full bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl transition-all duration-500">
-                    {/* Image container with overlay */}
-                    <div className="relative h-64 overflow-hidden">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
-                      
-                      {/* Icon overlay */}
-                      <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                        {Icon && <Icon className="w-6 h-6 text-white" />}
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
-                      <p className="text-white/80 text-sm mb-4">{service.description}</p>
-                      
-                      {/* Features list */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        className="space-y-2"
-                      >
-                        {service.details.slice(0, 2).map((detail, i) => (
-                          <div key={i} className="flex items-center gap-2 text-sm">
-                            <CheckCircle className="w-4 h-4 text-primary" />
-                            <span>{detail}</span>
+                  <div className="relative h-full bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-500">
+                    {isFirst ? (
+                      <>
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10" />
+                        <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
+                          {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+                          <h3 className="font-bold text-white mb-2 drop-shadow-md text-3xl">{service.title}</h3>
+                          <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-base">{service.description}</p>
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileHover={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="space-y-3"
+                          >
+                            {service.details.map((detail, i) => (
+                              <div key={i} className="flex items-center gap-2 text-white">
+                                <CheckCircle className="w-5 h-5 text-primary dark:text-primary-400 flex-shrink-0" />
+                                <span className="drop-shadow-sm text-base">{detail}</span>
+                              </div>
+                            ))}
+                          </motion.div>
+                        </div>
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30" />
+                      </>
+                    ) : (
+                      <>
+                        <div className="relative h-64 overflow-hidden">
+                          <img
+                            src={service.image}
+                            alt={service.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                          <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
+                            {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
                           </div>
-                        ))}
-                      </motion.div>
-                    </div>
-
-                    {/* Premium hover indicator */}
-                    <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                          <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
+                          <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-sm">{service.description}</p>
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileHover={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="space-y-3"
+                          >
+                            {service.details.slice(0, 2).map((detail, i) => (
+                              <div key={i} className="flex items-center gap-2 text-white">
+                                <CheckCircle className="w-4 h-4 text-primary dark:text-primary-400 flex-shrink-0" />
+                                <span className="drop-shadow-sm text-sm">{detail}</span>
+                              </div>
+                            ))}
+                          </motion.div>
+                        </div>
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      </>
+                    )}
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </motion.div>
         </div>
       </section>
 
-      {/* Section 2: Additional Value Services - Grid Layout */}
-      <section className="py-28 px-6 bg-background">
-        <div className="max-w-7xl mx-auto">
+      {/* Section 2: Additional Value Services - compact grid */}
+      <section className="py-16 px-2 md:px-6 bg-background">
+        <div className="max-w-6xl mx-auto">
           {/* Section header */}
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
-            className="text-center mb-20"
+            className="text-center mb-10"
           >
-            <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
+            <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 mb-3">
               <Award className="w-4 h-4 text-secondary" />
-              <span className="text-secondary font-medium text-sm">Value Added</span>
+              <span className="text-secondary font-medium text-xs">Value Added</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold text-foreground mb-2">
               Additional Value Services
             </motion.h2>
             
-            <motion.p variants={fadeInUp} className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
               Extra services designed to maximize efficiency and convenience
             </motion.p>
 
             <motion.div
               variants={fadeInUp}
-              className="flex justify-center gap-2 mt-6"
+              className="flex justify-center gap-1 mt-3"
             >
               {[1, 2, 3].map((i) => (
                 <motion.div
                   key={i}
-                  animate={{ scale: [1, 1.5, 1] }}
-                  transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
-                  className="w-1.5 h-1.5 rounded-full bg-secondary/40"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+                  className="w-1 h-1 rounded-full bg-secondary/40"
                 />
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Clean card grid */}
+          {/* Compact card grid */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            viewport={{ once: true, margin: "-30px" }}
+            className="grid grid-cols-1 md:grid-cols-4 gap-4"
           >
             {extraServices.map((service, index) => {
-              const Icon = service.icon
+              const Icon = service.icon;
+              const isHousekeeping = service.id === 'housekeeping';
               return (
                 <motion.div
-                  key={index}
+                  key={service.id || index}
                   variants={slideInLeft}
-                  whileHover={{ y: -8 }}
+                  whileHover={{ y: -4, scale: 1.02 }}
                   className="group relative"
                 >
-                  <div className="relative bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 transition-all duration-300">
-                    {/* Image */}
-                    <div className="relative h-40 overflow-hidden">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-5">
-                      <div className="flex items-center gap-2 mb-3">
-                        {Icon && <Icon className="w-4 h-4 text-primary" />}
-                        <h3 className="text-base font-semibold text-foreground">{service.title}</h3>
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Hover indicator */}
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary origin-left"
-                    />
+                  <div className="relative bg-card rounded-lg overflow-hidden border border-border hover:border-primary/30 transition-all duration-300">
+                    {isHousekeeping ? (
+                      <>
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-400 z-0"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10" />
+                        <div className="absolute top-4 left-4 w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm border border-white/20 flex items-center justify-center z-20">
+                          {Icon && <Icon className="w-5 h-5 text-white" />}
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+                          <h3 className="text-lg font-bold text-white mb-1 drop-shadow-md">{service.title}</h3>
+                          <p className="text-white/80 text-xs mb-2 drop-shadow">{service.description}</p>
+                        </div>
+                        <motion.div
+                          initial={{ scaleX: 0 }}
+                          whileHover={{ scaleX: 1 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary origin-left z-30"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div className="relative h-32 overflow-hidden">
+                          <img
+                            src={service.image}
+                            alt={service.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
+                          />
+                        </div>
+                        <div className="p-3">
+                          <div className="flex items-center gap-2 mb-2">
+                            {Icon && <Icon className="w-4 h-4 text-primary" />}
+                            <h3 className="text-sm font-semibold text-foreground">{service.title}</h3>
+                          </div>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            {service.description}
+                          </p>
+                        </div>
+                        <motion.div
+                          initial={{ scaleX: 0 }}
+                          whileHover={{ scaleX: 1 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary origin-left"
+                        />
+                      </>
+                    )}
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </motion.div>
 
@@ -527,11 +582,11 @@ export default function ServicesPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
-            className="text-center mt-12"
+            transition={{ delay: 0.5 }}
+            className="text-center mt-6"
           >
             <motion.button
-              whileHover={{ x: 5 }}
+              whileHover={{ x: 3 }}
               className="inline-flex items-center gap-2 text-primary font-medium group"
             >
               <span>Explore All Services</span>
@@ -548,7 +603,7 @@ export default function ServicesPage() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="max-w-7xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <PricingSection />
         </motion.div>

@@ -10,7 +10,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'SoilRoots | Premium Property Management Sri Lanka',
+    default: 'SoulRoots | Premium Property Management Sri Lanka',
     template: '%s | SoilRoots',
   },
   description: 'Premium property management, rental operations, tenant coordination, and maintenance services in Sri Lanka.',

@@ -140,7 +140,7 @@ export default function CTASection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Join hundreds of satisfied property owners who trust ProManage for professional, 
+            Join hundreds of satisfied property owners who trust SoulRoots for professional, 
             reliable, and comprehensive property management services.
           </motion.p>
 

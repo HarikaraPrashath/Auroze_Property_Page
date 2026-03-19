@@ -8,7 +8,7 @@ const testimonials = [
   {
     name: "Rajesh Kumar",
     role: "Property Owner, Colombo",
-    content: "ProManage has been handling my apartment for over 2 years. They are professional, reliable, and always responsive to any issues. The peace of mind I get knowing my property is in good hands is invaluable.",
+    content: "SoulRoots has been handling my apartment for over 2 years. They are professional, reliable, and always responsive to any issues. The peace of mind I get knowing my property is in good hands is invaluable.",
     rating: 5,
     featured: true,
     date: "2 months ago",
@@ -31,7 +31,7 @@ const testimonials = [
   {
     name: "Anita Patel",
     role: "Multiple Properties Owner",
-    content: "Professional team, transparent reporting, and great customer service. I recommend ProManage to all my friends looking for reliable property management.",
+    content: "Professional team, transparent reporting, and great customer service. I recommend SoulRoots to all my friends looking for reliable property management.",
     rating: 5,
     date: "1 month ago",
   },
@@ -45,7 +45,7 @@ const testimonials = [
   {
     name: "Priya Nimal",
     role: "First-time Landlord",
-    content: "As a new landlord, ProManage made everything easy. They guided me through the process and took care of all the details. Couldn't be happier!",
+    content: "As a new landlord, SoulRoots made everything easy. They guided me through the process and took care of all the details. Couldn't be happier!",
     rating: 5,
     date: "5 days ago",
   },

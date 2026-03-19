@@ -357,7 +357,7 @@ export default function PricingSection() {
                   <motion.div
                     className="absolute inset-0 pointer-events-none rounded-2xl"
                     animate={{
-                      background: `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(124,58,237,0.1), transparent 80%)`,
+                      
                     }}
                     transition={{ duration: 0.1 }}
                   />

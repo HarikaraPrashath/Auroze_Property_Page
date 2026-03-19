@@ -44,7 +44,7 @@ type KnowledgeEntry = {
 const fallbackKnowledge: KnowledgeEntry[] = [
   {
     keywords: ['contact', 'how to contact', 'reach', 'whatsapp', 'phone'],
-    answer: 'You can contact us through WhatsApp +94 XXXXXXXXX, Phone +94 XXXXXXXXX, or Email info@promanage.lk. See /contact for full details.',
+    answer: 'You can contact us through WhatsApp +94 XXXXXXXXX, Phone +94 XXXXXXXXX, or Email info@SoulRoots.lk. See /contact for full details.',
   },
   {
     keywords: ['pricing', 'price', 'cost'],
