@@ -8,25 +8,16 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ProManage - Property Management & Rental Services Sri Lanka',
-  description: 'Professional property management, rental services, tenant management, maintenance, and housekeeping services in Sri Lanka. Comprehensive property care solutions.',
+  title: {
+    default: 'SoilRoots | Premium Property Management Sri Lanka',
+    template: '%s | SoilRoots',
+  },
+  description: 'Premium property management, rental operations, tenant coordination, and maintenance services in Sri Lanka.',
   keywords: 'property management, rental services, tenant management, property maintenance, housekeeping, Sri Lanka',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
+    icon: '/logo.png',
+    shortcut: '/logo.png',
     apple: '/apple-icon.png',
   },
 }
