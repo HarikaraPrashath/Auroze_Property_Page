@@ -5,34 +5,14 @@ import { motion } from 'framer-motion';
 import { 
   Mail, Phone, MapPin, Facebook, Linkedin, 
   ArrowRight, Heart, Sparkles, Zap, Shield, 
-  TrendingUp, Home, Users, FileText, ChevronUp 
+  TrendingUp, Home, Users, FileText
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-
-  // Scroll to top button visibility
-  useEffect(() => {
-    const handleScroll = () => {
-      if (typeof window !== 'undefined') {
-        setShowScrollTop(window.scrollY > 500);
-      }
-    };
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
-
-  const scrollToTop = () => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -405,24 +385,6 @@ export default function Footer() {
         </motion.div>
       </div>
 
-      {/* Scroll to top button */}
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.5, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.5, y: 20 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 p-4 bg-primary text-white rounded-full shadow-lg shadow-primary/30 z-50 hover:bg-primary/90 transition-colors"
-            aria-label="Scroll to top"
-          >
-            <ChevronUp className="w-5 h-5" />
-          </motion.button>
-        )}
-      </AnimatePresence>
-
       {/* Animated gradient line at bottom */}
       <motion.div
         animate={{
@@ -434,6 +396,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-// Add AnimatePresence import
-import { AnimatePresence } from 'framer-motion';
