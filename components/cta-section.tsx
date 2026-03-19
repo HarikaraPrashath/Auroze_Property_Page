@@ -116,7 +116,7 @@ export default function CTASection() {
                 visible: { y: 0 }
               }}
               transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold   text-primary"
             >
               Ready to Transform Your{' '}
               <motion.span
@@ -124,7 +124,7 @@ export default function CTASection() {
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
                 transition={{ duration: 5, repeat: Infinity }}
-                className="bg-clip-text text-transparent bg-linear-to-r from-primary via-primary/80 to-primary bg-size-[200%_auto]"
+                className="text-foreground"
               >
                 Property Management?
               </motion.span>
