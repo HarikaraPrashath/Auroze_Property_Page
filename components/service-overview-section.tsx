@@ -4,483 +4,243 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Sparkles, Zap, Shield, Home, Gavel, Key } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import { useState, useEffect, useRef } from "react"
+import { motion } from "framer-motion"
 
 const services = [
   {
     id: "rent-payment",
     title: "Rent & Payment Management",
-    description: "Streamlined rental collection and secure payment processing.",
+    description: "Automated billing, secure collections, and real-time payment intelligence.",
     image: "/money.jpg",
     icon: Zap,
-    size: "large",
+    accent: "from-sky-500/70 to-cyan-400/60",
+    layout: "lg:col-span-7 lg:row-span-3",
   },
   {
     id: "maintenance",
     title: "Property Maintenance",
-    description: "Professional repairs and maintenance with certified staff.",
+    description: "Scheduled and emergency maintenance with vendor orchestration.",
     image: "/maintenance.jpg",
     icon: Home,
-    size: "medium",
+    accent: "from-emerald-500/70 to-teal-400/60",
+    layout: "lg:col-span-5 lg:row-span-2",
   },
   {
     id: "tenant",
     title: "Tenant Management",
-    description: "Complete tenant screening and relationship management.",
+    description: "Screening, onboarding, and lifecycle support in one tenant hub.",
     image: "/tenant_1.jpg",
     icon: Shield,
-    size: "medium",
+    accent: "from-violet-500/70 to-fuchsia-400/60",
+    layout: "lg:col-span-4 lg:row-span-2",
   },
   {
     id: "housekeeping",
     title: "Housekeeping",
-    description: "Daily cleaning and operational management.",
+    description: "Premium cleaning workflows with quality tracking and audit logs.",
     image: "/housekeeping.jpg",
     icon: Sparkles,
-    size: "small",
+    accent: "from-amber-500/70 to-orange-400/60",
+    layout: "lg:col-span-3 lg:row-span-2",
   },
   {
     id: "legal",
     title: "Legal & Compliance",
-    description: "Full legal documentation and compliance services.",
+    description: "Lease automation, document control, and compliance-ready templates.",
     image: "/legal_1.jpg",
     icon: Gavel,
-    size: "small",
+    accent: "from-rose-500/70 to-pink-400/60",
+    layout: "lg:col-span-5 lg:row-span-2",
   },
   {
     id: "pickup",
     title: "Pickup & Dropoff",
-    description: "Convenient key management and property access.",
+    description: "Key exchange and access coordination with verified handoffs.",
     image: "/pickup.jpg",
     icon: Key,
-    size: "small",
+    accent: "from-indigo-500/70 to-blue-400/60",
+    layout: "lg:col-span-5 lg:row-span-2",
   },
 ]
 
 export default function ServiceOverviewSection() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const horizontalRef = useRef<HTMLDivElement>(null)
-  const [horizontalWidth, setHorizontalWidth] = useState(0)
-  const [activeCardIndex, setActiveCardIndex] = useState(0)
-
-  // Check if mobile view
-  useEffect(() => {
-    const checkMobile = () => {
-      if (typeof window !== 'undefined') {
-        setIsMobile(window.innerWidth < 750)
-      }
-    }
-
-    checkMobile()
-    
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', checkMobile)
-      return () => window.removeEventListener('resize', checkMobile)
-    }
-  }, [])
-
-  // Calculate horizontal scroll width
-  useEffect(() => {
-    const updateHorizontalWidth = () => {
-      if (horizontalRef.current) {
-        setHorizontalWidth(horizontalRef.current.scrollWidth - horizontalRef.current.clientWidth)
-      }
-    }
-
-    updateHorizontalWidth()
-    window.addEventListener("resize", updateHorizontalWidth)
-    return () => window.removeEventListener("resize", updateHorizontalWidth)
-  }, [])
-
-  // Scroll progress for horizontal movement
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
-
-  // Smooth spring animation
-  const smoothX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  })
-
-  const x = useTransform(smoothX, [0, 1], ["0%", `-${horizontalWidth}px`])
-
-  // Track active card
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange((value) => {
-      const cardIndex = Math.floor(value * services.length)
-      setActiveCardIndex(Math.min(cardIndex, services.length - 1))
-    })
-    return () => unsubscribe()
-  }, [scrollYProgress, services.length])
-
-  // Cinematic heading animations
-  const headingVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.3,
-      }
-    }
-  }
-
-  const wordVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 50,
-      rotateX: -90,
-      scale: 0.8
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      rotateX: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200
-      }
-    }
-  }
-
-  const glowVariants = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: { 
-      opacity: [0.2, 0.5, 0.2],
-      scale: [0.8, 1.2, 0.8],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  }
-
-  // Card entrance animations
-  const cardVariants = {
-    initial: (index: number) => ({
-      opacity: 0,
-      x: 100,
-      scale: 0.8,
-      rotateY: 45,
-      filter: "blur(10px)"
-    }),
-    visible: (index: number) => ({
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      rotateY: 0,
-      filter: "blur(0px)",
-      transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100,
-        delay: index * 0.15,
-        duration: 0.8
-      }
-    }),
-    hover: {
-      scale: 1.05,
-      rotateY: 5,
-      transition: {
-        type: "spring",
-        damping: 10,
-        stiffness: 300
-      }
-    }
-  }
-
-  const titleWords = ["Comprehensive", "Service", "Suite"]
-
   return (
     <>
-      {/* Heading Section - Now with cinematic animations */}
-      <section className="relative overflow-hidden bg-background px-4 pt-16 pb-8 sm:px-6 md:pt-20 md:pb-10 lg:pt-24">
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            variants={glowVariants}
-            initial="initial"
-            animate="animate"
-            className="absolute -top-40 -right-40 w-80 h-80 bg-primary/30 rounded-full mix-blend-normal blur-3xl opacity-50"
-          />
-          <motion.div 
-            variants={glowVariants}
-            initial="initial"
-            animate="animate"
-            transition={{ delay: 1 }}
-            className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/30 rounded-full mix-blend-normal blur-3xl opacity-50"
-          />
+      <section className="relative overflow-hidden bg-background px-4 pt-20 pb-12 sm:px-6 lg:px-8 lg:pt-28 lg:pb-16">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 right-[-10%] h-72 w-72 rounded-full bg-primary-500/10 blur-3xl" />
+          <div className="absolute bottom-[-20%] left-[-8%] h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/25 to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-12 lg:items-end">
           <motion.div
-            variants={headingVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="mx-auto max-w-4xl text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+            viewport={{ once: true }}
+            className="lg:col-span-8"
           >
-            <motion.div className="flex justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-primary md:w-8 md:h-8" />
-            </motion.div>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+              Service Excellence Suite
+            </div>
 
-            <h2 className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-              {titleWords.map((word, wordIndex) => (
-                <motion.span 
-                  key={wordIndex} 
-                  variants={wordVariants}
-                  className={`inline-block mr-2 md:mr-4 last:mr-0 ${
-                    wordIndex < 2 ? 'text-primary' : 'text-foreground'
-                  }`}
-                  style={{
-                    textShadow: "0 0 30px rgba(59, 130, 246, 0.3)"
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
+            <h2 className="max-w-4xl  text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Premium operations for every
+              <span className="block">
+                stage of property <span className="text-primary">management</span>
+              </span>
             </h2>
 
-            <motion.p
-              variants={wordVariants}
-              className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base"
-            >
-              Everything you need for professional property management, delivered with excellence.
-            </motion.p>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              From rent automation to legal support, our services are designed to elevate tenant experience and maximize owner returns.
+            </p>
+          </motion.div>
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="mx-auto mt-6 h-0.5 w-20 bg-gradient-to-r from-primary via-primary/50 to-transparent"
-            />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-3 gap-3 rounded-3xl border border-border/70 bg-card/35 p-4 backdrop-blur-sm lg:col-span-4"
+          >
+            <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight">24/7</p>
+              <p className="mt-1 text-xs text-muted-foreground">Support Coverage</p>
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight">99.9%</p>
+              <p className="mt-1 text-xs text-muted-foreground">Payment Uptime</p>
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight">2K+</p>
+              <p className="mt-1 text-xs text-muted-foreground">Units Managed</p>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Horizontal Scroll Section */}
-      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-2">
-        <div className="sticky top-0 h-screen overflow-hidden">
-          {/* Progress indicator */}
-          <motion.div 
-            className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex gap-2"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            {services.map((_, index) => (
-              <motion.div
-                key={index}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  index === activeCardIndex ? 'w-8 bg-primary' : 'w-2 bg-primary/30'
-                }`}
-                animate={{
-                  scale: index === activeCardIndex ? 1.2 : 1,
-                }}
-              />
-            ))}
-          </motion.div>
-
-          <motion.div 
-            ref={horizontalRef}
-            style={{ x }}
-            className="flex h-full items-center gap-4 px-4 sm:gap-6 sm:px-6 lg:gap-8 lg:px-8"
-          >
+      <section className="relative bg-background px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="hidden auto-rows-[110px] grid-cols-12 gap-5 lg:grid">
             {services.map((service, index) => {
               const Icon = service.icon
-              const isHovered = hoveredId === service.id
 
               return (
                 <motion.div
                   key={service.id}
-                  custom={index}
-                  variants={cardVariants}
-                  initial="initial"
-                  whileInView="visible"
-                  whileHover="hover"
-                  viewport={{ once: true, amount: 0.5 }}
-                  className="relative h-[400px] min-w-[85vw] sm:h-[450px] sm:min-w-[400px] md:h-[500px] md:min-w-[450px] lg:h-[550px] lg:min-w-[500px] group"
-                  onHoverStart={() => setHoveredId(service.id)}
-                  onHoverEnd={() => setHoveredId(null)}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: index * 0.07 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  className={`group relative overflow-hidden rounded-3xl border border-border/60 bg-card/30 ${service.layout}`}
                 >
-                  {/* Card glow effect */}
-                  <motion.div
-                    className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    animate={{
-                      scale: [1, 1.05, 1],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-
                   <Link href={`/services#${service.id}`} className="block h-full w-full">
-                    <div className="relative h-full w-full rounded-2xl overflow-hidden border border-border/50 shadow-lg cursor-pointer">
-                      {/* Image with zoom on hover */}
-                      <motion.div
-                        className="absolute inset-0"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <Image
-                          src={service.image}
-                          alt={service.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 85vw, 500px"
-                          priority={index < 3}
-                        />
-                      </motion.div>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      sizes="(max-width: 1536px) 40vw, 560px"
+                    />
+                    <div className={`absolute inset-0 bg-linear-to-br ${service.accent} opacity-50 mix-blend-overlay`} />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
-                      {/* Gradient overlays */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                      
-                      {/* Colored overlay on hover */}
-                      <motion.div
-                        animate={{ opacity: isHovered ? 0.3 : 0 }}
-                        className={`absolute inset-0 bg-gradient-to-br ${
-                          index === 0 ? 'from-blue-500/30 to-cyan-500/30' :
-                          index === 1 ? 'from-green-500/30 to-emerald-500/30' :
-                          index === 2 ? 'from-purple-500/30 to-pink-500/30' :
-                          index === 3 ? 'from-orange-500/30 to-red-500/30' :
-                          index === 4 ? 'from-indigo-500/30 to-purple-500/30' :
-                          'from-amber-500/30 to-yellow-500/30'
-                        }`}
-                      />
-
-                      {/* Content */}
-                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white sm:p-7 md:p-8">
-                        <motion.div
-                          initial={{ y: 20, opacity: 0 }}
-                          whileInView={{ y: 0, opacity: 1 }}
-                          transition={{ delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className="mb-3"
-                        >
-                          <motion.div 
-                            className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30"
-                            whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.6 }}
-                          >
-                            <Icon className="w-6 h-6" />
-                          </motion.div>
-                        </motion.div>
-
-                        <motion.h3 
-                          className="mb-1.5 text-xl font-bold leading-snug tracking-tight sm:text-2xl"
-                          initial={{ x: -20, opacity: 0 }}
-                          whileInView={{ x: 0, opacity: 1 }}
-                          transition={{ delay: index * 0.1 + 0.2 }}
-                        >
-                          {service.title}
-                        </motion.h3>
-                        
-                        <motion.p 
-                          className="mb-4 max-w-[32ch] text-xs text-white/85 line-clamp-2 sm:text-sm"
-                          initial={{ x: -20, opacity: 0 }}
-                          whileInView={{ x: 0, opacity: 1 }}
-                          transition={{ delay: index * 0.1 + 0.3 }}
-                        >
-                          {service.description}
-                        </motion.p>
-
-                        <motion.div
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 + 0.4 }}
-                          className="flex items-center text-xs font-medium text-white group-hover:translate-x-2 transition-transform duration-300 sm:text-sm"
-                        >
-                          Learn more
-                          <ArrowRight className="ml-2 w-3.5 h-3.5" />
-                        </motion.div>
+                    <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/25 bg-white/15 backdrop-blur-sm">
+                        <Icon className="h-5 w-5" />
                       </div>
 
-                      {/* Hover border */}
-                      <motion.div
-                        animate={{ opacity: isHovered ? 1 : 0 }}
-                        className="absolute inset-0 border-2 border-white/30 rounded-2xl pointer-events-none"
-                      />
+                      <div>
+                        <h3 className="mb-2 text-xl font-semibold leading-tight tracking-tight">
+                          {service.title}
+                        </h3>
+                        <p className="mb-3 max-w-[40ch] text-sm leading-relaxed text-white/90">
+                          {service.description}
+                        </p>
+                        <span className="inline-flex items-center gap-2 text-sm font-medium text-white/95">
+                          View service
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </motion.div>
               )
             })}
-          </motion.div>
+          </div>
+
+          <div className="space-y-4 lg:hidden">
+            {services.map((service, index) => {
+              const Icon = service.icon
+
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="group relative overflow-hidden rounded-2xl border border-border/60"
+                >
+                  <Link href={`/services#${service.id}`} className="block">
+                    <div className="relative h-52 w-full sm:h-60">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                      />
+                      <div className={`absolute inset-0 bg-linear-to-br ${service.accent} opacity-45 mix-blend-overlay`} />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent" />
+
+                      <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                        <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/25 bg-white/15 backdrop-blur-sm">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <h3 className="text-lg font-semibold leading-tight">{service.title}</h3>
+                        <p className="mt-1 text-sm text-white/90">{service.description}</p>
+                        <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium">
+                          Explore service
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative overflow-hidden bg-background px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-24">
-        <div className="relative z-10 mx-auto max-w-7xl">
+      <section className="relative overflow-hidden bg-background px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-border/70 bg-card/30 p-7 shadow-[0_20px_70px_-35px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:p-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring" }}
+            transition={{ duration: 0.55 }}
             viewport={{ once: true }}
             className="text-center"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring" }}
-              className="inline-block mb-6"
-            >
-              <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                Complete Property Solutions
-              </span>
-            </motion.div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-primary">Ready to upgrade operations?</p>
+            <h3 className="mb-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+              Build a premium experience for owners and tenants
+            </h3>
+            <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Activate the full service stack and run your rentals with consistency, speed, and confidence.
+            </p>
 
-            <Button 
-              asChild 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group"
-            >
-              <Link href="/services" className="flex items-center gap-2">
-                <span>Explore All Services</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            <Button asChild size="lg" className="group rounded-xl px-8 py-6 text-base font-semibold">
+              <Link href="/services" className="inline-flex items-center gap-2">
+                Explore all services
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </motion.div>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes blob {
-          0%,
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-        }
-
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </>
   )
 }

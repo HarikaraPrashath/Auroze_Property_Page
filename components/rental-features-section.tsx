@@ -20,6 +20,7 @@ const features = [
       "Encrypted transactions",
       "Automated receipts and tracking",
     ],
+    desktopSize: "large",
   },
   {
     title: "Timely Rent Collection",
@@ -35,6 +36,7 @@ const features = [
       "Reduced late payments",
       "Consistent cash flow",
     ],
+    desktopSize: "wide",
   },
   {
     title: "Deposit Protection",
@@ -50,6 +52,7 @@ const features = [
       "Transparency for tenants and landlords",
       "Compliance with regulations",
     ],
+    desktopSize: "wide",
   },
   {
     title: "Tenant Screening",
@@ -65,6 +68,7 @@ const features = [
       "Identity verification",
       "Reliable tenant selection",
     ],
+    desktopSize: "wide",
   },
   {
     title: "Market Analysis",
@@ -80,6 +84,7 @@ const features = [
       "Maximize profitability",
       "Performance-based suggestions",
     ],
+    desktopSize: "small",
   },
   {
     title: "Legal Documentation",
@@ -94,6 +99,7 @@ const features = [
       "Professional legal support",
       "Protect landlords and tenants",
     ],
+    desktopSize: "small",
   },
 ]
 
@@ -101,12 +107,34 @@ type Feature = (typeof features)[number]
 
 export default function RentalFeaturesSection() {
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null)
+  const [isHydrated, setIsHydrated] = useState(false)
+  const [isMobileTablet, setIsMobileTablet] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const horizontalRef = useRef<HTMLDivElement>(null)
   const [horizontalWidth, setHorizontalWidth] = useState(0)
+
+  useEffect(() => {
+    setIsHydrated(true)
+
+    const checkScreen = () => {
+      setIsMobileTablet(window.innerWidth < 1024)
+    }
+
+    checkScreen()
+    window.addEventListener("resize", checkScreen)
+
+    return () => {
+      window.removeEventListener("resize", checkScreen)
+    }
+  }, [])
   
   // Keep horizontal distance in sync with viewport and track size.
   useEffect(() => {
+    if (!isMobileTablet) {
+      setHorizontalWidth(0)
+      return
+    }
+
     const updateHorizontalWidth = () => {
       if (horizontalRef.current) {
         setHorizontalWidth(horizontalRef.current.scrollWidth - horizontalRef.current.clientWidth)
@@ -119,15 +147,31 @@ export default function RentalFeaturesSection() {
     return () => {
       window.removeEventListener("resize", updateHorizontalWidth)
     }
-  }, [])
+  }, [isMobileTablet])
+
+  const shouldTrackHorizontal = isHydrated && isMobileTablet
 
   // Use scroll progress to transform the horizontal scroll
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: shouldTrackHorizontal ? containerRef : undefined,
     offset: ["start start", "end end"]
   })
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${horizontalWidth}px`])
+
+  const getDesktopCardClass = (size?: string) => {
+    switch (size) {
+      case "large":
+        return "lg:col-span-2 lg:row-span-2"
+      case "wide":
+        return "lg:col-span-2 lg:row-span-1"
+      case "tall":
+        return "lg:col-span-1 lg:row-span-2"
+      case "small":
+      default:
+        return "lg:col-span-1 lg:row-span-1"
+    }
+  }
 
   return (
     <>
@@ -184,13 +228,13 @@ export default function RentalFeaturesSection() {
         </div>
       </section>
 
-      {/* Horizontal scroll section - NOW DIRECTLY FOLLOWS WITH MINIMAL GAP */}
-      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-2">
+      {/* Mobile + Tablet horizontal scroll section */}
+      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-2 lg:hidden">
         <div className="sticky top-0 h-screen overflow-hidden">
           <motion.div 
             ref={horizontalRef}
             style={{ x }}
-            className="flex h-full items-center gap-4 px-4 sm:gap-6 sm:px-6 lg:gap-8 lg:px-8"
+            className="flex h-full items-center gap-4 px-4 sm:gap-6 sm:px-6"
           >
             {features.map((feature, index) => {
               const Icon = feature.icon
@@ -198,7 +242,7 @@ export default function RentalFeaturesSection() {
               return (
                 <motion.div
                   key={index}
-                  className="group relative h-[400px] min-w-[85vw] sm:h-[450px] sm:min-w-[400px] md:h-[500px] md:min-w-[450px] lg:h-[550px] lg:min-w-[500px]"
+                  className="group relative h-[400px] min-w-[85vw] sm:h-[440px] sm:min-w-[400px] md:h-[480px] md:min-w-[460px]"
                   onClick={() => setSelectedFeature(feature)}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -252,6 +296,56 @@ export default function RentalFeaturesSection() {
         </div>
       </section>
 
+      {/* Desktop-only square card layout */}
+      <section className="relative hidden overflow-hidden bg-background px-8 py-16 lg:block xl:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid auto-rows-[180px] grid-cols-1 gap-6 lg:grid-cols-4">
+            {features.map((feature, index) => {
+              const Icon = feature.icon
+
+              return (
+                <motion.button
+                  key={index}
+                  type="button"
+                  onClick={() => setSelectedFeature(feature)}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: index * 0.07 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -6, scale: 1.01 }}
+                  className={`group relative overflow-hidden rounded-3xl border border-border/50 bg-card/40 text-left shadow-lg ${getDesktopCardClass(feature.desktopSize)}`}
+                >
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1536px) 30vw, 420px"
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${feature.color} opacity-70 mix-blend-overlay`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+
+                  <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/30 bg-white/15 backdrop-blur-sm">
+                      <Icon className="h-5 w-5" />
+                    </div>
+
+                    <div>
+                      <h3 className="mb-2 text-lg font-semibold leading-tight">{feature.title}</h3>
+                      <p className="mb-3 line-clamp-2 text-sm text-white/90">{feature.description}</p>
+                      <span className="inline-flex items-center text-xs font-medium uppercase tracking-wide text-white/95">
+                        Explore
+                        <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </div>
+                </motion.button>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Normal vertical section after horizontal scroll */}
       <section className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28">
         <div className="relative z-10 mx-auto max-w-7xl">
@@ -275,7 +369,7 @@ export default function RentalFeaturesSection() {
         </div>
       </section>
 
-      {/* Modal remains the same */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedFeature && (
           <motion.div
@@ -290,7 +384,7 @@ export default function RentalFeaturesSection() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-card shadow-2xl"
+              className="relative w-full max-w-[92vw] overflow-hidden rounded-3xl border border-border bg-card shadow-2xl md:max-w-2xl lg:max-w-3xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -300,36 +394,36 @@ export default function RentalFeaturesSection() {
                 <X size={18} />
               </button>
 
-              <div className="relative h-56 md:h-96">
+              <div className="relative h-52 md:h-64 lg:h-72">
                 <Image 
                   src={selectedFeature.image} 
                   alt={selectedFeature.title} 
                   fill 
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 1200px"
+                  sizes="(max-width: 768px) 100vw, 960px"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${selectedFeature.color} opacity-60 mix-blend-overlay`} />
               </div>
 
-              <div className="relative p-5 md:p-10">
+              <div className="relative p-5 md:p-7 lg:p-8">
                 <div
-                  className={`absolute -top-10 left-5 md:left-10 h-14 w-14 rounded-2xl border-2 border-border bg-gradient-to-br ${selectedFeature.color} flex items-center justify-center shadow-xl md:-top-12 md:h-20 md:w-20`}
+                  className={`absolute -top-9 left-5 h-12 w-12 rounded-2xl border-2 border-border bg-gradient-to-br ${selectedFeature.color} flex items-center justify-center shadow-xl md:left-7 md:-top-10 md:h-14 md:w-14`}
                 >
-                  {selectedFeature.icon && <selectedFeature.icon className="w-6 h-6 md:w-10 md:h-10 text-white" />}
+                  {selectedFeature.icon && <selectedFeature.icon className="h-5 w-5 text-white md:h-6 md:w-6" />}
                 </div>
 
-                <h3 className="mb-3 mt-8 text-xl font-bold text-foreground md:mt-4 md:text-4xl">
+                <h3 className="mb-3 mt-7 text-xl font-bold text-foreground md:mt-6 md:text-2xl lg:text-3xl">
                   {selectedFeature.title}
                 </h3>
 
-                <p className="text-muted-foreground text-sm md:text-lg mb-5 md:mb-8 leading-relaxed">
+                <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:mb-6 md:text-base lg:text-lg">
                   {selectedFeature.details}
                 </p>
 
                 {selectedFeature.points && (
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-5 md:mb-8">
+                  <ul className="mb-5 grid grid-cols-1 gap-2 md:mb-6 md:grid-cols-2 md:gap-3">
                     {selectedFeature.points.map((point, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-xs md:text-base text-foreground/80">
+                      <li key={idx} className="flex items-center gap-2 text-xs text-foreground/80 md:text-sm lg:text-base">
                         <div className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${selectedFeature.color}`} />
                         {point}
                       </li>
@@ -339,7 +433,7 @@ export default function RentalFeaturesSection() {
 
                 <button
                   onClick={() => setSelectedFeature(null)}
-                  className="w-full md:w-auto px-5 md:px-8 py-2.5 md:py-4 rounded-xl bg-primary text-foreground font-semibold hover:bg-primary/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/30 text-sm md:text-base"
+                  className="w-full rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-foreground shadow-lg transition-all hover:scale-105 hover:bg-primary/90 hover:shadow-primary/30 md:w-auto md:px-7 md:py-3 md:text-base"
                 >
                   Get Started
                 </button>
