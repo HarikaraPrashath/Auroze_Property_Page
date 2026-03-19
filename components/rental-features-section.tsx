@@ -177,11 +177,6 @@ export default function RentalFeaturesSection() {
     <>
       {/* Normal vertical section before horizontal scroll - REDUCED SPACING */}
       <section className="relative overflow-hidden bg-background px-4 pt-16 pb-8 sm:px-6 md:pt-20 md:pb-10 lg:pt-24">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob animation-delay-2000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-accent/20 rounded-full mix-blend-normal blur-xl opacity-50 animate-blob animation-delay-4000" />
-        </div>
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <motion.div
@@ -229,7 +224,7 @@ export default function RentalFeaturesSection() {
       </section>
 
       {/* Mobile + Tablet horizontal scroll section */}
-      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-2 lg:hidden">
+      <section ref={containerRef} className="relative h-[220vh] bg-background -mt-6 sm:-mt-2 lg:hidden">
         <div className="sticky top-0 h-screen overflow-hidden">
           <motion.div 
             ref={horizontalRef}

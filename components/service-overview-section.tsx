@@ -86,9 +86,9 @@ export default function ServiceOverviewSection() {
             </div>
 
             <h2 className="max-w-4xl  text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Premium operations for every
+              <span className="text-primary">Premium operations for every </span>
               <span className="block">
-                stage of property <span className="text-primary">management</span>
+                stage of property management
               </span>
             </h2>
 
