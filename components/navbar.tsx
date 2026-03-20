@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useTheme } from 'next-themes'
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ChevronDown, Building2, Headset, Settings, HelpCircle } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
@@ -38,9 +38,9 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22,1,0.36,1] }}
-      className="fixed left-1/2 -translate-x-1/2 top-6 z-50 w-[90%] lg:w-[75%] rounded-2xl lg:rounded-full bg-background/80 backdrop-blur-xl  dark:border-b-2  shadow-xl"
+      className="fixed inset-x-0 top-0 z-50 bg-background border-b border-border shadow-sm"
     >
-      <div className="px-4 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* LOGO */}
           <Link href="/" className="flex items-center gap-2 lg:gap-3 group">
@@ -64,7 +64,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP MENU */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-10">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <div key={link.label} className="relative">
                 {link.dropdown ? (
@@ -72,7 +72,7 @@ export default function Navbar() {
                   <div>
                     <motion.button
                       onClick={() => setServicesOpen(!servicesOpen)}
-                      className="flex items-center gap-1 text-foreground/80 font-medium text-sm tracking-wide hover:text-foreground transition-colors"
+                      className="flex items-center gap-1 text-foreground/80 font-semibold text-sm tracking-wide hover:text-foreground transition-colors"
                     >
                       {link.label}
                       <motion.div
@@ -90,7 +90,7 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute left-0 mt-3 w-72 rounded-2xl bg-background/95 backdrop-blur-xl border border-border/50 shadow-xl overflow-hidden"
+                          className="absolute left-0 mt-3 w-72 rounded-2xl bg-card border border-border shadow-lg overflow-hidden"
                         >
                           <div className="p-2">
                             {link.items?.map((item, index) => (
@@ -127,7 +127,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href || "#"}
-                      className="text-foreground/80 font-medium text-sm tracking-wide hover:text-foreground transition-colors"
+                      className="text-foreground/80 font-semibold text-sm tracking-wide hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -185,7 +185,7 @@ export default function Navbar() {
 
           {/* MOBILE MENU BUTTON */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden text-foreground rounded-lg border border-border p-2 hover:bg-accent transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24}/> : <Menu size={24}/>} 
@@ -201,7 +201,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden"
+            className="md:hidden overflow-hidden border-t border-border bg-background shadow-md"
           >
             <div className="px-6 pb-6 space-y-4">
               {navLinks.map((link, index) => (
