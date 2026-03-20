@@ -224,7 +224,7 @@ export default function RentalFeaturesSection() {
       </section>
 
       {/* Mobile + Tablet horizontal scroll section */}
-      <section ref={containerRef} className="relative h-[75vh] bg-background -mt-50 sm:h-[205vh] sm:-mt-2 lg:hidden">
+      <section ref={containerRef} className="relative h-[87vh] bg-background -mt-50 sm:h-[205vh] sm:-mt-2 lg:hidden">
         <div className="sticky top-0 h-screen overflow-hidden">
           <motion.div 
             ref={horizontalRef}
