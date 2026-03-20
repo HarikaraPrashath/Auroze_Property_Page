@@ -192,16 +192,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* SCROLL INDICATOR */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/70 animate-bounce">
-        <svg width="24" height="24" fill="none" stroke="currentColor">
-          <path
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 5v14M12 19l-6-6M12 19l6-6"
-          />
-        </svg>
-      </div>
+     
 
       <style jsx>{`
         .hero-service-marquee {
