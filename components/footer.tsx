@@ -92,7 +92,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-linear-to-b from-background to-background/95 border-t border-border/50 mt-20 overflow-hidden">
+    <footer className="relative bg-linear-to-b from-background to-background/95 border-t border-border/50 mt-4 overflow-hidden">
       {/* Animated background pattern */}
       <div className="absolute inset-0">
       
@@ -131,16 +131,16 @@ export default function Footer() {
       })}
 
       {/* Main footer content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 z-10">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12"
+          className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 mb-8"
         >
           {/* Company Info - Large column */}
-          <motion.div variants={itemVariants} className="lg:col-span-2">
+          <motion.div variants={itemVariants} className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 360 }}
@@ -163,7 +163,7 @@ export default function Footer() {
                 <Sparkles className="w-4 h-4 text-primary" />
                 Subscribe to Newsletter
               </h4>
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-col gap-2 sm:flex-row">
                 <input
                   type="email"
                   placeholder="Your email"
@@ -194,19 +194,19 @@ export default function Footer() {
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="font-semibold text-lg text-foreground mb-6 flex items-center gap-2">
+          <motion.div variants={itemVariants} className="lg:col-span-2">
+            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Quick Links
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {quickLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
-                  <li key={index} className="flex items-center gap-3">
+                  <li key={index}>
                     <Link
                       href={link.href}
-                      className="group text-muted-foreground hover:text-primary transition-colors"
+                      className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                     >
                       <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                       <span className="text-sm">{link.name}</span>
@@ -218,19 +218,19 @@ export default function Footer() {
           </motion.div>
 
           {/* Services */}
-          <motion.div variants={itemVariants}>
-            <h3 className="font-semibold text-lg text-foreground mb-6 flex items-center gap-2">
+          <motion.div variants={itemVariants} className="lg:col-span-3">
+            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Our Services
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {serviceLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
-                  <li key={index} className="flex items-center gap-3">
+                  <li key={index}>
                     <Link
                       href={link.href}
-                      className="group text-muted-foreground hover:text-primary transition-colors"
+                      className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                     >
                       <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                       <span className="text-sm">{link.name}</span>
@@ -242,20 +242,20 @@ export default function Footer() {
           </motion.div>
 
           {/* Contact Info */}
-          <motion.div variants={itemVariants}>
-            <h3 className="font-semibold text-lg text-foreground mb-6 flex items-center gap-2">
+          <motion.div variants={itemVariants} className="lg:col-span-3">
+            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Contact Us
             </h3>
-            <ul className="space-y-5">
+            <ul className="space-y-4">
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <li key={index} className="flex items-start gap-3">
+                  <li key={index}>
                     {item.href !== '#' ? (
                       <a
                         href={item.href}
-                        className="group"
+                        className="group inline-flex items-start gap-3"
                       >
                         <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                         <span className="text-muted-foreground group-hover:text-primary transition-colors text-sm">
@@ -263,12 +263,12 @@ export default function Footer() {
                         </span>
                       </a>
                     ) : (
-                      <>
+                      <div className="inline-flex items-start gap-3">
                         <Icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                         <span className="text-muted-foreground text-sm">
                           {item.text}
                         </span>
-                      </>
+                      </div>
                     )}
                   </li>
                 );
@@ -286,74 +286,7 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* Social Links and Stats */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="border-y border-border/50 py-8 mb-8"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            {/* Social links */}
-            <div className="flex gap-4">
-              {socialLinks.map((social, index) => (
-                typeof social.icon === 'function' ? (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -3, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`p-3 rounded-xl bg-card border border-border/50 text-muted-foreground ${social.color} transition-colors`}
-                    aria-label={social.label}
-                  >
-                    {social.icon({})}
-                  </motion.a>
-                ) : null
-              ))}
-            </div>
-
-            {/* Trust badges */}
-            <div className="flex items-center gap-6">
-              <motion.div
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="flex items-center gap-2"
-              >
-                <Shield className="w-5 h-5 text-primary" />
-                <span className="text-sm text-muted-foreground">SSL Secure</span>
-              </motion.div>
-              <motion.div
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                className="flex items-center gap-2"
-              >
-                <Heart className="w-5 h-5 text-red-500" />
-                <span className="text-sm text-muted-foreground">100% Trusted</span>
-              </motion.div>
-            </div>
-
-            {/* Stats */}
-            <div className="flex gap-6">
-              <div className="text-center">
-                <p className="text-xl font-bold text-primary">500+</p>
-                <p className="text-xs text-muted-foreground">Properties</p>
-              </div>
-              <div className="w-px h-8 bg-border/50" />
-              <div className="text-center">
-                <p className="text-xl font-bold text-primary">1.2k+</p>
-                <p className="text-xs text-muted-foreground">Clients</p>
-              </div>
-              <div className="w-px h-8 bg-border/50" />
-              <div className="text-center">
-                <p className="text-xl font-bold text-primary">10+</p>
-                <p className="text-xs text-muted-foreground">Years</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+      
 
         {/* Copyright and Legal */}
         <motion.div
@@ -361,13 +294,13 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row justify-between items-center gap-4"
+          className="flex flex-col lg:flex-row justify-between items-center gap-3 border-t border-border/60 pt-6"
         >
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm text-center lg:text-left">
             © {currentYear} SoulRoots. All rights reserved.
           </p>
           
-          <div className="flex gap-6 text-sm">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
             <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
               Privacy Policy
             </Link>
@@ -379,8 +312,8 @@ export default function Footer() {
             </Link>
           </div>
 
-          <p className="text-xs text-muted-foreground">
-            Made with <Heart className="w-3 h-3 inline text-red-500" /> in Sri Lanka
+          <p className="text-xs text-muted-foreground text-center lg:text-right">
+            Made with  Auroze, Sri Lanka.
           </p>
         </motion.div>
       </div>

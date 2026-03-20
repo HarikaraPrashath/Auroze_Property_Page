@@ -63,14 +63,13 @@ export default function TrustSection() {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.9,
-        ease: [0.22,1,0.36,1]
+        duration: 0.9
       }
     }
   };
 
   return (
-    <section className="py-24 px-4 bg-primary/5 border-y border-border overflow-hidden">
+    <section className="py-14 px-4 bg-primary/5 border-y border-border overflow-hidden lg:py-16">
 
       <div className="max-w-7xl mx-auto">
 
@@ -80,10 +79,10 @@ export default function TrustSection() {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
 
-          <h2 className="text-5xl md:text-7xl  font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Why Trust SoulRoots?
           </h2>
 
@@ -100,7 +99,7 @@ export default function TrustSection() {
           variants={container}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
 
           {stats.map((stat, index) => {

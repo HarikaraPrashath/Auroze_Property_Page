@@ -10,19 +10,36 @@ import PricingSection from '@/components/pricing-section';
 import CTASection from '@/components/cta-section';
 
 export default function Home() {
+  const viewportSection = 'relative isolate w-full overflow-x-hidden lg:min-h-[90vh]';
+  const compactSection = 'relative isolate w-full overflow-x-hidden';
+
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <div className="relative w-full min-h-screen">
+      <section className={viewportSection}>
         <HeroCarousel />
-      </div>
-      <AboutSection />
-      <TrustSection />
-      <RentalFeaturesSection />
-      <ServiceOverviewSection />
-      <TestimonialsSection />
-      <PricingSection />
-      <CTASection />
+      </section>
+      <section className={viewportSection}>
+        <AboutSection />
+      </section>
+      <section className={compactSection}>
+        <TrustSection />
+      </section>
+      <section className={compactSection}>
+        <RentalFeaturesSection />
+      </section>
+      <section className={viewportSection}>
+        <ServiceOverviewSection />
+      </section>
+      <section className={compactSection}>
+        <TestimonialsSection />
+      </section>
+      <section className={compactSection}>
+        <PricingSection />
+      </section>
+      <section className={compactSection}>
+        <CTASection />
+      </section>
       <Footer />
     </main>
   );

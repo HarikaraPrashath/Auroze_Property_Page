@@ -32,7 +32,7 @@ const services = [
     image: "/tenant_1.jpg",
     icon: Shield,
     accent: "from-violet-500/70 to-fuchsia-400/60",
-    layout: "lg:col-span-4 lg:row-span-2",
+    layout: "lg:col-span-2 lg:row-span-3",
   },
   {
     id: "housekeeping",
@@ -41,7 +41,7 @@ const services = [
     image: "/housekeeping.jpg",
     icon: Sparkles,
     accent: "from-amber-500/70 to-orange-400/60",
-    layout: "lg:col-span-3 lg:row-span-2",
+    layout: "lg:col-span-3 lg:row-span-3",
   },
   {
     id: "legal",
@@ -50,7 +50,7 @@ const services = [
     image: "/legal_1.jpg",
     icon: Gavel,
     accent: "from-rose-500/70 to-pink-400/60",
-    layout: "lg:col-span-5 lg:row-span-2",
+    layout: "lg:col-span-2 lg:row-span-2",
   },
   {
     id: "pickup",
@@ -66,26 +66,26 @@ const services = [
 export default function ServiceOverviewSection() {
   return (
     <>
-      <section className="relative overflow-hidden bg-background px-4 pt-20 pb-12 sm:px-6 lg:px-8 lg:pt-28 lg:pb-16">
+      <section className="relative overflow-hidden bg-background px-4 pt-12 pb-8 sm:px-6 lg:px-8 lg:pt-16 lg:pb-12">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 right-[-10%] h-72 w-72 rounded-full bg-primary-500/10 blur-3xl" />
           <div className="absolute bottom-[-20%] left-[-8%] h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/25 to-transparent" />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-12 lg:items-end">
+        <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-1 lg:items-start">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
             viewport={{ once: true }}
-            className="lg:col-span-8"
+            className=""
           >
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               Service Excellence Suite
             </div>
 
-            <h2 className="max-w-4xl  text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            <h2 className="max-w-4xl text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               <span className="text-primary">Premium operations for every </span>
               <span className="block">
                 stage of property management
@@ -102,7 +102,7 @@ export default function ServiceOverviewSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1 }}
             viewport={{ once: true }}
-            className="grid grid-cols-3 gap-3 rounded-3xl border border-border/70 bg-card/35 p-4 backdrop-blur-sm lg:col-span-4"
+            className="grid grid-cols-1 gap-3 rounded-3xl border border-border/70 bg-card/35 p-4 backdrop-blur-sm sm:grid-cols-3"
           >
             <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
               <p className="text-2xl font-semibold tracking-tight">24/7</p>
@@ -120,7 +120,7 @@ export default function ServiceOverviewSection() {
         </div>
       </section>
 
-      <section className="relative bg-background px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+      <section className="relative bg-background px-4 pb-12 sm:px-6 lg:px-8 lg:pb-14">
         <div className="mx-auto max-w-7xl">
           <div className="hidden auto-rows-[110px] grid-cols-12 gap-5 lg:grid">
             {services.map((service, index) => {
@@ -215,7 +215,7 @@ export default function ServiceOverviewSection() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-background px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+      <section className="relative overflow-hidden bg-background px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
         <div className="mx-auto max-w-5xl rounded-3xl border border-border/70 bg-card/30 p-7 shadow-[0_20px_70px_-35px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:p-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

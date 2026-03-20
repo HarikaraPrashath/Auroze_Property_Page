@@ -176,7 +176,7 @@ export default function RentalFeaturesSection() {
   return (
     <>
       {/* Normal vertical section before horizontal scroll - REDUCED SPACING */}
-      <section className="relative overflow-hidden bg-background px-4 pt-16 pb-8 sm:px-6 md:pt-20 md:pb-10 lg:pt-24">
+      <section className="relative overflow-hidden bg-background px-4 pt-12 pb-6 sm:px-6 md:pt-14 md:pb-8 lg:pt-16">
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <motion.div
@@ -342,7 +342,7 @@ export default function RentalFeaturesSection() {
       </section>
 
       {/* Normal vertical section after horizontal scroll */}
-      <section className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28">
+      <section className="relative overflow-hidden bg-background px-4 py-12 sm:px-6 md:py-14 lg:px-8 lg:py-16">
         <div className="relative z-10 mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -36,7 +36,7 @@ export default function CTASection() {
   ];
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden bg-linear-to-br from-background via-background to-background">
+    <section className="relative py-16 px-4 overflow-hidden bg-linear-to-br from-background via-background to-background lg:py-20">
       {/* Modern animated background pattern */}
       <div className="absolute inset-0">
         {/* Grid pattern */}
@@ -116,7 +116,7 @@ export default function CTASection() {
                 visible: { y: 0 }
               }}
               transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold   text-primary"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary"
             >
               Ready to Transform Your{' '}
               <motion.span
@@ -138,7 +138,7 @@ export default function CTASection() {
               visible: { opacity: 1, y: 0 }
             }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-base text-muted-foreground mb-7 max-w-2xl mx-auto leading-relaxed"
           >
             Join hundreds of satisfied property owners who trust SoulRoots for professional, 
             reliable, and comprehensive property management services.
@@ -218,7 +218,7 @@ export default function CTASection() {
               visible: { opacity: 1 }
             }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10"
           >
             {stats.map((stat, index) => {
               const Icon = stat.icon;
@@ -283,7 +283,7 @@ export default function CTASection() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 1.5 }}
-            className="h-px bg-linear-to-r from-transparent via-primary/50 to-transparent w-full max-w-md mx-auto mt-16"
+            className="h-px bg-linear-to-r from-transparent via-primary/50 to-transparent w-full max-w-md mx-auto mt-10"
           />
         </motion.div>
       </div>

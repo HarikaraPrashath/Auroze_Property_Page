@@ -82,7 +82,7 @@ export default function PricingSection() {
   }, []);
 
   return (
-    <section className="relative py-28 px-4 bg-linear-to-b from-background via-background to-background/95 overflow-hidden">
+    <section className="relative py-10 px-4 bg-linear-to-b from-background via-background to-background/95 overflow-hidden lg:py-12">
       {/* Animated background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
@@ -123,7 +123,7 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
          
           <motion.h2
@@ -131,7 +131,7 @@ export default function PricingSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold mb-6 text-primary"
+            className="text-4xl md:text-5xl font-bold mb-5 text-primary"
           >
             Flexible Subscription{' '}
             <span className="bg-clip-text text-foreground">
@@ -151,7 +151,7 @@ export default function PricingSection() {
         </motion.div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {plans.map((plan, index) => {
             const Icon = plan.icon;
             const isHovered = hoveredCard === index;

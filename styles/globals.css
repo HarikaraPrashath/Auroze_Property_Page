@@ -1,3 +1,10 @@
+/* Custom shadow for navbar: normal uses foreground, dark mode uses white bottom shadow */
+.shadow-navbar {
+  box-shadow: 0 4px 16px 0 var(--foreground);
+}
+.dark .shadow-navbar {
+  box-shadow: 0 8px 24px 0 rgba(255,255,255,0.25);
+}
 @keyframes modalFadeIn {
   0% {
     opacity: 0;

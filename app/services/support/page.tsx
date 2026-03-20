@@ -192,7 +192,7 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* Hero Section with Parallax */}
-      <section ref={heroRef} className="relative pt-36 pb-32 px-6 overflow-hidden">
+      <section ref={heroRef} className="relative pt-24 pb-16 px-4 sm:px-6 overflow-hidden">
         <motion.div
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative z-10"
@@ -216,12 +216,12 @@ export default function ServicesPage() {
             </motion.div>
 
             {/* Main heading with staggered reveal */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <motion.h1
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-extrabold text-foreground leading-[1.1]"
+                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
               >
                 Our Complete
               </motion.h1>
@@ -230,7 +230,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-5xl md:text-7xl font-extrabold"
+                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
               >
                 <span className="bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary">
                   Service Suite
@@ -243,7 +243,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mt-6"
+              className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mt-2"
             >
               Everything you need for professional property management
             </motion.p>
@@ -278,7 +278,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16 p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border"
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-10 p-5 rounded-2xl bg-card/50 backdrop-blur-sm border border-border"
             >
               {stats.map((stat, index) => (
                 <motion.div
@@ -309,7 +309,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Section 1: Premium Services - Asymmetrical Layout */}
-      <section className="py-28 px-6 bg-linear-to-b from-background to-muted/20">
+      <section className="py-10 px-4 sm:px-6 bg-linear-to-b from-background to-muted/20">
         <div className="max-w-7xl mx-auto">
           {/* Section header with staggered animation */}
           <motion.div
@@ -317,32 +317,30 @@ export default function ServicesPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
-            className="text-center mb-20"
+            className="text-center mb-7"
           >
-            <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
               <Zap className="w-4 h-4 text-primary" />
               <span className="text-primary font-medium text-sm">Premium Services</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
               Support & Extra Services
             </motion.h2>
 
-            <motion.p variants={fadeInUp} className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
               Specialized services to complement your property management needs
             </motion.p>
           </motion.div>
 
           {/* Asymmetrical card grid */}
-
-        </div>
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-fr"
-        >
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 auto-rows-fr"
+          >
           {additionalServices.map((service, index) => {
             const Icon = service.icon;
             const isHousekeeping = index === 0;
@@ -350,7 +348,7 @@ export default function ServicesPage() {
               <motion.div
                 key={service.id}
                 variants={cardReveal}
-                whileHover={{ y: -8 }}
+                whileHover={{ y: -6 }}
                 className={`group relative ${isHousekeeping ? 'lg:col-span-2 lg:row-span-2' : ''}`}
               >
                 <div className="relative h-full bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-500">
@@ -363,87 +361,88 @@ export default function ServicesPage() {
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
                       />
                       {/* Strong gradient overlay for readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent z-10" />
                       {/* Icon overlay */}
-                      <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
-                        {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
+                      <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
+                        {Icon && <Icon className="w-5 h-5 text-white drop-shadow-md" />}
                       </div>
                       {/* Content overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
-                        <h3 className="font-bold text-white mb-2 drop-shadow-md text-3xl">{service.title}</h3>
-                        <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-base">{service.description}</p>
+                      <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
+                        <p className="text-gray-100 dark:text-gray-200 mb-3 drop-shadow text-sm">{service.description}</p>
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileHover={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="space-y-3"
+                          className="space-y-2"
                         >
                           {service.details.map((detail, i) => (
                             <div key={i} className="flex items-center gap-2 text-white">
-                              <CheckCircle className="w-5 h-5 text-primary dark:text-primary-400 flex-shrink-0" />
-                              <span className="drop-shadow-sm text-base">{detail}</span>
+                              <CheckCircle className="w-5 h-5 text-primary dark:text-primary-400 shrink-0" />
+                              <span className="drop-shadow-sm text-sm">{detail}</span>
                             </div>
                           ))}
 
                         </motion.div>
                       </div>
                       {/* Premium hover indicator */}
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30" />
+                      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30" />
                     </>
                   ) : (
                     <>
                       {/* Standard card layout for other services */}
-                      <div className="relative h-64 overflow-hidden">
+                      <div className="relative h-56 overflow-hidden">
                         <img
                           src={service.image}
                           alt={service.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                        <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
-                          {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
+                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
+                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
+                          {Icon && <Icon className="w-5 h-5 text-white drop-shadow-md" />}
                         </div>
                       </div>
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/90 via-black/60 to-transparent">
                         <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
-                        <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-sm">{service.description}</p>
+                        <p className="text-gray-100 dark:text-gray-200 mb-2 drop-shadow text-sm">{service.description}</p>
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileHover={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="space-y-3"
+                          className="space-y-2"
                         >
                           {service.details.slice(0, 2).map((detail, i) => (
                             <div key={i} className="flex items-center gap-2 text-white">
-                              <CheckCircle className="w-4 h-4 text-primary dark:text-primary-400 flex-shrink-0" />
-                              <span className="drop-shadow-sm text-sm">{detail}</span>
+                              <CheckCircle className="w-4 h-4 text-primary dark:text-primary-400 shrink-0" />
+                              <span className="drop-shadow-sm text-xs">{detail}</span>
                             </div>
                           ))}
                         </motion.div>
                       </div>
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </>
                   )}
                 </div>
               </motion.div>
             );
           })}
-        </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Section 2: Extra Value Services - Minimal Design */}
-      <section className="py-28 px-6 bg-background">
+      <section className="py-10 px-4 sm:px-6 bg-background">
         <div className="max-w-7xl mx-auto">
           {/* Section header with clean animation */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-center mb-20"
+            className="text-center mb-7"
           >
             <motion.div
               variants={fadeInScale}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-4"
             >
               <CheckCircle className="w-4 h-4 text-secondary" />
               <span className="text-secondary font-medium text-sm">Value Added</span>
@@ -451,14 +450,14 @@ export default function ServicesPage() {
 
             <motion.h2
               variants={fadeInUp}
-              className="text-4xl md:text-5xl font-bold text-foreground mb-4"
+              className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground"
             >
               Additional Value Services
             </motion.h2>
 
             <motion.p
               variants={fadeInUp}
-              className="text-muted-foreground text-lg max-w-2xl mx-auto"
+              className="text-muted-foreground text-base max-w-lg mx-auto"
             >
               Extra services designed to maximize efficiency and convenience
             </motion.p>
@@ -470,7 +469,7 @@ export default function ServicesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
           >
             {extraServices.map((service, index) => {
               const Icon = service.icon
@@ -513,7 +512,7 @@ export default function ServicesPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
-            className="text-center mt-12"
+            className="text-center mt-8"
           >
             <motion.button
               whileHover={{ x: 5 }}
@@ -527,7 +526,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Pricing Section with minimal design */}
-      <section className="py-28 px-6 bg-linear-to-b from-muted/20 to-background">
+      <section className="py-10 px-4 sm:px-6 bg-linear-to-b from-muted/20 to-background">
         <motion.div
           initial="hidden"
           whileInView="visible"

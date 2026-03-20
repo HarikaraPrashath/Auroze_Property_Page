@@ -221,7 +221,7 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* Hero Section with Parallax - compacted */}
-      <section ref={heroRef} className="relative pt-24 pb-16 px-2 md:px-6 overflow-hidden">
+      <section ref={heroRef} className="relative pt-16 pb-10 px-2 md:px-4 overflow-hidden pt-30">
         <motion.div 
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative z-10"
@@ -249,7 +249,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight"
+                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
               >
                 Our Complete
               </motion.h1>
@@ -258,9 +258,9 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-3xl md:text-5xl font-extrabold"
+                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
               >
-                <span className="bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary">
+                <span className="bg-clip-text text-transparent bg-linear-to-r from-primary via-primary-600 to-secondary">
                   Service Suite
                 </span>
               </motion.h1>
@@ -306,7 +306,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-8 p-4 rounded-xl bg-card/40 backdrop-blur border border-border"
+              className="grid grid-cols-2  md:grid-cols-4 gap-3 max-w-3xl mx-auto mt-6 p-3 rounded-xl bg-card/40 backdrop-blur border border-border"
             >
               {stats.map((stat, index) => (
                 <motion.div
@@ -337,7 +337,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Section 1: Core Management Services - compact grid */}
-      <section className="py-16 px-2 md:px-6 bg-linear-to-b from-background to-muted/10">
+      <section className="py-10 px-2 md:px-4 bg-linear-to-b from-background to-muted/10">
         <div className="max-w-6xl mx-auto">
           {/* Section header */}
           <motion.div
@@ -345,14 +345,14 @@ export default function ServicesPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
-            className="text-center mb-10"
+            className="text-center mb-7"
           >
             <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-3">
               <Zap className="w-4 h-4 text-primary" />
               <span className="text-primary font-medium text-xs">Core Services</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold text-foreground mb-2">
+            <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
               Core Management Services
             </motion.h2>
             
@@ -381,7 +381,7 @@ export default function ServicesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-30px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr"
+            className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-fr"
           >
             {managementServices.map((service, index) => {
               const Icon = service.icon;
@@ -401,12 +401,12 @@ export default function ServicesPage() {
                           alt={service.title}
                           className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10" />
-                        <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
+                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent z-10" />
+                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
                           {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
-                          <h3 className="font-bold text-white mb-2 drop-shadow-md text-3xl">{service.title}</h3>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+                          <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
                           <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-base">{service.description}</p>
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -416,28 +416,28 @@ export default function ServicesPage() {
                           >
                             {service.details.map((detail, i) => (
                               <div key={i} className="flex items-center gap-2 text-white">
-                                <CheckCircle className="w-5 h-5 text-primary dark:text-primary-400 flex-shrink-0" />
+                                <CheckCircle className="w-5 h-5 text-primary dark:text-primary-400 shrink-0" />
                                 <span className="drop-shadow-sm text-base">{detail}</span>
                               </div>
                             ))}
                           </motion.div>
                         </div>
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30" />
+                        <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30" />
                       </>
                     ) : (
                       <>
-                        <div className="relative h-64 overflow-hidden">
+                        <div className="relative h-56 overflow-hidden">
                           <img
                             src={service.image}
                             alt={service.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                          <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
+                          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
+                          <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
                             {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
                           </div>
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/90 via-black/60 to-transparent">
                           <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
                           <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-sm">{service.description}</p>
                           <motion.div
@@ -448,13 +448,13 @@ export default function ServicesPage() {
                           >
                             {service.details.slice(0, 2).map((detail, i) => (
                               <div key={i} className="flex items-center gap-2 text-white">
-                                <CheckCircle className="w-4 h-4 text-primary dark:text-primary-400 flex-shrink-0" />
+                                <CheckCircle className="w-4 h-4 text-primary dark:text-primary-400 shrink-0" />
                                 <span className="drop-shadow-sm text-sm">{detail}</span>
                               </div>
                             ))}
                           </motion.div>
                         </div>
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                        <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                       </>
                     )}
                   </div>
@@ -466,7 +466,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Section 2: Additional Value Services - compact grid */}
-      <section className="py-16 px-2 md:px-6 bg-background">
+      <section className="py-10 px-2 md:px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           {/* Section header */}
           <motion.div
@@ -474,14 +474,14 @@ export default function ServicesPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
-            className="text-center mb-10"
+            className="text-center mb-7"
           >
             <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 mb-3">
               <Award className="w-4 h-4 text-secondary" />
               <span className="text-secondary font-medium text-xs">Value Added</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold text-foreground mb-2">
+            <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
               Additional Value Services
             </motion.h2>
             
@@ -510,7 +510,7 @@ export default function ServicesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-30px" }}
-            className="grid grid-cols-1 md:grid-cols-4 gap-4"
+            className="grid grid-cols-1 md:grid-cols-4 gap-3"
           >
             {extraServices.map((service, index) => {
               const Icon = service.icon;
@@ -530,7 +530,7 @@ export default function ServicesPage() {
                           alt={service.title}
                           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-400 z-0"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent z-10" />
                         <div className="absolute top-4 left-4 w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm border border-white/20 flex items-center justify-center z-20">
                           {Icon && <Icon className="w-5 h-5 text-white" />}
                         </div>
