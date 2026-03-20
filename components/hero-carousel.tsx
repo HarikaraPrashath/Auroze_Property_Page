@@ -41,14 +41,14 @@ const slides = [
     title: "Smart Rent Collection & Payments",
     description:
       "Automated rent collection with secure online payment options and real-time tracking",
-    bgImage: "/collection.jpg", // or /payment.jpg
+    bgImage: "/hero-5.jpg", // or /payment.jpg
   },
   {
     id: 6,
     title: "Tenant Screening & Legal Support",
     description:
       "Verified tenants, secure deposits, and fully compliant legal documentation",
-    bgImage: "/tenant.jpg", // or /legal.jpg
+    bgImage: "/hero-6.jpg", // or /legal.jpg
   },
 ];
 
