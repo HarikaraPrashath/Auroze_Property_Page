@@ -218,13 +218,13 @@ export default function Footer() {
                         href={item.href}
                         className="group inline-flex items-start gap-3"
                       >
-                        <Icon className="w-5 h-5 icon-brown shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                        <Icon className="w-5 h-5 icon-brown text-destructive  shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                         <span className="text-muted-foreground group-hover:text-primary transition-colors text-sm">
                           {item.text}
                         </span>
                       </a>
                     ) : (
-                      <div className="inline-flex items-start gap-3">
+                      <div className="inline-flex text-destructive items-start gap-3">
                         <Icon className="w-5 h-5 icon-brown shrink-0 mt-0.5" />
                         <span className="text-muted-foreground text-sm">
                           {item.text}
@@ -273,7 +273,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <p className="text-xs text-muted-foreground text-center lg:text-right">
+          <p className="text-xs  text-center lg:text-right text-destructive ">
             Made with  Auroze, Sri Lanka.
           </p>
         </motion.div>
