@@ -16,9 +16,6 @@ const ServiceOverviewSection = dynamic(() => import('@/components/service-overvi
 const TestimonialsSection = dynamic(() => import('@/components/testimonials-section'), {
   loading: () => <div className="min-h-[40vh] flex items-center justify-center">Loading...</div>
 })
-const PricingSection = dynamic(() => import('@/components/pricing-section'), {
-  loading: () => <div className="min-h-[50vh] flex items-center justify-center">Loading...</div>
-})
 const CTASection = dynamic(() => import('@/components/cta-section'), {
   loading: () => <div className="min-h-[30vh] flex items-center justify-center">Loading...</div>
 })
@@ -44,9 +41,6 @@ export default function Home() {
       </section>
       <section className={compactSection}>
         <TestimonialsSection />
-      </section>
-      <section className={compactSection}>
-        <PricingSection />
       </section>
       <section className={compactSection}>
         <CTASection />
