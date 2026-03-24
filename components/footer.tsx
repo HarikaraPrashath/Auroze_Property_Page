@@ -166,7 +166,7 @@ export default function Footer() {
             </p>
 
             {/* Newsletter signup */}
-            <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-5">
+            {/* <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-5">
               <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-primary" />
                 Subscribe to Newsletter
@@ -189,7 +189,7 @@ export default function Footer() {
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </form>
-              {subscribed && (
+              {/* {subscribed && (
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -197,8 +197,8 @@ export default function Footer() {
                 >
                   Thanks for subscribing! 🎉
                 </motion.p>
-              )}
-            </div>
+              )} 
+            </div> */}
           </motion.div>
 
       
