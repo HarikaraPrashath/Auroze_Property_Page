@@ -196,12 +196,12 @@ export default function CTASection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary px-8 py-6 text-lg rounded-xl transition-all duration-300"
+                className="border-destructive/30 text-destructive hover:bg-destructive/10 hover:border-destructive px-8 py-6 text-lg rounded-xl transition-all duration-300"
               >
-                <Link href="/contact" className="flex items-center gap-2">
+                <Link href="/contact" className="flex items-center gap-2 text-destructive">
                   Schedule a Consultation
                   <motion.div
-                    animate={{ rotate: hoveredButton === 'secondary' ? 360 : 0 }}
+                    animate={{ rotate: hoveredButton === 'destructive' ? 360 : 0 }}
                     transition={{ duration: 0.5 }}
                   >
                     <ArrowRight className="w-5 h-5" />
@@ -242,9 +242,9 @@ export default function CTASection() {
                         rotate: [0, 10, -10, 0],
                       }}
                       transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
-                      className="w-12 h-12 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center"
+                      className="w-12 h-12 mx-auto mb-4 rounded-xl bg-destructive/10 flex items-center justify-center"
                     >
-                      <Icon className="w-6 h-6 text-primary" />
+                      <Icon className="w-6 h-6 text-destructive" />
                     </motion.div>
 
                     {/* Value with counting effect */}

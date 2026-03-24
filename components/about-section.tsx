@@ -87,9 +87,9 @@ export default function AboutSection() {
 
             <motion.div
               variants={textItem}
-              className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+              className="inline-block px-4 py-2 rounded-full bg-destructive/10 border border-destructive/20 mb-6"
             >
-              <span className="text-primary font-semibold text-sm">
+              <span className="text-destructive font-semibold text-sm">
                 About Us
               </span>
             </motion.div>
@@ -121,7 +121,7 @@ export default function AboutSection() {
                   variants={textItem}
                   className="flex items-start gap-3 group"
                 >
-                  <CheckCircle className="w-5 h-5 icon-brown shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                  <CheckCircle className="w-5 h-5 icon-brown text-destructive shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                   <span className="text-foreground text-sm leading-relaxed">
                     {feature}
                   </span>

@@ -138,7 +138,7 @@ export default function TrustSection() {
                     transition={{ delay: index * 0.2, type: "spring" }}
                     className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5"
                   >
-                    <Icon className="w-7 h-7 text-primary" />
+                    <Icon className="w-7 h-7 text-destructive" />
                   </motion.div>
 
 

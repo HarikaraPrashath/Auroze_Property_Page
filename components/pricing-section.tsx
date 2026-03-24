@@ -231,8 +231,8 @@ export default function PricingSection() {
                       className="absolute -top-4 left-1/2 -translate-x-1/2 z-30"
                     >
                       <div className="px-4 py-1.5 rounded-full bg-linear-to-r from-primary to-primary/80 text-white text-xs font-semibold whitespace-nowrap shadow-lg shadow-primary/30 flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-white" />
-                        Most Popular
+                        <Star className="w-3 h-3 fill-destructive text-destructive" />
+                        <p className='text-destructive'>Most Popular</p>
                       </div>
                     </motion.div>
                   </>
@@ -272,7 +272,7 @@ export default function PricingSection() {
 
                     {/* Header */}
                     <div className="mb-8">
-                      <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
+                      <h3 className="text-2xl font-bold text-destructive mb-2">{plan.name}</h3>
                       <p className="text-muted-foreground text-sm mb-4">{plan.description}</p>
                       
                       {/* Price with animation */}
@@ -280,7 +280,7 @@ export default function PricingSection() {
                         animate={{ scale: isHovered ? 1.05 : 1 }}
                         className="flex items-baseline gap-2"
                       >
-                        <span className="text-4xl font-bold text-primary">{plan.price}</span>
+                        <span className="text-4xl font-bold text-destructive">{plan.price}</span>
                         <span className="text-muted-foreground text-sm">{plan.period}</span>
                       </motion.div>
 
@@ -325,7 +325,7 @@ export default function PricingSection() {
                       <Button
                         className={`w-full relative overflow-hidden group/btn ${
                           plan.highlight
-                            ? 'bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30'
+                            ? 'bg-primary hover:bg-destructive/90 text-destructive shadow-lg shadow-primary/30'
                             : 'bg-primary/90 hover:bg-primary text-white'
                         }`}
                         size="lg"
@@ -396,7 +396,7 @@ export default function PricingSection() {
           >
             <Button 
               variant="outline" 
-              className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary transition-all duration-300"
+              className="border-destructive/30 text-destructive hover:bg-primary/10 hover:border-primary transition-all duration-300"
             >
               Contact Sales
             </Button>

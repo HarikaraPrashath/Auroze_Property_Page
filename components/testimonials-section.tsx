@@ -22,9 +22,9 @@ export default function TestimonialsSection() {
         >
 
           {/* ✅ TOPIC LABEL (clean & visible) */}
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1">
-            <Quote className="h-3.5 w-3.5 icon-brown" />
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider">
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-destructive/20 bg-destructive/5 px-3 py-1">
+            <Quote className="h-3.5 w-3.5 icon-brown text-destructive" />
+            <p className="text-xs font-semibold text-destructive uppercase tracking-wider">
               Client Reviews
             </p>
           </div>
@@ -50,7 +50,7 @@ export default function TestimonialsSection() {
 
               <div className="flex items-center gap-2">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 star-brown" />
+                  <Star key={i} className="w-4 h-4 star-brown text-destructive" />
                 ))}
                 <span className="text-xs text-muted-foreground">2 months ago</span>
               </div>
@@ -70,20 +70,38 @@ export default function TestimonialsSection() {
 
         {/* 🔹 GRID (tighter cards) */}
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 md:grid-cols-2">
-          {[1, 2].map((_, i) => (
+          {[1].map((_, i) => (
             <div key={i} className="p-3 rounded-lg border bg-card">
 
               <div className="flex justify-between mb-2">
-                <p className="text-sm font-medium">Client Name</p>
+                <p className="text-sm font-medium">Kurushandh Ramar</p>
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-3 h-3 star-brown" />
+                    <Star key={j} className="w-3 h-3 star-brown text-destructive" />
                   ))}
                 </div>
               </div>
 
               <p className="text-xs text-muted-foreground line-clamp-2">
-                “Excellent service and very professional team...”
+                "Outstanding property management! They handle everything professionally and keep tenants happy."
+              </p>
+
+            </div>
+          ))}
+          {[1].map((_, i) => (
+            <div key={i} className="p-3 rounded-lg border bg-card">
+
+              <div className="flex justify-between mb-2">
+                <p className="text-sm font-medium">Sageevan Sandhanam</p>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} className="w-3 h-3 star-brown text-destructive" />
+                  ))}
+                </div>
+              </div>
+
+              <p className="text-xs text-muted-foreground line-clamp-2">
+                "Reliable and trustworthy. SoulRoots makes property ownership stress-free with their expert care."
               </p>
 
             </div>

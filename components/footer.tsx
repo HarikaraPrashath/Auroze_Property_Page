@@ -8,6 +8,7 @@ import {
   TrendingUp, Home, Users, FileText
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -147,7 +148,14 @@ export default function Footer() {
                 transition={{ duration: 0.5 }}
                 className="w-12 h-12 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30"
               >
-                PM
+                <Image
+                                src="/logo.png"
+                                alt="SoulRoots Logo"
+                                width={48}
+                                height={48}
+                                className="w-14 h-14 lg:w-12 lg:h-12 rounded-xl shadow-lg  object-contain"
+                                priority
+                              />
               </motion.div>
               <span className="font-bold text-2xl text-foreground">SoulRoots</span>
             </div>

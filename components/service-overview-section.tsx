@@ -75,7 +75,7 @@ export default function ServiceOverviewSection() {
             viewport={{ once: true }}
             className=""
           >
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-destructive">
               Service Excellence Suite
             </div>
 
@@ -141,7 +141,7 @@ export default function ServiceOverviewSection() {
                     <div className={`absolute inset-0 bg-linear-to-br ${service.accent} opacity-50 mix-blend-overlay`} />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
-                    <div className="absolute inset-0 flex flex-col justify-between p-5 text-destructive">
+                    <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl destructive border-icon bg-icon/15 backdrop-blur-sm">
                         <Icon className="h-5 w-5 text-destructive" />
                       </div>
@@ -219,7 +219,7 @@ export default function ServiceOverviewSection() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-primary">Ready to upgrade operations?</p>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-destructive">Ready to upgrade operations?</p>
             <h3 className="mb-4 text-3xl font-semibold tracking-tight sm:text-4xl">
               Build a premium experience for owners and tenants
             </h3>
