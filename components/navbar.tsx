@@ -79,7 +79,7 @@ export default function Navbar() {
                         animate={{ rotate: servicesOpen ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <ChevronDown size={16} />
+                        <ChevronDown size={16} className="icon-brown" />
                       </motion.div>
                     </motion.button>
 
@@ -188,7 +188,7 @@ export default function Navbar() {
             className="md:hidden text-foreground rounded-lg border border-border p-2 hover:bg-accent transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X size={24}/> : <Menu size={24}/>} 
+            {isOpen ? <X size={24} className="icon-brown"/> : <Menu size={24} className="icon-brown"/>} 
           </button>
         </div>
       </div>
@@ -223,7 +223,7 @@ export default function Navbar() {
                           animate={{ rotate: servicesOpen ? 180 : 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <ChevronDown size={20} />
+                          <ChevronDown size={20} className="icon-brown" />
                         </motion.div>
                       </button>
                       

@@ -23,7 +23,7 @@ export default function TestimonialsSection() {
 
           {/* ✅ TOPIC LABEL (clean & visible) */}
           <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1">
-            <Quote className="h-3.5 w-3.5 text-primary" />
+            <Quote className="h-3.5 w-3.5 icon-brown" />
             <p className="text-xs font-semibold text-primary uppercase tracking-wider">
               Client Reviews
             </p>
@@ -44,13 +44,13 @@ export default function TestimonialsSection() {
         <div className={`mx-auto max-w-3xl ${topicBodyGap}`}>
           <div className="relative p-4 rounded-xl bg-card border border-border">
 
-            <Quote className="absolute top-4 right-4 w-8 h-8 text-primary/10" />
+            <Quote className="absolute top-4 right-4 w-8 h-8 icon-brown opacity-10" />
 
             <div className="flex flex-col gap-3">
 
               <div className="flex items-center gap-2">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                  <Star key={i} className="w-4 h-4 star-brown" />
                 ))}
                 <span className="text-xs text-muted-foreground">2 months ago</span>
               </div>
@@ -77,7 +77,7 @@ export default function TestimonialsSection() {
                 <p className="text-sm font-medium">Client Name</p>
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-3 h-3 fill-primary text-primary" />
+                    <Star key={j} className="w-3 h-3 star-brown" />
                   ))}
                 </div>
               </div>

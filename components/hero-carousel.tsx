@@ -156,8 +156,8 @@ export default function HeroCarousel() {
       {/* FULL-WIDTH AUTO LOOP SERVICE TICKER */}
       <div className="absolute inset-x-0 bottom-18 z-20 w-full px-4 sm:bottom-20 sm:px-6 lg:bottom-24 lg:px-8">
         <div className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl  ">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-black/60 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-black/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-destructive/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-destructive/60 to-transparent" />
 
           <div className="hero-service-marquee flex min-w-max items-center gap-3 px-3 sm:gap-4">
             {marqueeItems.map((item, index) => {
@@ -165,7 +165,7 @@ export default function HeroCarousel() {
               return (
                 <div
                   key={`${item.name}-${index}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-xs font-medium text-white sm:text-sm"
+                  className="inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/15 px-3 py-1.5 text-xs font-medium text-white sm:text-sm"
                 >
                   <Icon className="h-3.5 w-3.5 text-white sm:h-4 sm:w-4" />
                   <span>{item.name}</span>

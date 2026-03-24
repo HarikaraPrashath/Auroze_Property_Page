@@ -121,7 +121,7 @@ export default function AboutSection() {
                   variants={textItem}
                   className="flex items-start gap-3 group"
                 >
-                  <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                  <CheckCircle className="w-5 h-5 icon-brown shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                   <span className="text-foreground text-sm leading-relaxed">
                     {feature}
                   </span>

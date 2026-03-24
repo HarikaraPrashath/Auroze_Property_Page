@@ -141,9 +141,9 @@ export default function ServiceOverviewSection() {
                     <div className={`absolute inset-0 bg-linear-to-br ${service.accent} opacity-50 mix-blend-overlay`} />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
-                    <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/25 bg-white/15 backdrop-blur-sm">
-                        <Icon className="h-5 w-5" />
+                    <div className="absolute inset-0 flex flex-col justify-between p-5 text-destructive">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl destructive border-icon bg-icon/15 backdrop-blur-sm">
+                        <Icon className="h-5 w-5 text-destructive" />
                       </div>
 
                       <div>
