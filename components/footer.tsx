@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   Mail, Phone, MapPin, Facebook, Linkedin, 
-  ArrowRight, Heart, Sparkles, Zap, Shield, 
+  Sparkles, Zap, Shield, 
   TrendingUp, Home, Users, FileText
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
