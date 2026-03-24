@@ -137,10 +137,10 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 mb-8"
+          className="grid grid-cols-1 gap-8 lg:grid-cols-10 lg:gap-10 mb-8"
         >
           {/* Company Info - Large column */}
-          <motion.div variants={itemVariants} className="lg:col-span-4">
+          <motion.div variants={itemVariants} className="lg:col-span-5 lg:col-start-2">
             <div className="flex items-center gap-3 mb-6">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 360 }}
@@ -193,56 +193,9 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
-          <motion.div variants={itemVariants} className="lg:col-span-2">
-            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded-full" />
-              Quick Links
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => {
-                const Icon = link.icon;
-                return (
-                  <li key={index}>
-                    <Link
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                      <span className="text-sm">{link.name}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </motion.div>
-
-          {/* Services */}
-          <motion.div variants={itemVariants} className="lg:col-span-3">
-            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded-full" />
-              Our Services
-            </h3>
-            <ul className="space-y-3">
-              {serviceLinks.map((link, index) => {
-                const Icon = link.icon;
-                return (
-                  <li key={index}>
-                    <Link
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                      <span className="text-sm">{link.name}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </motion.div>
-
+      
           {/* Contact Info */}
-          <motion.div variants={itemVariants} className="lg:col-span-3">
+          <motion.div variants={itemVariants} className="lg:col-span-4">
             <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Contact Us

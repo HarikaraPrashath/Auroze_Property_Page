@@ -14,7 +14,6 @@ const services = [
     image: "/money.jpg",
     icon: Zap,
     accent: "from-sky-500/70 to-cyan-400/60",
-    layout: "lg:col-span-7 lg:row-span-3",
   },
   {
     id: "maintenance",
@@ -23,7 +22,6 @@ const services = [
     image: "/maintenance.jpg",
     icon: Home,
     accent: "from-emerald-500/70 to-teal-400/60",
-    layout: "lg:col-span-5 lg:row-span-2",
   },
   {
     id: "tenant",
@@ -32,7 +30,6 @@ const services = [
     image: "/tenant_1.jpg",
     icon: Shield,
     accent: "from-violet-500/70 to-fuchsia-400/60",
-    layout: "lg:col-span-2 lg:row-span-3",
   },
   {
     id: "housekeeping",
@@ -41,7 +38,6 @@ const services = [
     image: "/housekeeping.jpg",
     icon: Sparkles,
     accent: "from-amber-500/70 to-orange-400/60",
-    layout: "lg:col-span-3 lg:row-span-3",
   },
   {
     id: "legal",
@@ -50,7 +46,6 @@ const services = [
     image: "/legal_1.jpg",
     icon: Gavel,
     accent: "from-rose-500/70 to-pink-400/60",
-    layout: "lg:col-span-2 lg:row-span-2",
   },
   {
     id: "pickup",
@@ -59,7 +54,6 @@ const services = [
     image: "/pickup.jpg",
     icon: Key,
     accent: "from-indigo-500/70 to-blue-400/60",
-    layout: "lg:col-span-5 lg:row-span-2",
   },
 ]
 
@@ -131,9 +125,10 @@ export default function ServiceOverviewSection() {
                   key={service.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.40, y: -35, zIndex: 10 }}
                   transition={{ duration: 0.45, delay: index * 0.07 }}
                   viewport={{ once: true, amount: 0.25 }}
-                  className={`group relative overflow-hidden rounded-3xl border border-border/60 bg-card/30 ${service.layout}`}
+                  className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/30 lg:col-span-4 lg:row-span-2 hover:shadow-2xl transition-shadow duration-300"
                 >
                   <Link href={`/services#${service.id}`} className="block h-full w-full">
                     <Image
