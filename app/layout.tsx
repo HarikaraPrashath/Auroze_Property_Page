@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto } from 'next/font/google'
+import { Inter, Roboto, Allura, Noto_Serif, Great_Vibes } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -15,6 +15,26 @@ const roboto = Roboto({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700'],
   variable: '--font-roboto',
+  display: 'swap',
+})
+
+const momo = Allura({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-momo',
+  display: 'swap',
+})
+
+const notoSerif = Noto_Serif({
+  subsets: ['latin'],
+  variable: '--font-noto-serif',
+  display: 'swap',
+})
+
+const momoSignature = Great_Vibes({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-momo-signature',
   display: 'swap',
 })
 
@@ -40,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${roboto.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${roboto.variable} ${momo.variable} ${notoSerif.variable} ${momoSignature.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           <SiteChatbot />

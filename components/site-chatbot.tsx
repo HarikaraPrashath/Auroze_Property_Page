@@ -242,7 +242,7 @@ export default function SiteChatbot() {
                   <div
                     className={
                       msg.role === 'user'
-                        ? 'max-w-[85%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-xs text-primary-foreground sm:text-sm'
+                        ? 'max-w-[85%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-xs text-white sm:text-sm'
                         : 'max-w-[85%] rounded-2xl rounded-bl-md bg-muted px-3 py-2 text-xs text-foreground sm:text-sm'
                     }
                   >
