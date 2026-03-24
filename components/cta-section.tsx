@@ -2,7 +2,11 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Zap, Shield, TrendingUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { Zap } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -196,7 +200,7 @@ export default function CTASection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-destructive/30 text-destructive hover:bg-destructive/10 hover:border-destructive px-8 py-6 text-lg rounded-xl transition-all duration-300"
+                className="border-destructive/30 text-destructive hover:bg-destructive hover:text-white hover:border-destructive px-8 py-6 text-lg rounded-xl transition-all duration-300"
               >
                 <Link href="/contact" className="flex items-center gap-2 text-destructive">
                   Schedule a Consultation

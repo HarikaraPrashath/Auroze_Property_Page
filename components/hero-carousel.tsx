@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Shield, Home, Gavel, Key, Sparkles, Wallet, Wrench, Users, FileCheck } from "lucide-react";
@@ -83,10 +84,7 @@ export default function HeroCarousel() {
       <AnimatePresence mode="wait">
         <motion.div
           key={slides[current].id}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${slides[current].bgImage})`,
-          }}
+          className="absolute inset-0"
           initial={{ opacity: 0, scale: 1.15 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
@@ -95,6 +93,15 @@ export default function HeroCarousel() {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
+          <Image
+            src={slides[current].bgImage}
+            alt={slides[current].title}
+            fill
+            className="object-cover"
+            priority={current === 0} // Only prioritize the first image
+            quality={85}
+            sizes="100vw"
+          />
 
           {/* Dark cinematic overlay */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]" />

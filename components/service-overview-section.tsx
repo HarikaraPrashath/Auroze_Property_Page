@@ -91,26 +91,7 @@ export default function ServiceOverviewSection() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 gap-3 rounded-3xl border border-border/70 bg-card/35 p-4 backdrop-blur-sm sm:grid-cols-3"
-          >
-            <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
-              <p className="text-2xl font-semibold tracking-tight">24/7</p>
-              <p className="mt-1 text-xs text-muted-foreground">Support Coverage</p>
-            </div>
-            <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
-              <p className="text-2xl font-semibold tracking-tight">99.9%</p>
-              <p className="mt-1 text-xs text-muted-foreground">Payment Uptime</p>
-            </div>
-            <div className="rounded-2xl border border-border/70 bg-background/70 px-3 py-4 text-center">
-              <p className="text-2xl font-semibold tracking-tight">2K+</p>
-              <p className="mt-1 text-xs text-muted-foreground">Units Managed</p>
-            </div>
-          </motion.div>
+         
         </div>
       </section>
 
@@ -125,10 +106,10 @@ export default function ServiceOverviewSection() {
                   key={service.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.40, y: -35, zIndex: 10 }}
-                  transition={{ duration: 0.45, delay: index * 0.07 }}
+                  whileHover={{ scale: 1.05, y: -8 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                   viewport={{ once: true, amount: 0.25 }}
-                  className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/30 lg:col-span-4 lg:row-span-2 hover:shadow-2xl transition-shadow duration-300"
+                  className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/30 lg:col-span-4 lg:row-span-2 hover:shadow-xl transition-shadow duration-300"
                 >
                   <Link href={`/services#${service.id}`} className="block h-full w-full">
                     <Image

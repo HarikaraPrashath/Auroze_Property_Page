@@ -46,13 +46,8 @@ export default function Footer() {
     },
   };
 
-  const floatingIcons = [
-    { Icon: Sparkles, delay: 0, duration: 3, top: '10%', left: '5%' },
-    { Icon: Zap, delay: 0.5, duration: 4, top: '20%', right: '8%' },
-    { Icon: Shield, delay: 1, duration: 3.5, bottom: '15%', left: '10%' },
-    { Icon: TrendingUp, delay: 1.5, duration: 4.5, top: '40%', right: '12%' },
-    { Icon: Home, delay: 2, duration: 5, bottom: '25%', right: '15%' },
-    { Icon: Users, delay: 2.5, duration: 4, top: '60%', left: '8%' },
+  const floatingIcons: any[] = [
+    // Removed floating icons for better performance
   ];
 
   const quickLinks = [
@@ -138,17 +133,17 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 gap-8 lg:grid-cols-10 lg:gap-10 mb-8"
+          className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 mb-8"
         >
           {/* Company Info - Large column */}
-          <motion.div variants={itemVariants} className="lg:col-span-5 lg:col-start-2">
+          <motion.div variants={itemVariants} className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
               <motion.div
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
                 className="w-12 h-12 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30"
               >
-                <Image
+                  <Image
                                 src="/logo.png"
                                 alt="SoulRoots Logo"
                                 width={48}
@@ -189,7 +184,7 @@ export default function Footer() {
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </form>
-              {/* {subscribed && (
+              {subscribed && (
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -197,13 +192,60 @@ export default function Footer() {
                 >
                   Thanks for subscribing! 🎉
                 </motion.p>
-              )} 
+              )}
             </div> */}
           </motion.div>
 
-      
+          {/* Quick Links */}
+          <motion.div variants={itemVariants} className="hidden lg:block lg:col-span-2">
+            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
+              <span className="w-1 h-6 bg-primary rounded-full" />
+              Quick Links
+            </h3>
+            <ul className="space-y-3">
+              {quickLinks.map((link, index) => {
+                const Icon = link.icon;
+                return (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Icon className="w-4 h-4 group-hover:rotate-12 text-destructive transition-transform" />
+                      <span className="text-sm">{link.name}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
+
+          {/* Services */}
+          <motion.div variants={itemVariants} className="hidden lg:block lg:col-span-3">
+            <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
+              <span className="w-1 h-6 bg-primary rounded-full" />
+              Our Services
+            </h3>
+            <ul className="space-y-3">
+              {serviceLinks.map((link, index) => {
+                const Icon = link.icon;
+                return (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="group inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Icon className="w-4 h-4 group-hover:rotate-12 text-destructive transition-transform" />
+                      <span className="text-sm">{link.name}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
+
           {/* Contact Info */}
-          <motion.div variants={itemVariants} className="lg:col-span-4">
+          <motion.div variants={itemVariants} className="lg:col-span-3">
             <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Contact Us
@@ -218,14 +260,14 @@ export default function Footer() {
                         href={item.href}
                         className="group inline-flex items-start gap-3"
                       >
-                        <Icon className="w-5 h-5 icon-brown text-destructive  shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                        <Icon className="w-5 h-5 text-destructive shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                         <span className="text-muted-foreground group-hover:text-primary transition-colors text-sm">
                           {item.text}
                         </span>
                       </a>
                     ) : (
-                      <div className="inline-flex text-destructive items-start gap-3">
-                        <Icon className="w-5 h-5 icon-brown shrink-0 mt-0.5" />
+                      <div className="inline-flex items-start gap-3">
+                        <Icon className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
                         <span className="text-muted-foreground text-sm">
                           {item.text}
                         </span>
@@ -273,7 +315,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <p className="text-xs  text-center lg:text-right text-destructive ">
+          <p className="text-xs text-muted-foreground text-center lg:text-right">
             Made with  Auroze, Sri Lanka.
           </p>
         </motion.div>
