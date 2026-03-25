@@ -79,7 +79,7 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black">
+    <div className="relative w-full min-h-[100svh] md:h-screen overflow-hidden bg-black">
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -104,7 +104,10 @@ export default function HeroCarousel() {
           />
 
           {/* Dark cinematic overlay */}
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]" />
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"
+            style={{ WebkitBackdropFilter: 'blur(1px)' }}
+          />
 
           {/* CONTENT */}
           <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
@@ -163,7 +166,10 @@ export default function HeroCarousel() {
       </AnimatePresence>
 
       {/* FULL-WIDTH AUTO LOOP SERVICE TICKER */}
-      <div className="absolute inset-x-0 bottom-18 z-20 w-full px-4 sm:bottom-20 sm:px-6 lg:bottom-24 lg:px-8">
+      <div
+        className="absolute inset-x-0 z-20 w-full px-4 sm:px-6 lg:px-8"
+        style={{ bottom: 'calc(4.5rem + env(safe-area-inset-bottom))' }}
+      >
         <div className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl  ">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-white/60 to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-white/60 to-transparent" />
@@ -186,7 +192,10 @@ export default function HeroCarousel() {
       </div>
 
       {/* DOT NAVIGATION */}
-      <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+      <div
+        className="absolute left-1/2 z-20 flex -translate-x-1/2 gap-3"
+        style={{ bottom: 'calc(3rem + env(safe-area-inset-bottom))' }}
+      >
         {slides.map((_, index) => (
           <button
             key={index}
