@@ -4,6 +4,27 @@ import { Star, Quote } from "lucide-react"
 import { motion } from "framer-motion"
 import { useState } from "react"
 
+function StarRating({ rating, className = "w-3 h-3" }: { rating: number; className?: string }) {
+  return (
+    <div className="flex">
+      {Array.from({ length: 5 }).map((_, i) => {
+        const fillPercent = Math.max(0, Math.min(100, (rating - i) * 100))
+        return (
+          <span key={i} className="relative inline-block">
+            <Star className={`${className} text-muted-foreground`} />
+            <span
+              className="absolute top-0 left-0 overflow-hidden"
+              style={{ width: `${fillPercent}%` }}
+            >
+              <Star fill="currentColor" className={`${className} text-destructive`} />
+            </span>
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function TestimonialsSection() {
   const topicBodyGap = "mb-3"
   const headingContentGap = "mt-2"
@@ -49,9 +70,7 @@ export default function TestimonialsSection() {
             <div className="flex flex-col gap-3">
 
               <div className="flex items-center gap-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 star-brown text-destructive" />
-                ))}
+                <StarRating rating={5} className="w-4 h-4 star-brown" />
                 <span className="text-xs text-muted-foreground">2 months ago</span>
               </div>
 
@@ -76,9 +95,7 @@ export default function TestimonialsSection() {
               <div className="flex justify-between mb-2">
                 <p className="text-sm font-medium">Kurushandh Ramar</p>
                 <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-3 h-3 star-brown text-destructive" />
-                  ))}
+                  <StarRating rating={4.5} className="w-3 h-3 star-brown" />
                 </div>
               </div>
 
@@ -94,9 +111,7 @@ export default function TestimonialsSection() {
               <div className="flex justify-between mb-2">
                 <p className="text-sm font-medium">Sageevan Sandhanam</p>
                 <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-3 h-3 star-brown text-destructive" />
-                  ))}
+                  <StarRating rating={5} className="w-3 h-3 star-brown" />
                 </div>
               </div>
 

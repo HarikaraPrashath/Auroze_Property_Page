@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import type { MouseEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Sparkles, Zap, Shield, Home, Gavel, Key, X } from "lucide-react"
@@ -91,7 +92,7 @@ function MobileServicesJourney({
 
                 <div className="px-4 py-4">
                   <div className="flex items-center justify-between gap-3">
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/8">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-destructive/20 bg-destructive/8">
                       <Icon className="h-5 w-5 text-white" />
                     </div>
                     <span className="text-sm font-semibold text-white/90">{String(idx + 1).padStart(2, '0')}</span>
@@ -151,7 +152,7 @@ function MobileServiceSheet({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 0.96 }}
             transition={{ type: "spring", stiffness: 240, damping: 28 }}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-lg rounded-t-[2rem] border border-border/60 bg-background px-4 pb-6 pt-4 shadow-[0_-20px_70px_-35px_rgba(0,0,0,0.65)] lg:hidden"
+            className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-lg rounded-t-4xl border border-border/60 bg-background px-4 pb-6 pt-4 shadow-[0_-20px_70px_-35px_rgba(0,0,0,0.65)] lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-details-title"
@@ -178,7 +179,7 @@ function MobileServiceSheet({
               </button>
             </div>
 
-            <div className="relative mb-5 h-48 overflow-hidden rounded-[1.5rem]">
+            <div className="relative mb-5 h-48 overflow-hidden rounded-3xl">
               <Image
                 src={service.image}
                 alt={service.title}
@@ -195,7 +196,7 @@ function MobileServiceSheet({
             </p>
 
             <Button asChild size="lg" className="mt-6 w-full rounded-xl text-base font-semibold text-white bg-primary hover:bg-primary/90 px-8 py-6">
-              <Link href={`/services#${service.id}`} onClick={onClose}>
+              <Link href="/services/management" onClick={onClose}>
                 Explore service
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -209,11 +210,24 @@ function MobileServiceSheet({
 
 export default function ServiceOverviewSection() {
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null)
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null)
 
   const selectedService = useMemo(
     () => services.find((service) => service.id === selectedServiceId) ?? null,
     [selectedServiceId]
   )
+
+  function openFromCard(e: MouseEvent<HTMLButtonElement>, id: string) {
+    const target = e.currentTarget as HTMLElement
+    const rect = target.getBoundingClientRect()
+    setAnchorRect(rect)
+    setSelectedServiceId(id)
+  }
+
+  function closeModal() {
+    setSelectedServiceId(null)
+    setAnchorRect(null)
+  }
 
   return (
     <>
@@ -268,7 +282,11 @@ export default function ServiceOverviewSection() {
                   viewport={{ once: true, amount: 0.25 }}
                   className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/30 transition-shadow duration-300 hover:shadow-xl lg:col-span-4 lg:row-span-2"
                 >
-                  <Link href={`/services#${service.id}`} className="block h-full w-full">
+                  <button
+                    onClick={(e) => openFromCard(e, service.id)}
+                    className="block h-full w-full text-left"
+                    aria-label={`Open details for ${service.title}`}
+                  >
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -280,7 +298,7 @@ export default function ServiceOverviewSection() {
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
                     <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl destructive border-icon bg-icon/15 backdrop-blur-sm">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl destructive border-destructive bg-destructive/15 backdrop-blur-sm">
                         <Icon className="h-5 w-5 text-destructive" />
                       </div>
 
@@ -297,7 +315,7 @@ export default function ServiceOverviewSection() {
                         </span>
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 </motion.div>
               )
             })}
@@ -309,6 +327,72 @@ export default function ServiceOverviewSection() {
         service={selectedService}
         onClose={() => setSelectedServiceId(null)}
       />
+
+      {/* Desktop modal that animates from card rect to centered modal */}
+      <AnimatePresence>
+        {selectedService && anchorRect && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
+          >
+            <motion.button
+              onClick={closeModal}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{
+                left: anchorRect.left,
+                top: anchorRect.top,
+                width: anchorRect.width,
+                height: anchorRect.height,
+                position: 'fixed',
+                borderRadius: 12,
+                overflow: 'hidden'
+              }}
+              animate={{
+                left: '50%',
+                top: '50%',
+                x: '-50%',
+                y: '-50%',
+                width: Math.min(920, window.innerWidth - 80),
+                height: 'auto',
+                position: 'fixed'
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+              className="z-50 max-w-3xl w-full bg-background rounded-2xl shadow-2xl border border-border overflow-hidden"
+            >
+              <div className="relative h-48 w-full">
+                <Image src={selectedService.image} alt={selectedService.title} fill className="object-cover" />
+                <div className={`absolute inset-0 bg-linear-to-br ${selectedService.accent} opacity-30 mix-blend-overlay`} />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
+                <button onClick={closeModal} className="absolute top-4 right-4 z-50 inline-flex h-10 w-10 items-center justify-center rounded-full bg-card border border-border">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-destructive">Service details</p>
+                <h3 className="mt-2 text-2xl font-semibold text-foreground">{selectedService.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground">{selectedService.description}</p>
+
+                <div className="mt-6 flex gap-3">
+                  <Button asChild size="default" className="rounded-lg px-4 py-2 bg-primary text-white">
+                    <Link href="services/management" onClick={closeModal}>View on services</Link>
+                  </Button>
+                  <Button onClick={closeModal} size="default" className="rounded-lg px-4 py-2 border text-white">Close</Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <section className="relative overflow-hidden bg-background px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
         <div className="mx-auto max-w-5xl rounded-3xl border border-border/70 bg-card/30 p-7 shadow-[0_20px_70px_-35px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:p-10">

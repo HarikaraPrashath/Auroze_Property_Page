@@ -74,11 +74,11 @@ const managementServices: Service[] = [
 
 const extraServices: ExtraService[] = [
   {
-    id: 'housekeeping',
-    title: 'Housekeeping',
-    image: '/housekeeping.jpg',
-    description: 'Professional cleaning and housekeeping for your property.',
-    icon: Home,
+    id: 'land-cleaning',
+    title: 'Land Cleaning',
+    image: '/land.jpg',
+    description: 'Clearing, debris removal and basic land preparation services.',
+    icon: Sparkles,
   },
   {
     id: 'legal-compliance',
@@ -504,13 +504,13 @@ export default function ServicesPage() {
             </motion.div>
           </motion.div>
 
-          {/* Compact card grid */}
+          {/* Compact card grid (redesigned for balanced layout) */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-30px" }}
-            className="grid grid-cols-1 md:grid-cols-4 gap-3"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-fr items-stretch"
           >
             {extraServices.map((service, index) => {
               const Icon = service.icon;
@@ -522,7 +522,7 @@ export default function ServicesPage() {
                   whileHover={{ y: -4, scale: 1.02 }}
                   className="group relative"
                 >
-                  <div className="relative bg-card rounded-lg overflow-hidden border border-border hover:border-primary/30 transition-all duration-300">
+                  <div className="relative bg-card rounded-lg overflow-hidden border border-border hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
                     {isHousekeeping ? (
                       <>
                         <img
@@ -547,21 +547,26 @@ export default function ServicesPage() {
                       </>
                     ) : (
                       <>
-                        <div className="relative h-32 overflow-hidden">
+                        <div className="relative h-36 overflow-hidden">
                           <img
                             src={service.image}
                             alt={service.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
                           />
                         </div>
-                        <div className="p-3">
-                          <div className="flex items-center gap-2 mb-2">
-                            {Icon && <Icon className="w-4 h-4 text-primary" />}
-                            <h3 className="text-sm font-semibold text-foreground">{service.title}</h3>
+                        <div className="p-4 flex-1 flex flex-col justify-between">
+                          <div>
+                            <div className="flex items-center gap-2 mb-2">
+                              {Icon && <Icon className="w-4 h-4 text-primary" />}
+                              <h3 className="text-sm font-semibold text-foreground">{service.title}</h3>
+                            </div>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                              {service.description}
+                            </p>
                           </div>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
-                            {service.description}
-                          </p>
+                          <div className="mt-3">
+                            <a className="text-primary text-xs font-medium">Learn more →</a>
+                          </div>
                         </div>
                         <motion.div
                           initial={{ scaleX: 0 }}

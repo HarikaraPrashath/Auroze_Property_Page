@@ -11,7 +11,7 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: 'Phone',
-      value: '+94 XXXXXXXXX',
+      value: '+94 77 129 9675',
       description: 'Available during business hours',
       bg: 'bg-primary/5',
       border: 'border-primary/20',
@@ -33,7 +33,7 @@ export default function ContactPage() {
     {
       icon: MessageCircle,
       title: 'WhatsApp',
-      value: '+94 XXXXXXXXX',
+      value: '+94 77 129 9675',
       description: 'Quick responses 24/7',
       bg: 'bg-green-500/5',
       border: 'border-green-500/20',

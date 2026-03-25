@@ -1,6 +1,6 @@
 'use client';
 
-import { Building2, Users, Award, Zap } from 'lucide-react';
+import { Building2, Users, Award, Zap, ShieldCheck } from 'lucide-react';
 import CountUp from 'react-countup';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -177,8 +177,34 @@ export default function TrustSection() {
 
           })}
 
+           
         </motion.div>
+        <div className="lg:mt-8 p-6 rounded-2xl bg-background border border-border w-full">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex-shrink-0">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-primary" />
+              </div>
+            </div>
 
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-foreground">Formal Agreements</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                We operate under formal agreements with all clients, outlining clear terms,
+                responsibilities and service-level expectations to protect both parties.
+              </p>
+            </div>
+
+            <div className="mt-3 sm:mt-0 sm:ml-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-white text-xs font-medium shadow-sm hover:bg-primary/90 transition"
+              >
+                Learn more
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
     </section>
