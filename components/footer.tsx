@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+// framer-motion removed from footer to reduce initial JS bundle
+// import { motion } from 'framer-motion';
 import { 
   Mail, Phone, MapPin, Facebook, Linkedin, 
   Sparkles, Zap, Shield, 
@@ -52,24 +53,24 @@ export default function Footer() {
 
   const quickLinks = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Services', href: '/services', icon: Zap },
-    { name: 'About Us', href: '/about', icon: Users },
+    { name: 'Management', href: '/services/management', icon: Zap },
+    { name: 'Support', href: '/services/support', icon: Zap },
     { name: 'Contact', href: '/contact', icon: Mail },
-    { name: 'Blog', href: '/blog', icon: FileText },
+    { name: 'Blog', href: '/', icon: FileText },
   ];
 
   const serviceLinks = [
-    { name: 'Rent & Payment', href: '/services#rent-payment', icon: TrendingUp },
-    { name: 'Maintenance', href: '/services#maintenance', icon: Shield },
-    { name: 'Tenant Management', href: '/services#tenant', icon: Users },
-    { name: 'Housekeeping', href: '/services#housekeeping', icon: Sparkles },
-    { name: 'Legal & Compliance', href: '/services#legal', icon: FileText },
+    { name: 'Rent & Payment', href: '/', icon: TrendingUp },
+    { name: 'Maintenance', href: '/', icon: Shield },
+    { name: 'Tenant Management', href: '/', icon: Users },
+    { name: 'Housekeeping', href: '/', icon: Sparkles },
+    { name: 'Legal & Compliance', href: '/', icon: FileText },
   ];
 
   const contactInfo = [
-    { icon: Phone, text: '+94 77 123 4567', href: 'tel:+94771234567' },
-    { icon: Mail, text: 'info@soulroots.lk', href: 'mailto:info@soulroots.lk' },
-    { icon: MapPin, text: 'Colombo 03, Sri Lanka', href: '#' },
+    { icon: Phone, text: '+94 77 129 9675', href: 'tel:+94771299675' },
+    { icon: Mail, text: 'support.soulroots@gmail.com', href: 'support.soulroots@gmail.com' },
+    { icon: MapPin, text: 'No-09,Pioneer road, Batticaloa, Sri Lanka', href: 'https://maps.app.goo.gl/t6z957YnqshVSo236' },
   ];
 
   const socialLinks = [
@@ -100,49 +101,28 @@ export default function Footer() {
       {floatingIcons.map((item, index) => {
         const Icon = item.Icon;
         return (
-          <motion.div
+          <div
             key={index}
-            className="absolute icon-brown opacity-10 z-0 hidden lg:block"
+            className="absolute icon-brown opacity-8 z-0 hidden lg:block"
             style={{
               top: item.top,
               left: item.left,
               right: item.right,
               bottom: item.bottom,
             }}
-            animate={{
-              y: [0, -20, 0, 20, 0],
-              rotate: [0, 10, -10, 0],
-              scale: [1, 1.1, 1, 0.9, 1],
-            }}
-            transition={{
-              duration: item.duration,
-              delay: item.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
           >
             <Icon className="w-8 h-8 md:w-12 md:h-12" />
-          </motion.div>
+          </div>
         );
       })}
 
       {/* Main footer content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 mb-8"
-        >
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 mb-8">
           {/* Company Info - Large column */}
-          <motion.div variants={itemVariants} className="lg:col-span-4">
+          <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-                className="w-12 h-12 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30"
-              >
+              <div className="w-12 h-12 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30 transition-transform hover:scale-105">
                   <Image
                                 src="/logo.png"
                                 alt="SoulRoots Logo"
@@ -151,7 +131,7 @@ export default function Footer() {
                                 className="w-14 h-14 lg:w-12 lg:h-12 rounded-xl shadow-lg  object-contain"
                                 priority
                               />
-              </motion.div>
+              </div>
               <span className="font-bold text-2xl text-foreground">SoulRoots</span>
             </div>
             
@@ -194,10 +174,10 @@ export default function Footer() {
                 </motion.p>
               )}
             </div> */}
-          </motion.div>
+          </div>
 
           {/* Quick Links */}
-          <motion.div variants={itemVariants} className="hidden lg:block lg:col-span-2">
+          <div className="hidden lg:block lg:col-span-2">
             <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Quick Links
@@ -218,10 +198,10 @@ export default function Footer() {
                 );
               })}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Services */}
-          <motion.div variants={itemVariants} className="hidden lg:block lg:col-span-3">
+          <div className="hidden lg:block lg:col-span-3">
             <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Our Services
@@ -242,10 +222,10 @@ export default function Footer() {
                 );
               })}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Contact Info */}
-          <motion.div variants={itemVariants} className="lg:col-span-3">
+          <div className="lg:col-span-3">
             <h3 className="font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               Contact Us
@@ -286,31 +266,25 @@ export default function Footer() {
               </span>
               <span className="text-xs text-muted-foreground">Support available 24/7</span>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
       
 
         {/* Copyright and Legal */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-col lg:flex-row justify-between items-center gap-3 border-t border-border/60 pt-6"
-        >
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-3 border-t border-border/60 pt-6">
           <p className="text-muted-foreground text-sm text-center lg:text-left">
             © {currentYear} SoulRoots. All rights reserved.
           </p>
           
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-            <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
               Cookie Policy
             </Link>
           </div>
@@ -318,17 +292,11 @@ export default function Footer() {
           <p className="text-xs text-muted-foreground text-center lg:text-right">
             Made with  Auroze, Sri Lanka.
           </p>
-        </motion.div>
+        </div>
       </div>
 
       {/* Animated gradient line at bottom */}
-      <motion.div
-        animate={{
-          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-        }}
-        transition={{ duration: 10, repeat: Infinity }}
-        className="h-1 w-full bg-linear-to-r from-primary/0 via-primary to-primary/0 bg-size-[200%_100%]"
-      />
+      <div className="h-1 w-full bg-linear-to-r from-primary/0 via-primary to-primary/0 bg-size-[200%_100%] animate-gradient-x" />
     </footer>
   );
 }

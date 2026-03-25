@@ -69,318 +69,41 @@ function MobileServicesJourney({
 }: {
   onSelect: (serviceId: string) => void
 }) {
-  const sectionRef = useRef<HTMLDivElement | null>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isLocked, setIsLocked] = useState(false)
-
-  const touchStartY = useRef(0)
-  const isAnimating = useRef(false)
-  const rafRef = useRef<number | null>(null)
-  const shouldReduceMotion = useReducedMotion()
-  const scrollRef = useRef<HTMLDivElement | null>(null)
-  const itemWidthRef = useRef<number>(0)
-
-  const lastIndex = services.length - 1
-
-  useEffect(() => {
-    const checkLockZone = () => {
-      if (!sectionRef.current || window.innerWidth >= 1024) return
-
-      const rect = sectionRef.current.getBoundingClientRect()
-      const vh = window.innerHeight
-
-      // lock when section is around viewport center
-      const shouldLock =
-        rect.top <= vh * 0.18 &&
-        rect.bottom >= vh * 0.82
-
-      setIsLocked(shouldLock)
-    }
-
-    checkLockZone()
-    window.addEventListener("scroll", checkLockZone, { passive: true })
-    window.addEventListener("resize", checkLockZone)
-
-    return () => {
-      window.removeEventListener("scroll", checkLockZone)
-      window.removeEventListener("resize", checkLockZone)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!isLocked || window.innerWidth >= 1024) return
-
-    const sectionEl = sectionRef.current
-    if (!sectionEl) return
-
-    const lockBody = () => {
-      document.body.style.overscrollBehavior = "none"
-      document.documentElement.style.overscrollBehavior = "none"
-    }
-
-    const unlockBody = () => {
-      document.body.style.overscrollBehavior = ""
-      document.documentElement.style.overscrollBehavior = ""
-    }
-
-    const schedule = (fn: () => void) => {
-      if (rafRef.current != null) return
-      rafRef.current = requestAnimationFrame(() => {
-        fn()
-        rafRef.current = null
-      })
-    }
-
-    const moveNext = () => {
-      if (isAnimating.current) return false
-      if (activeIndex >= lastIndex) return false
-
-      isAnimating.current = true
-      schedule(() => {
-        const el = scrollRef.current
-        if (el) {
-          const step = itemWidthRef.current || Math.round(el.clientWidth * 0.9)
-          el.scrollBy({ left: step, behavior: shouldReduceMotion ? 'auto' : 'smooth' })
-        }
-        setActiveIndex((prev) => Math.min(prev + 1, lastIndex))
-        setTimeout(() => {
-          isAnimating.current = false
-        }, shouldReduceMotion ? 180 : 320)
-      })
-
-      return true
-    }
-
-    const movePrev = () => {
-      if (isAnimating.current) return false
-      if (activeIndex <= 0) return false
-
-      isAnimating.current = true
-      schedule(() => {
-        const el = scrollRef.current
-        if (el) {
-          const step = itemWidthRef.current || Math.round(el.clientWidth * 0.9)
-          el.scrollBy({ left: -step, behavior: shouldReduceMotion ? 'auto' : 'smooth' })
-        }
-        setActiveIndex((prev) => Math.max(prev - 1, 0))
-        setTimeout(() => {
-          isAnimating.current = false
-        }, shouldReduceMotion ? 180 : 320)
-      })
-
-      return true
-    }
-
-    const onWheel = (e: WheelEvent) => {
-      if (!isLocked) return
-
-      const goingDown = e.deltaY > 8
-      const goingUp = e.deltaY < -8
-
-      if (goingDown && activeIndex < lastIndex) {
-        e.preventDefault()
-        // translate vertical wheel into horizontal scroll
-        const el = scrollRef.current
-        if (el) {
-          const delta = Math.min(200, Math.abs(e.deltaY))
-          el.scrollBy({ left: delta, behavior: 'auto' })
-          // if at end, unlock to resume vertical
-          if (Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth) {
-            unlockBody()
-            return
-          }
-        }
-        schedule(moveNext)
-        return
-      }
-
-      if (goingUp && activeIndex > 0) {
-        e.preventDefault()
-        const el = scrollRef.current
-        if (el) {
-          const delta = Math.min(200, Math.abs(e.deltaY))
-          el.scrollBy({ left: -delta, behavior: 'auto' })
-          if (el.scrollLeft <= 0) {
-            unlockBody()
-            return
-          }
-        }
-        schedule(movePrev)
-        return
-      }
-
-      // release only at edges
-      if ((goingDown && activeIndex === lastIndex) || (goingUp && activeIndex === 0)) {
-        unlockBody()
-        return
-      }
-
-      e.preventDefault()
-    }
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY.current = e.touches[0].clientY
-    }
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (!isLocked) return
-
-      const currentY = e.touches[0].clientY
-      const diff = touchStartY.current - currentY
-
-      if (Math.abs(diff) < 18) return
-
-      const goingDown = diff > 0
-      const goingUp = diff < 0
-
-      if (goingDown && activeIndex < lastIndex) {
-        e.preventDefault()
-        touchStartY.current = currentY
-        const el = scrollRef.current
-        if (el) {
-          el.scrollBy({ left: Math.min(200, Math.abs(diff)), behavior: 'auto' })
-          if (Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth) {
-            unlockBody()
-            return
-          }
-        }
-        schedule(moveNext)
-        return
-      }
-
-      if (goingUp && activeIndex > 0) {
-        e.preventDefault()
-        touchStartY.current = currentY
-        const el = scrollRef.current
-        if (el) {
-          el.scrollBy({ left: -Math.min(200, Math.abs(diff)), behavior: 'auto' })
-          if (el.scrollLeft <= 0) {
-            unlockBody()
-            return
-          }
-        }
-        schedule(movePrev)
-        return
-      }
-
-      // allow page to continue only at first/last edge
-      if ((goingDown && activeIndex === lastIndex) || (goingUp && activeIndex === 0)) {
-        unlockBody()
-        return
-      }
-
-      e.preventDefault()
-    }
-
-    lockBody()
-
-    window.addEventListener("wheel", onWheel, { passive: false })
-    window.addEventListener("touchstart", onTouchStart, { passive: true })
-    window.addEventListener("touchmove", onTouchMove, { passive: false })
-
-    return () => {
-      unlockBody()
-      window.removeEventListener("wheel", onWheel)
-      window.removeEventListener("touchstart", onTouchStart)
-      window.removeEventListener("touchmove", onTouchMove)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    }
-  }, [isLocked, activeIndex, lastIndex])
-
-  const currentService = services[activeIndex]
-  const Icon = currentService.icon
-
+  // Simple vertical stacked layout for mobile — no special scroll handling
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-background px-4 pb-4 sm:px-6 lg:hidden"
-    >
-      <div
-        className="sticky top-0 flex min-h-[80svh] items-center justify-center overflow-hidden py-3"
-        style={{ willChange: "transform" }}
-      >
-        <div className="w-full">
-          <div className="mx-auto w-full max-w-[22rem] overflow-hidden">
-            <div
-              ref={scrollRef}
-              className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-2 py-2 -mx-2 touch-pan-x"
-              style={{ WebkitOverflowScrolling: 'touch' }}
-              onScroll={() => {
-                const el = scrollRef.current
-                if (!el) return
-                // compute active index by nearest snapped item
-                const children = Array.from(el.children) as HTMLElement[]
-                if (!children.length) return
-                const itemWidth = children[0].clientWidth + 16
-                itemWidthRef.current = itemWidth
-                const idx = Math.round(el.scrollLeft / itemWidth)
-                setActiveIndex(clamp(idx, 0, lastIndex))
-              }}
-            >
-              {services.map((svc, idx) => {
-                const ItemIcon = svc.icon
-                return (
-                  <div
-                    key={svc.id}
-                    className="snap-start flex-shrink-0 w-[22rem]"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => onSelect(svc.id)}
-                      className="relative block h-[27rem] w-full overflow-hidden rounded-[1.75rem] border border-border/60 bg-card/40 text-left shadow-[0_24px_80px_-40px_rgba(0,0,0,0.55)] backdrop-blur-sm"
-                      aria-label={`Open details for ${svc.title}`}
-                    >
-                      <Image
-                        src={svc.image}
-                        alt={svc.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1023px) 88vw, 360px"
-                      />
-                      <div className={`absolute inset-0 bg-linear-to-br ${svc.accent} opacity-45 mix-blend-overlay`} />
-                      <div className="absolute inset-0 bg-linear-to-t from-black via-black/45 to-black/10" />
+    <section className="relative bg-background px-4 pb-8 sm:px-6 lg:hidden">
+      <div className="mx-auto max-w-3xl space-y-6">
+        {services.map((svc, idx) => {
+          const Icon = svc.icon
+          return (
+            <div key={svc.id} className="w-full">
+              <button
+                type="button"
+                onClick={() => onSelect(svc.id)}
+                className="relative block w-full overflow-hidden rounded-2xl border border-border/60 bg-card/40 text-left shadow-md"
+                aria-label={`Open details for ${svc.title}`}
+              >
+                <div className="relative h-52 w-full">
+                  <Image src={svc.image} alt={svc.title} fill className="object-cover" sizes="100vw" />
+                  <div className={`absolute inset-0 bg-linear-to-br ${svc.accent} opacity-40 mix-blend-overlay`} />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+                </div>
 
-                      <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/12 backdrop-blur-md">
-                            <ItemIcon className="h-5 w-5" />
-                          </div>
-                          <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85">
-                            {String(idx + 1).padStart(2, "0")}
-                          </span>
-                        </div>
-
-                        <div className="space-y-3">
-                          <h3 className="max-w-[14ch] text-[1.7rem] font-semibold leading-[1.05] tracking-tight">
-                            {svc.title}
-                          </h3>
-                          <p className="max-w-[28ch] text-sm leading-6 text-white/88">
-                            {svc.description}
-                          </p>
-                          <span className="inline-flex items-center gap-2 text-sm font-medium text-white">
-                            View details
-                            <ArrowRight className="h-4 w-4" />
-                          </span>
-                        </div>
-                      </div>
-                    </button>
+                <div className="px-4 py-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/8">
+                      <Icon className="h-5 w-5 text-white" />
+                    </div>
+                    <span className="text-sm font-semibold text-white/90">{String(idx + 1).padStart(2, '0')}</span>
                   </div>
-                )
-              })}
-            </div>
-          </div>
 
-          <div className="mt-4 flex items-center justify-center gap-2">
-            {services.map((service, index) => (
-              <span
-                key={service.id}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  index === activeIndex ? "w-8 bg-primary" : "w-2.5 bg-border"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+                  <h3 className="mt-3 text-lg font-semibold text-foreground">{svc.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{svc.description}</p>
+                </div>
+              </button>
+            </div>
+          )
+        })}
       </div>
     </section>
   )
@@ -471,7 +194,7 @@ function MobileServiceSheet({
               {service.description}
             </p>
 
-            <Button asChild size="lg" className="mt-6 w-full rounded-xl text-base font-semibold">
+            <Button asChild size="lg" className="mt-6 w-full rounded-xl text-base font-semibold text-white bg-primary hover:bg-primary/90 px-8 py-6">
               <Link href={`/services#${service.id}`} onClick={onClose}>
                 Explore service
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -604,7 +327,7 @@ export default function ServiceOverviewSection() {
               Activate the full service stack and run your rentals with consistency, speed, and confidence.
             </p>
 
-            <Button asChild size="lg" className="group rounded-xl px-8 py-6 text-base font-semibold">
+            <Button asChild size="lg" className="group rounded-xl px-8 py-6 text-base font-semibold text-white">
               <Link href="/services" className="inline-flex items-center gap-2">
                 Explore all services
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

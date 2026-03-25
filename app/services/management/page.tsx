@@ -238,9 +238,9 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 border border-primary/20 mb-4"
             >
-              <span className="text-primary font-medium text-xs tracking-wide">Premium Property Management</span>
+              <span className="text-destructive font-medium text-xs tracking-wide">Premium Property Management</span>
             </motion.div>
 
             {/* Main heading with staggered reveal */}
@@ -348,8 +348,8 @@ export default function ServicesPage() {
             className="text-center mb-7"
           >
             <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-3">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-primary font-medium text-xs">Core Services</span>
+              <Zap className="w-4 h-4 dark:text-destructive text-primary" />
+              <span className="dark:text-destructive text-primary font-medium text-xs">Core Services</span>
             </motion.div>
 
             <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
@@ -402,8 +402,8 @@ export default function ServicesPage() {
                           className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent z-10" />
-                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
-                          {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
+                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-primary/20 dark:bg-destructive/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
+                          {Icon && <Icon className="w-6 h-6  drop-shadow-md dark:text-destructive text-primary" />}
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                           <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
@@ -433,8 +433,8 @@ export default function ServicesPage() {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
                           <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
-                          <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
-                            {Icon && <Icon className="w-6 h-6 text-white drop-shadow-md" />}
+                          <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-primary/20 dark:bg-destructive/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center">
+                            {Icon && <Icon className="w-6 h-6  drop-shadow-md dark:text-destructive text-primary" />}
                           </div>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/90 via-black/60 to-transparent">

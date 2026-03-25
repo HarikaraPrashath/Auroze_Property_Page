@@ -15,8 +15,8 @@ export default function ContactPage() {
       description: 'Available during business hours',
       bg: 'bg-primary/5',
       border: 'border-primary/20',
-      link: 'tel:+94XXXXXXXXX',
-      colorClass: 'text-primary',
+      link: 'tel:+94771299675',
+      colorClass: 'text-destructive',
       gradient: 'from-primary/20 to-transparent',
     },
     {
@@ -26,8 +26,8 @@ export default function ContactPage() {
       description: 'Response within 24 hours',
       bg: 'bg-secondary/5',
       border: 'border-secondary/20',
-      link: 'mailto:info@SoulRoots.lk',
-      colorClass: 'text-secondary',
+      link: 'support.soulroots@gmail.com',
+      colorClass: 'text-destructive',
       gradient: 'from-secondary/20 to-transparent',
     },
     {
@@ -37,19 +37,19 @@ export default function ContactPage() {
       description: 'Quick responses 24/7',
       bg: 'bg-green-500/5',
       border: 'border-green-500/20',
-      link: 'https://wa.me/94XXXXXXXXX',
-      colorClass: 'text-green-500',
+      link: 'https://wa.me/94771299675',
+      colorClass: 'text-destructive',
       gradient: 'from-green-500/20 to-transparent',
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Colombo 3, Sri Lanka',
+      value: 'No-09,Pioneer road, Batticaloa',
       description: 'Visit our office',
       bg: 'bg-foreground/5',
       border: 'border-border',
       link: null,
-      colorClass: 'text-foreground',
+      colorClass: 'text-destructive',
       gradient: 'from-foreground/10 to-transparent',
     },
   ];
@@ -101,16 +101,16 @@ export default function ContactPage() {
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]" />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-4xl mx-auto text-center text-destructive relative z-10">
           {/* Professional badge */}
-          <motion.div
+            <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
           >
-            <Building2 className="w-4 h-4 text-primary" />
-            <span className="text-primary font-medium text-sm">Contact Us</span>
+            <Building2 className="w-4 h-4 text-primary dark:text-white" />
+            <span className="text-primary dark:text-white font-medium text-sm">Contact Us</span>
           </motion.div>
 
           {/* Main heading */}
@@ -118,7 +118,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary dark:text-white mb-4"
           >
             Get In Touch{' '}
             <span className="text-primary">With Us</span>
@@ -129,7 +129,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="text-lg text-primary dark:text-white max-w-2xl mx-auto"
           >
             We're here to help. Reach out through any of our contact channels
           </motion.p>
@@ -165,22 +165,22 @@ export default function ContactPage() {
                 >
                   <div className={`relative p-6 rounded-xl border ${card.border} ${card.bg} hover:shadow-lg transition-all duration-300`}>
                     {/* Icon */}
-                    <div className="w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className={`w-5 h-5 ${card.colorClass}`} />
+                    <div className="w-12 h-12 rounded-lg  border border-border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className={`w-5 h-5 text-primary dark:text-white`} />
                     </div>
 
                     {/* Content */}
-                    <h3 className="text-lg font-semibold text-foreground mb-1">{card.title}</h3>
+                    <h3 className="text-lg font-semibold mb-1 text-primary dark:text-white">{card.title}</h3>
                     {card.link ? (
                       <a 
                         href={card.link} 
-                        className={`text-base font-medium ${card.colorClass} hover:underline inline-flex items-center gap-1`}
+                        className={`text-base font-medium text-primary dark:text-white hover:underline inline-flex items-center gap-1`}
                       >
                         {card.value}
                         <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                       </a>
                     ) : (
-                      <p className={`text-base font-medium ${card.colorClass}`}>{card.value}</p>
+                      <p className={`text-base font-medium text-primary dark:text-white`}>{card.value}</p>
                     )}
                     <p className="text-sm text-muted-foreground mt-2">{card.description}</p>
                   </div>
@@ -204,8 +204,8 @@ export default function ContactPage() {
             >
               <div className="bg-card rounded-xl border border-border p-8">
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-foreground mb-2">Send Us a Message</h2>
-                  <p className="text-muted-foreground text-sm">
+                  <h2 className="text-2xl font-bold text-primary dark:text-white mb-2">Send Us a Message</h2>
+                  <p className="text-primary dark:text-white text-sm">
                     Fill out the form below and we'll get back to you as soon as possible
                   </p>
                 </div>
@@ -223,24 +223,24 @@ export default function ContactPage() {
             >
               {/* Business Hours Card */}
               <div className="bg-card rounded-xl border border-border p-8">
-                <div className="flex items-center gap-3 mb-6">
+                  <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-primary" />
+                    <Clock className="w-5 h-5 text-primary dark:text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Business Hours</h3>
+                  <h3 className="text-xl font-semibold text-primary dark:text-white">Business Hours</h3>
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center pb-2 border-b border-border">
-                    <span className="font-medium text-foreground">Monday - Friday</span>
-                    <span className="text-primary">8:30 AM - 5:30 PM</span>
+                    <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-medium text-primary dark:text-white">Monday - Friday</span>
+                    <span className="text-primary dark:text-white">8:30 AM - 5:30 PM</span>
                   </div>
                   <div className="flex justify-between items-center pb-2 border-b border-border">
-                    <span className="font-medium text-foreground">Saturday</span>
-                    <span className="text-primary">9:00 AM - 2:00 PM</span>
+                    <span className="font-medium text-primary dark:text-white">Saturday</span>
+                    <span className="text-primary dark:text-white">9:00 AM - 2:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center pb-2 border-b border-border">
-                    <span className="font-medium text-foreground">Sunday</span>
+                    <span className="font-medium text-primary dark:text-white">Sunday</span>
                     <span className="text-muted-foreground">Closed</span>
                   </div>
                 </div>
@@ -257,9 +257,9 @@ export default function ContactPage() {
               <div className="bg-card rounded-xl border border-secondary/20 p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-secondary" />
+                    <Users className="w-5 h-5 text-secondary dark:text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Quick Response</h3>
+                  <h3 className="text-xl font-semibold text-primary dark:text-white">Quick Response</h3>
                 </div>
 
                 <div className="space-y-3">
@@ -270,14 +270,14 @@ export default function ContactPage() {
                     'Emergencies: 24/7 support hotline'
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <CheckCircle className="w-4 h-4 text-secondary flex-shrink-0" />
-                      <span className="text-foreground text-sm">{item}</span>
+                      <CheckCircle className="w-4 h-4 text-secondary dark:text-white flex-shrink-0" />
+                      <span className="text-primary dark:text-white text-sm">{item}</span>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-border">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-primary dark:text-white">
                     Our team is ready to assist you with any questions
                   </p>
                 </div>

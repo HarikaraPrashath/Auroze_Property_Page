@@ -212,7 +212,7 @@ export default function ServicesPage() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8"
             >
 
-              <span className="text-primary font-medium text-sm tracking-wide">Premium Property Management</span>
+              <span className="dark:text-destructive text-primary font-medium text-sm tracking-wide">Premium Property Management</span>
             </motion.div>
 
             {/* Main heading with staggered reveal */}
@@ -286,7 +286,7 @@ export default function ServicesPage() {
                   whileHover={{ y: -5 }}
                   className="text-center"
                 >
-                  <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
+                  <stat.icon className="w-6 h-6 dark:text-destructive text-primary mx-auto mb-2" />
                   <p className="text-2xl font-bold text-foreground">{stat.value}</p>
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
                 </motion.div>
@@ -320,8 +320,8 @@ export default function ServicesPage() {
             className="text-center mb-7"
           >
             <motion.div variants={fadeInScale} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-primary font-medium text-sm">Premium Services</span>
+              <Zap className="w-4 h-4 dark:text-destructive text-primary" />
+              <span className="dark:text-destructive text-primary font-medium text-sm">Premium Services</span>
             </motion.div>
 
             <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
