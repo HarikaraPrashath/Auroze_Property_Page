@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto, Allura, Noto_Serif, Great_Vibes } from 'next/font/google'
+import { Inter, Roboto, Allura, Noto_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -31,13 +31,6 @@ const notoSerif = Noto_Serif({
   display: 'swap',
 })
 
-const momoSignature = Great_Vibes({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-momo-signature',
-  display: 'swap',
-})
-
 export const metadata: Metadata = {
   title: {
     default: 'SoulRoots | Premium Property Management Sri Lanka',
@@ -60,7 +53,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${roboto.variable} ${momo.variable} ${notoSerif.variable} ${momoSignature.variable} font-sans antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Aleo:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className={`${inter.variable} ${roboto.variable} ${momo.variable} ${notoSerif.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           <SiteChatbot />

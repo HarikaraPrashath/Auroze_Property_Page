@@ -19,7 +19,8 @@ module.exports = {
       fontFamily: {
         momo: ['var(--font-momo)'],
         'noto-serif': ['var(--font-noto-serif)'],
-        'momo-signature': ['var(--font-momo-signature)'],
+        'momo-signature': ['Caveat', 'cursive'],
+        cabin: ['Cabin', 'sans-serif'],
       },
     },
   },

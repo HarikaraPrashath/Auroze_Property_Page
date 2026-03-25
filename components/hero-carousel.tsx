@@ -119,7 +119,8 @@ export default function HeroCarousel() {
                 delay: 0.5,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight font-noto-serif"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              style={{ fontFamily: `"Aleo", serif` }}
             >
               {slides[current].title}
             </motion.h1>
@@ -134,7 +135,8 @@ export default function HeroCarousel() {
                 delay: 0.5,
                 ease: "easeOut",
               }}
-              className="text-lg md:text-xl text-white/90 max-w-2xl mb-10 font-momo-signature"
+              className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl mb-10 "
+              style={{ fontFamily: `"Caveat", cursive` }}
             >
               {slides[current].description}
             </motion.p>
