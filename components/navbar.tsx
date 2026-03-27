@@ -79,7 +79,7 @@ export default function Navbar() {
 
             <div className="transform-gpu transition-transform hover:scale-105 active:scale-95">
               <Button asChild className="bg-primary hover:bg-primary/90 text-white rounded-full px-4 lg:px-6 shadow-lg text-sm lg:text-base">
-                <a href="https://wa.me/94XXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href="https://wa.me/94771299675" target="_blank" rel="noopener noreferrer">WhatsApp</a>
               </Button>
             </div>
 
@@ -131,7 +131,7 @@ export default function Navbar() {
 
             <div className="pt-4 space-y-3">
               <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white rounded-full">
-                <a href="https://wa.me/94XXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href="https://wa.me/94771299675" target="_blank" rel="noopener noreferrer">WhatsApp</a>
               </Button>
 
               <Button variant="outline" size="default" className="w-full border-border hover:bg-accent text-foreground" onClick={() => setTheme(isDark ? 'light' : 'dark')}>
