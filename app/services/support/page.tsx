@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PricingSection from '@/components/pricing-section'
@@ -10,8 +11,6 @@ import {
   Home, Key, Wrench, FileText, Award,
   Clock, Users, TrendingUp
 } from 'lucide-react'
-import { useRouter } from "next/navigation"
-import { useNavigate } from "react-router-dom";
 import { siteConfig } from '@/lib/site-config'
 
 interface Service {
@@ -180,8 +179,6 @@ const slideInRight = {
 }
 
 export default function ServicesPage() {
-  const router = useRouter()
-  const navigate = useNavigate();
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -519,14 +516,15 @@ export default function ServicesPage() {
             transition={{ delay: 0.6 }}
             className="text-center mt-8"
           >
-            <motion.button
-              onClick={() => router.push("/services/support")}
+            <motion.div
               whileHover={{ x: 5 }}
               className="inline-flex items-center gap-2 text-primary font-medium group"
             >
-              <span>Explore All Services</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+              <Link href="/services/management" className="inline-flex items-center gap-2">
+                <span>Explore All Services</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
