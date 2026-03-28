@@ -81,6 +81,14 @@ export default function PricingSection() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  const handleWhatsApp = (planName: string, period: string) => {
+    const message = `Hi, I would like the ${planName} package (${period}). Can you provide more details about this?`;
+
+    const url = `https://wa.me/94712345678?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+  };
+
   return (
     <section className="relative py-10 px-4 bg-linear-to-b from-background via-background to-background/95 overflow-hidden lg:py-12">
       {/* Animated background grid */}
@@ -93,24 +101,24 @@ export default function PricingSection() {
             const startX = (i * 113) % 1200
             const startY = (i * 73) % 800
             return (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/20 rounded-full"
-            initial={{
-              x: startX,
-              y: startY,
-            }}
-            animate={{
-              y: [null, -30, -60, -30, 0],
-              opacity: [0, 1, 1, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: "linear",
-            }}
-          />
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-primary/20 rounded-full"
+                initial={{
+                  x: startX,
+                  y: startY,
+                }}
+                animate={{
+                  y: [null, -30, -60, -30, 0],
+                  opacity: [0, 1, 1, 1, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: "linear",
+                }}
+              />
             )
           })()
         ))}
@@ -125,7 +133,7 @@ export default function PricingSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-         
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,11 +253,10 @@ export default function PricingSection() {
                     y: isHovered ? -5 : 0,
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className={`relative rounded-2xl transition-all duration-300 h-full ${
-                    plan.highlight
-                      ? 'bg-linear-to-b from-primary/5 via-background to-background border-2 border-primary shadow-2xl'
-                      : 'border border-border bg-card hover:border-primary/50 hover:shadow-xl'
-                  }`}
+                  className={`relative rounded-2xl transition-all duration-300 h-full ${plan.highlight
+                    ? 'bg-linear-to-b from-primary/5 via-background to-background border-2 border-primary shadow-2xl'
+                    : 'border border-border bg-card hover:border-primary/50 hover:shadow-xl'
+                    }`}
                 >
                   <div className="p-8 h-full flex flex-col relative">
                     {/* Floating icon */}
@@ -261,12 +268,10 @@ export default function PricingSection() {
                       transition={{ duration: 0.5 }}
                       className="absolute top-8 right-8"
                     >
-                      <div className={`p-2 rounded-xl ${
-                        plan.highlight ? 'bg-primary/20' : 'bg-primary/10'
-                      }`}>
-                        <Icon className={`w-5 h-5 ${
-                          plan.highlight ? 'text-primary' : 'text-primary/70'
-                        }`} />
+                      <div className={`p-2 rounded-xl ${plan.highlight ? 'bg-primary/20' : 'bg-primary/10'
+                        }`}>
+                        <Icon className={`w-5 h-5 ${plan.highlight ? 'text-primary' : 'text-primary/70'
+                          }`} />
                       </div>
                     </motion.div>
 
@@ -274,7 +279,7 @@ export default function PricingSection() {
                     <div className="mb-8">
                       <h3 className="text-2xl font-bold text-destructive mb-2">{plan.name}</h3>
                       <p className="text-muted-foreground text-sm mb-4">{plan.description}</p>
-                      
+
                       {/* Price with animation */}
                       <motion.div
                         animate={{ scale: isHovered ? 1.05 : 1 }}
@@ -323,30 +328,13 @@ export default function PricingSection() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Button
-                        className={`w-full relative overflow-hidden group/btn cursor-pointer ${
-                          plan.highlight
-                            ? 'bg-primary hover:bg-destructive/90 text-white shadow-lg shadow-primary/30'
-                            : 'bg-primary/90 hover:bg-primary text-white'
-                        }`}
+                        onClick={() => handleWhatsApp(plan.name, plan.period)}
+                        className={`w-full relative overflow-hidden group/btn cursor-pointer ${plan.highlight
+                          ? 'bg-destructive hover:bg-destructive/90 text-white shadow-lg shadow-primary/30'
+                          : 'bg-primary/90 hover:bg-primary text-white'
+                          }`}
                         size="lg"
-                      >
-                        <span className="relative z-10 flex items-center gap-2">
-                          Choose {plan.name} Plan
-                          <motion.div
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <Zap className="w-4 h-4" />
-                          </motion.div>
-                        </span>
-                        
-                        {/* Button shine effect */}
-                        <motion.div
-                          className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
-                          initial={{ x: '-100%' }}
-                          whileHover={{ x: '100%' }}
-                          transition={{ duration: 0.5 }}
-                        />
+                      >  Choose {plan.name} Plan
                       </Button>
                     </motion.div>
                   </div>
@@ -357,7 +345,7 @@ export default function PricingSection() {
                   <motion.div
                     className="absolute inset-0 pointer-events-none rounded-2xl"
                     animate={{
-                      
+
                     }}
                     transition={{ duration: 0.1 }}
                   />
@@ -377,7 +365,7 @@ export default function PricingSection() {
         >
           {/* Animated background pattern */}
           <div className="absolute inset-0 bg-linear-to-r from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
+
           <motion.div
             animate={{
               scale: [1, 1.02, 1],
@@ -389,14 +377,15 @@ export default function PricingSection() {
               Contact our team for tailored solutions
             </p>
           </motion.div>
-          
+
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Button 
-              variant="outline" 
-              className="cursor-pointer border-destructive/30 text-destructive hover:bg-primary/10 hover:border-primary transition-all duration-300"
+            <Button
+              variant="outline"
+              onClick={() => window.open("https://wa.me/94712345678", "_blank")}
+              className="cursor-pointer border-destructive/30 text-destructive transition-all duration-300"
             >
               Contact Sales
             </Button>

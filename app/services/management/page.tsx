@@ -7,10 +7,10 @@ import PricingSection from '@/components/pricing-section'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { easeInOut } from 'framer-motion'
 import { useRef } from 'react'
-import { 
-  Sparkles, ArrowRight, CheckCircle, Zap, Shield, 
-  Home, Key, Wrench, FileText, Award, 
-  Clock, Users, TrendingUp 
+import {
+  Sparkles, ArrowRight, CheckCircle, Zap, Shield,
+  Home, Key, Wrench, FileText, Award,
+  Clock, Users, TrendingUp
 } from 'lucide-react'
 
 interface Service {
@@ -134,8 +134,8 @@ const stats = [
 // Animation Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
@@ -146,8 +146,8 @@ const fadeInUp = {
 
 const fadeInScale = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: {
       duration: 0.6,
@@ -169,8 +169,8 @@ const staggerContainer = {
 
 const cardReveal = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       type: "spring" as const,
@@ -182,8 +182,8 @@ const cardReveal = {
 
 const slideInLeft = {
   hidden: { opacity: 0, x: -50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: {
       type: "spring" as const,
@@ -195,8 +195,8 @@ const slideInLeft = {
 
 const slideInRight = {
   hidden: { opacity: 0, x: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: {
       type: "spring" as const,
@@ -222,7 +222,7 @@ export default function ServicesPage() {
 
       {/* Hero Section with Parallax - compacted */}
       <section ref={heroRef} className="relative pt-16 pb-10 px-2 md:px-4 overflow-hidden pt-30">
-        <motion.div 
+        <motion.div
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative z-10"
         >
@@ -253,7 +253,7 @@ export default function ServicesPage() {
               >
                 Our Complete
               </motion.h1>
-              
+
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -284,21 +284,16 @@ export default function ServicesPage() {
               className="flex flex-wrap justify-center gap-2 mt-6"
             >
               <motion.button
+                onClick={() => window.open("https://wa.me/94712345678", "_blank")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-primary text-white rounded-full font-medium flex items-center gap-2 shadow-md shadow-primary/20"
+                className="px-6 py-3 bg-primary text-white rounded-full font-medium flex items-center gap-2 shadow-md shadow-primary/20 cursor-pointer"
               >
                 Get Started
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-background border border-border rounded-full font-medium hover:border-primary/50 transition-colors"
-              >
-                Learn More
-              </motion.button>
+
+
             </motion.div>
 
             {/* Stats Bar */}
@@ -353,9 +348,9 @@ export default function ServicesPage() {
             </motion.div>
 
             <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl ">
-             <span className='text-primary'>Core Management </span>Services
+              <span className='text-primary'>Core Management </span>Services
             </motion.h2>
-            
+
             <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
               Streamline rent, tenants, and maintenance with our professional solutions.
             </motion.p>
@@ -399,14 +394,14 @@ export default function ServicesPage() {
                         <img
                           src={service.image}
                           alt={service.title}
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-0"
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110   transition-transform duration-700 z-0"
                         />
-                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent z-10" />
+                        <div className="absolute  inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent z-10" />
                         <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-primary/20 dark:bg-destructive/20 backdrop-blur-sm border border-white/30 dark:border-white/10 flex items-center justify-center z-20">
                           {Icon && <Icon className="w-6 h-6  drop-shadow-md dark:text-destructive text-primary" />}
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                          <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl">{service.title}</h3>
+                        <div className="absolute sm:bottom-0 -bottom-37  left-0 right-0 p-6 pb-16 md:pb-6 z-10">
+                          <h3 className="font-bold text-white mb-2 drop-shadow-md text-2xl ">{service.title}</h3>
                           <p className="text-gray-100 dark:text-gray-200 mb-4 drop-shadow text-base">{service.description}</p>
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -484,7 +479,7 @@ export default function ServicesPage() {
             <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
               <span className='text-primary'>Additional Value</span> Services
             </motion.h2>
-            
+
             <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
               Extra services designed to maximize efficiency and convenience
             </motion.p>
@@ -564,9 +559,7 @@ export default function ServicesPage() {
                               {service.description}
                             </p>
                           </div>
-                          <div className="mt-3">
-                            <a className="text-primary text-xs font-medium">Learn more →</a>
-                          </div>
+
                         </div>
                         <motion.div
                           initial={{ scaleX: 0 }}
@@ -590,13 +583,7 @@ export default function ServicesPage() {
             transition={{ delay: 0.5 }}
             className="text-center mt-6"
           >
-            <motion.button
-              whileHover={{ x: 3 }}
-              className="inline-flex items-center gap-2 text-primary font-medium group"
-            >
-              <span>Explore All Services</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+
           </motion.div>
         </div>
       </section>

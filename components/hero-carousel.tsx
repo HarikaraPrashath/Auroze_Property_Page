@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Shield, Home, Gavel, Key, Sparkles, Wallet, Wrench, Users, FileCheck } from "lucide-react";
+import { useRouter } from "next/navigation"
 
 const slides = [
   {
@@ -69,6 +70,7 @@ const marqueeItems = [...serviceTicker, ...serviceTicker];
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -155,6 +157,7 @@ export default function HeroCarousel() {
             >
               <Button
                 size="lg"
+                onClick={() => router.push("/services/management")}
                 className="bg-white text-black hover:bg-white/90 px-8 py-6 text-lg rounded-full shadow-xl"
               >
                 Learn More

@@ -9,10 +9,12 @@ import { Shield } from 'lucide-react';
 import { TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useRouter } from "next/navigation"
 
 export default function CTASection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+  const router = useRouter()
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -167,6 +169,7 @@ export default function CTASection() {
             >
               <Button 
                 size="lg" 
+                onClick={() => router.push("/services/management")}
                 className="relative overflow-hidden bg-primary hover:bg-primary/90 text-white gap-2 group px-8 py-6 text-lg rounded-xl shadow-lg shadow-primary/25"
               >
                 {/* Button shine effect */}
@@ -202,7 +205,7 @@ export default function CTASection() {
                 variant="outline"
                 className="border-destructive/30 text-destructive hover:bg-destructive hover:text-white hover:border-destructive px-8 py-6 text-lg rounded-xl transition-all duration-300"
               >
-                <Link href="/contact" className="flex items-center gap-2 text-destructive">
+                <Link className="flex items-center gap-2 text-destructive"  href="https://wa.me/94771299675" >
                   Schedule a Consultation
                   <motion.div
                     animate={{ rotate: hoveredButton === 'destructive' ? 360 : 0 }}
