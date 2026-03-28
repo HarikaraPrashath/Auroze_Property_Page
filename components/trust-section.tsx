@@ -179,7 +179,7 @@ export default function TrustSection() {
 
 
         </motion.div>
-        <div className="lg:mt-8 w-full">
+        <div className="lg:mt-8 w-full mt-6">
           <div className="flex items-start gap-4 p-6 rounded-2xl bg-background border border-border">
 
             {/* Icon */}
