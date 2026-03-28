@@ -5,39 +5,40 @@ import Footer from '@/components/footer';
 import ContactForm from '@/components/contact-form';
 import { Phone, Mail, MapPin, Clock, MessageCircle, CheckCircle, ArrowRight, Building2, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { siteConfig } from '@/lib/site-config';
 
 export default function ContactPage() {
   const contactCards = [
     {
       icon: Phone,
       title: 'Phone',
-      value: '+94 77 129 9675',
+      value: siteConfig.contactPhoneDisplay,
       description: 'Available during business hours',
       bg: 'bg-primary/5',
       border: 'border-primary/20',
-      link: 'tel:+94771299675',
+      link: `tel:${siteConfig.contactPhoneHref}`,
       colorClass: 'text-destructive',
       gradient: 'from-primary/20 to-transparent',
     },
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@SoulRoots.lk',
+      value: siteConfig.contactEmail,
       description: 'Response within 24 hours',
       bg: 'bg-secondary/5',
       border: 'border-secondary/20',
-      link: 'support.soulroots@gmail.com',
+      link: `mailto:${siteConfig.supportEmail}`,
       colorClass: 'text-destructive',
       gradient: 'from-secondary/20 to-transparent',
     },
     {
       icon: MessageCircle,
       title: 'WhatsApp',
-      value: '+94 77 129 9675',
+      value: siteConfig.contactPhoneDisplay,
       description: 'Quick responses 24/7',
       bg: 'bg-green-500/5',
       border: 'border-green-500/20',
-      link: 'https://wa.me/94771299675',
+      link: siteConfig.whatsappUrl,
       colorClass: 'text-destructive',
       gradient: 'from-green-500/20 to-transparent',
     },
@@ -54,15 +55,7 @@ export default function ContactPage() {
     },
   ];
 
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-    }
-  };
+
 
   const staggerContainer = {
     hidden: { opacity: 0 },

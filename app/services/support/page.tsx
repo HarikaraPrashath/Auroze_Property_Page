@@ -2,16 +2,17 @@
 
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import ServiceCard from '@/components/service-card'
 import PricingSection from '@/components/pricing-section'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import {
-  Sparkles, ArrowRight, CheckCircle, Zap, Shield,
-  Home, Key, Wrench, FileText, Star, Award,
-  Clock, Users, TrendingUp, Briefcase
+  ArrowRight, CheckCircle, Zap, Shield,
+  Home, Key, Wrench, FileText, Award,
+  Clock, Users, TrendingUp
 } from 'lucide-react'
 import { useRouter } from "next/navigation"
+import { useNavigate } from "react-router-dom";
+import { siteConfig } from '@/lib/site-config'
 
 interface Service {
   id: string
@@ -180,6 +181,7 @@ const slideInRight = {
 
 export default function ServicesPage() {
   const router = useRouter()
+  const navigate = useNavigate();
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -260,6 +262,7 @@ export default function ServicesPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                    onClick={() => window.open(siteConfig.whatsappUrl, "_blank")}
                 className="px-8 py-4 bg-primary text-white rounded-full font-medium flex items-center gap-2 shadow-lg shadow-primary/25"
               >
                 Get Started

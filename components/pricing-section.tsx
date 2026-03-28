@@ -4,6 +4,7 @@ import { Check, Zap, Sparkles, Shield, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { getWhatsAppMessageUrl, siteConfig } from '@/lib/site-config';
 
 const plans = [
   {
@@ -84,7 +85,7 @@ export default function PricingSection() {
   const handleWhatsApp = (planName: string, period: string) => {
     const message = `Hi, I would like the ${planName} package (${period}). Can you provide more details about this?`;
 
-    const url = `https://wa.me/94712345678?text=${encodeURIComponent(message)}`;
+    const url = getWhatsAppMessageUrl(message);
 
     window.open(url, "_blank");
   };
@@ -384,7 +385,7 @@ export default function PricingSection() {
           >
             <Button
               variant="outline"
-              onClick={() => window.open("https://wa.me/94712345678", "_blank")}
+                onClick={() => window.open(siteConfig.whatsappUrl, "_blank")}
               className="cursor-pointer border-destructive/30 text-destructive transition-all duration-300"
             >
               Contact Sales

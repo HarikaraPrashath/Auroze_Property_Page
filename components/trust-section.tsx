@@ -82,7 +82,7 @@ export default function TrustSection() {
           className="text-center mb-10"
         >
 
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 ">
+          <h2 className="text-5xl md:text-7xl  font-bold text-foreground mb-6 leading-tight">
             <span className='text-primary'>Why Trust</span> SoulRoots?
           </h2>
 

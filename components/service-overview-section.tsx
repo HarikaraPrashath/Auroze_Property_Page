@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import type { MouseEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Sparkles, Zap, Shield, Home, Gavel, Key, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 
 const services = [
   {
@@ -250,11 +250,8 @@ export default function ServiceOverviewSection() {
               Service Excellence Suite
             </div>
 
-            <h2 className="max-w-4xl text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-              <span className="text-primary">Premium operations for every </span>
-              <span className="block">
-                stage of property management
-              </span>
+            <h2 className="text-5xl md:text-7xl  font-bold text-foreground mb-6 leading-tight">
+              <span className="text-primary">Complete Property</span> Operations
             </h2>
 
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -412,7 +409,7 @@ export default function ServiceOverviewSection() {
             </p>
 
             <Button asChild size="lg" className="group rounded-xl px-8 py-6 text-base font-semibold text-white">
-              <Link href="/services" className="inline-flex items-center gap-2">
+              <Link href="/services/management" className="inline-flex items-center gap-2">
                 Explore all services
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>

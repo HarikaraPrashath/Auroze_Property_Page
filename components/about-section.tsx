@@ -59,10 +59,10 @@ export default function AboutSection() {
             className="relative group"
           >
 
-            <div className="aspect-square rounded-3xl bg-linear-to-br from-primary/20 via-white to-secondary/80 p-10 overflow-hidden flex items-center justify-center shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:scale-105">
+            <div className="aspect-square rounded-3xl bg-linear-to-br from-primary/20 via-white to-secondary/80  md:p-7 p-6 overflow-hidden flex items-center justify-center shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:scale-105">
 
               <Image
-                src="/trust.jpg"
+                src="/trust6.png"
                 alt="Trust SoulRoots"
                 width={1000}
                 height={1000}

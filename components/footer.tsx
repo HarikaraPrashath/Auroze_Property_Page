@@ -1,51 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-// framer-motion removed from footer to reduce initial JS bundle
-// import { motion } from 'framer-motion';
 import { 
   Mail, Phone, MapPin, Facebook, Linkedin, 
   Sparkles, Zap, Shield, 
   TrendingUp, Home, Users, FileText
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import Image from "next/image"
+import { siteConfig } from '@/lib/site-config'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubscribed(true);
-    setTimeout(() => setSubscribed(false), 3000);
-  };
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring' as const,
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  };
 
   const floatingIcons: any[] = [
     // Removed floating icons for better performance
@@ -68,11 +35,12 @@ export default function Footer() {
   ];
 
   const contactInfo = [
-    { icon: Phone, text: '+94 77 129 9675', href: 'tel:+94771299675' },
-    { icon: Mail, text: 'support.soulroots@gmail.com', href: 'support.soulroots@gmail.com' },
-    { icon: MapPin, text: 'No-09,Pioneer road, Batticaloa, Sri Lanka', href: 'https://maps.app.goo.gl/t6z957YnqshVSo236' },
+    { icon: Phone, text: siteConfig.contactPhoneDisplay, href: `tel:${siteConfig.contactPhoneHref}` },
+    { icon: Mail, text: siteConfig.supportEmail, href: `mailto:${siteConfig.supportEmail}` },
+    { icon: MapPin, text: siteConfig.officeAddress, href: 'https://maps.app.goo.gl/t6z957YnqshVSo236' },
   ];
-
+  
+  // in future case can update this
   const socialLinks = [
     { icon: Facebook, href: 'https://facebook.com', label: 'Facebook', color: 'hover:text-blue-600' },
     { 
@@ -81,7 +49,7 @@ export default function Footer() {
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.946 1.265c-1.524.756-2.925 1.785-4.056 3.025C1.07 10.768.427 12.534.427 14.405c0 1.87.542 3.636 1.571 5.157L.973 23.5l5.289-1.379c1.452.792 3.1 1.206 4.719 1.206h.004c5.442 0 9.867-4.414 9.868-9.832.001-2.63-.997-5.101-2.808-6.967A9.885 9.885 0 0011.551 6.98z" />
         </svg>
       ),
-      href: 'https://wa.me/94771234567',
+      href: siteConfig.whatsappUrl,
       label: 'WhatsApp',
       color: 'hover:text-green-500'
     },
@@ -96,25 +64,6 @@ export default function Footer() {
       
       
       </div>
-
-      {/* Floating icons */}
-      {floatingIcons.map((item, index) => {
-        const Icon = item.Icon;
-        return (
-          <div
-            key={index}
-            className="absolute icon-brown opacity-8 z-0 hidden lg:block"
-            style={{
-              top: item.top,
-              left: item.left,
-              right: item.right,
-              bottom: item.bottom,
-            }}
-          >
-            <Icon className="w-8 h-8 md:w-12 md:h-12" />
-          </div>
-        );
-      })}
 
       {/* Main footer content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 z-10">

@@ -2,7 +2,6 @@
 
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import ServiceCard from '@/components/service-card'
 import PricingSection from '@/components/pricing-section'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { easeInOut } from 'framer-motion'
@@ -12,6 +11,7 @@ import {
   Home, Key, Wrench, FileText, Award,
   Clock, Users, TrendingUp
 } from 'lucide-react'
+import { siteConfig } from '@/lib/site-config'
 
 interface Service {
   id: string
@@ -193,18 +193,6 @@ const slideInLeft = {
   }
 }
 
-const slideInRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 70,
-      damping: 15
-    }
-  }
-}
 
 export default function ServicesPage() {
   const heroRef = useRef(null)
@@ -221,7 +209,7 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* Hero Section with Parallax - compacted */}
-      <section ref={heroRef} className="relative pt-16 pb-10 px-2 md:px-4 overflow-hidden pt-30">
+      <section ref={heroRef} className="relative pt-16 md:pt-30 pb-10 px-2 md:px-4 overflow-hidden">
         <motion.div
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative z-10"
@@ -284,7 +272,7 @@ export default function ServicesPage() {
               className="flex flex-wrap justify-center gap-2 mt-6"
             >
               <motion.button
-                onClick={() => window.open("https://wa.me/94712345678", "_blank")}
+                onClick={() => window.open(siteConfig.whatsappUrl, "_blank")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-6 py-3 bg-primary text-white rounded-full font-medium flex items-center gap-2 shadow-md shadow-primary/20 cursor-pointer"
@@ -292,8 +280,6 @@ export default function ServicesPage() {
                 Get Started
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
-
-
             </motion.div>
 
             {/* Stats Bar */}

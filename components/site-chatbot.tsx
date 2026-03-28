@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUp, MessageCircle, Send, X } from 'lucide-react'
+import { siteConfig } from '@/lib/site-config'
 
 type ChatRole = 'bot' | 'user'
 
@@ -44,7 +45,7 @@ type KnowledgeEntry = {
 const fallbackKnowledge: KnowledgeEntry[] = [
   {
     keywords: ['contact', 'how to contact', 'reach', 'whatsapp', 'phone'],
-    answer: 'You can contact us through WhatsApp +94 XXXXXXXXX, Phone +94 XXXXXXXXX, or Email info@SoulRoots.lk. See /contact for full details.',
+    answer: `You can contact us through WhatsApp ${siteConfig.contactPhoneDisplay}, Phone ${siteConfig.contactPhoneDisplay}, or Email ${siteConfig.contactEmail}. See /contact for full details.`,
   },
   {
     keywords: ['pricing', 'price', 'cost'],

@@ -6,6 +6,16 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, AlertCircle } from 'lucide-react';
+import { getWhatsAppMessageUrl } from '@/lib/site-config';
+
+const subjectLabels: Record<string, string> = {
+  'property-inquiry': 'Property Inquiry',
+  'rent-management': 'Rent Management Services',
+  maintenance: 'Maintenance Services',
+  'tenant-management': 'Tenant Management',
+  'legal-support': 'Legal & Compliance',
+  other: 'Other',
+};
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -26,18 +36,15 @@ export default function ContactForm() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('loading');
 
-    // Validate form
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       setStatus('error');
       setMessage('Please fill in all required fields');
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setStatus('error');
@@ -45,31 +52,30 @@ export default function ContactForm() {
       return;
     }
 
-    try {
-      // Simulate form submission
-      // In production, this would send to your backend/email service
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+    const whatsappMessage = `Hello, I want to contact you:\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'Not provided'}\nSubject: ${subjectLabels[formData.subject] ?? formData.subject}\nMessage: ${formData.message}`;
+    const whatsappUrl = getWhatsAppMessageUrl(whatsappMessage);
+    const opened = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
-      console.log('[v0] Form submitted:', formData);
-      setStatus('success');
-      setMessage('Thank you for your message! We will get back to you soon.');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      });
-
-      // Reset form after 5 seconds
-      setTimeout(() => {
-        setStatus('idle');
-        setMessage('');
-      }, 5000);
-    } catch (error) {
+    if (!opened) {
       setStatus('error');
-      setMessage('An error occurred. Please try again later.');
+      setMessage('Please allow pop-ups so we can open WhatsApp.');
+      return;
     }
+
+    setStatus('success');
+    setMessage('Opening WhatsApp with your message.');
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    });
+
+    window.setTimeout(() => {
+      setStatus('idle');
+      setMessage('');
+    }, 4000);
   };
 
   return (
@@ -181,11 +187,10 @@ export default function ContactForm() {
       {/* Submit Button */}
       <Button
         type="submit"
-        disabled={status === 'loading'}
         className="w-full bg-primary hover:bg-primary/90 text-white"
         size="lg"
       >
-        {status === 'loading' ? 'Sending...' : 'Send Message'}
+        Send Message
       </Button>
 
       {/* Additional Info */}

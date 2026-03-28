@@ -2,7 +2,7 @@
 
 import { Star, Quote } from "lucide-react"
 import { motion } from "framer-motion"
-import { useState } from "react"
+
 
 function StarRating({ rating, className = "w-3 h-3" }: { rating: number; className?: string }) {
   return (
@@ -51,7 +51,7 @@ export default function TestimonialsSection() {
           </div>
 
           {/* ✅ MAIN HEADING (matched with other component topics) */}
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+          <h2 className="text-5xl md:text-7xl  font-bold text-foreground mb-6 leading-tight">
            <span className="text-primary">What Our Clients</span> Say
           </h2>
 

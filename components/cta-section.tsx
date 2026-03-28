@@ -10,6 +10,7 @@ import { TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation"
+import { siteConfig } from '@/lib/site-config';
 
 export default function CTASection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -122,7 +123,7 @@ export default function CTASection() {
                 visible: { y: 0 }
               }}
               transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary"
+              className="text-5xl md:text-7xl  font-bold text-foreground mb-6 leading-tight text-primary"
             >
               Ready to Transform Your{' '}
               <motion.span
@@ -205,12 +206,9 @@ export default function CTASection() {
                 variant="outline"
                 className="border-destructive/30 text-destructive hover:bg-destructive hover:text-white hover:border-destructive px-8 py-6 text-lg rounded-xl transition-all duration-300"
               >
-                <Link className="flex items-center gap-2 text-destructive"  href="https://wa.me/94771299675" >
+                <Link className="flex items-center gap-2 text-destructive" href={siteConfig.whatsappUrl}>
                   Schedule a Consultation
-                  <motion.div
-                    animate={{ rotate: hoveredButton === 'destructive' ? 360 : 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
+                  <motion.div>
                     <ArrowRight className="w-5 h-5" />
                   </motion.div>
                 </Link>
