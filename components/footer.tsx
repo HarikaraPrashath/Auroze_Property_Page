@@ -122,7 +122,7 @@ export default function Footer() {
           {/* Company Info - Large column */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30 transition-transform hover:scale-105">
+              <div className="w-12 h-12  rounded-xl flex items-center justify-center text-white font-bold text-xl   transition-transform hover:scale-105">
                   <Image
                                 src="/logo.png"
                                 alt="SoulRoots Logo"

@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter, Roboto, Allura, Noto_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 import SiteChatbot from '@/components/site-chatbot'
 
 const inter = Inter({
@@ -52,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -61,11 +60,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Aleo:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className={`${inter.variable} ${roboto.variable} ${momo.variable} ${notoSerif.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <SiteChatbot />
-          <Analytics />
-        </ThemeProvider>
+        {children}
+        <SiteChatbot />
+        <Analytics />
       </body>
     </html>
   )

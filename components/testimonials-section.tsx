@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
 
           {/* ✅ MAIN HEADING (matched with other component topics) */}
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            What Our Clients Say
+           <span className="text-primary">What Our Clients</span> Say
           </h2>
 
           {/* ✅ DESCRIPTION (tighter spacing) */}

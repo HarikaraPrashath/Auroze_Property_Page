@@ -98,7 +98,7 @@ export default function AboutSection() {
               variants={textItem}
               className="text-5xl md:text-7xl  font-bold text-foreground mb-6 leading-tight"
             >
-              Your Trusted Property Partner
+              <span className='text-primary'>Your Trusted Property</span> Partner
             </motion.h2>
 
             <motion.p

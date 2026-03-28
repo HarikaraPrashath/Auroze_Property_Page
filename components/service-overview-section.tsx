@@ -93,7 +93,7 @@ function MobileServicesJourney({
                 <div className="px-4 py-4">
                   <div className="flex items-center justify-between gap-3">
                     <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-destructive/20 bg-destructive/8">
-                      <Icon className="h-5 w-5 text-white" />
+                      <Icon className="h-5 w-5 text-destructive" />
                     </div>
                     <span className="text-sm font-semibold text-white/90">{String(idx + 1).padStart(2, '0')}</span>
                   </div>

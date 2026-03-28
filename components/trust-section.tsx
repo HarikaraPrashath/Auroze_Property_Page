@@ -82,8 +82,8 @@ export default function TrustSection() {
           className="text-center mb-10"
         >
 
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Why Trust SoulRoots?
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 ">
+           <span className='text-primary'>Why Trust</span> SoulRoots?
           </h2>
 
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -136,7 +136,7 @@ export default function TrustSection() {
                     initial={{ scale: 0 }}
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ delay: index * 0.2, type: "spring" }}
-                    className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5"
+                    className="w-14 h-14 rounded-xl  flex items-center justify-center mb-5"
                   >
                     <Icon className="w-7 h-7 text-destructive" />
                   </motion.div>

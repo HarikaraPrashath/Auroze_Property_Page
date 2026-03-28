@@ -323,9 +323,9 @@ export default function PricingSection() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Button
-                        className={`w-full relative overflow-hidden group/btn ${
+                        className={`w-full relative overflow-hidden group/btn cursor-pointer ${
                           plan.highlight
-                            ? 'bg-primary hover:bg-destructive/90 text-destructive shadow-lg shadow-primary/30'
+                            ? 'bg-primary hover:bg-destructive/90 text-white shadow-lg shadow-primary/30'
                             : 'bg-primary/90 hover:bg-primary text-white'
                         }`}
                         size="lg"
@@ -396,7 +396,7 @@ export default function PricingSection() {
           >
             <Button 
               variant="outline" 
-              className="border-destructive/30 text-destructive hover:bg-primary/10 hover:border-primary transition-all duration-300"
+              className="cursor-pointer border-destructive/30 text-destructive hover:bg-primary/10 hover:border-primary transition-all duration-300"
             >
               Contact Sales
             </Button>

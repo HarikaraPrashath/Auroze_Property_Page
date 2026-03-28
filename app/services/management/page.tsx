@@ -249,7 +249,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
+                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-primary "
               >
                 Our Complete
               </motion.h1>
@@ -258,9 +258,9 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
+                className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl "
               >
-                <span className="bg-clip-text text-transparent bg-linear-to-r from-primary via-primary-600 to-secondary">
+                <span className="bg-clip-text text-transparent bg-linear-to-r from-black via-black-600 to-secondary">
                   Service Suite
                 </span>
               </motion.h1>
@@ -352,8 +352,8 @@ export default function ServicesPage() {
               <span className="dark:text-destructive text-primary font-medium text-xs">Core Services</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
-              Core Management Services
+            <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl ">
+             <span className='text-primary'>Core Management </span>Services
             </motion.h2>
             
             <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
@@ -482,7 +482,7 @@ export default function ServicesPage() {
             </motion.div>
 
             <motion.h2 variants={fadeInUp} className="mb-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
-              Additional Value Services
+              <span className='text-primary'>Additional Value</span> Services
             </motion.h2>
             
             <motion.p variants={fadeInUp} className="text-muted-foreground text-base max-w-lg mx-auto">
